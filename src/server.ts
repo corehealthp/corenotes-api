@@ -8,10 +8,10 @@ dotenv.config();
 
 const app = express();
 
-const allowedOrigins = ['https://corenotes.net', 'www.corenotes.net ']
-const options: cors.CorsOptions = { origin: allowedOrigins, credentials: true }
+// const allowedOrigins = ['https://corenotes.net', 'www.corenotes.net ']
+// const options: cors.CorsOptions = { origin: allowedOrigins, credentials: true }
 
-app.use(cors(options));
+// app.use(cors(options));
 
 app.set("trust proxy", true);
 

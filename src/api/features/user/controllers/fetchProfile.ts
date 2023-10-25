@@ -17,8 +17,8 @@ export default function fetchProfile (req:Request, res:Response) {
             id: foundStaff.id,
             active: foundStaff.active,
             role: {
-                title: staffRole.title.toUpperCase(),
-                privileges: staffRole.privileges
+                title: staffRole?.title.toUpperCase(),
+                privileges: staffRole?.privileges
             },
             lastSeen: foundStaff.lastSeen,
             firstname: foundStaff.firstname,

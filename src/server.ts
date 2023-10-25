@@ -8,12 +8,12 @@ dotenv.config();
 
 const app = express();
 
-const allowedOrigins = ['https://corenotes.netlify.app', 'https://corenotes.net', 'www.corenotes.net', 'http://127.0.0.1:3200']
+const allowedOrigins = ['https://corenotes.netlify.app', 'https://corenotes.net', 'www.corenotes.net']
 const options: cors.CorsOptions = { origin: allowedOrigins, credentials: true }
 
 app.use(cors(options));
 
-app.set("trust proxy", true);
+// app.set("trust proxy", true);
 
 // parses incoming JSON payloads
 app.use(express.json())

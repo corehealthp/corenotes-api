@@ -12,11 +12,10 @@ jobs:
     if: github.ref == 'refs/heads/master'
 
     steps:
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14
-          
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: 14
       - name: Deploy to EC2
         uses: appleboy/scp-action@master
         with:

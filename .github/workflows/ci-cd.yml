@@ -30,6 +30,7 @@ jobs:
       #     ssh -i path/to/your/private-key.pem ec2-user@${{ secrets.EC2_INSTANCE_IP }} 'cd /corenotes-api && git pull origin/master && npm install && npm run build && pm2 restart corenotesapp'
 
       - name: Deploy to EC2
+        uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}

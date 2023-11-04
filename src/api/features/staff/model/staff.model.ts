@@ -1,4 +1,4 @@
-import { model, Schema, models, Model, Types } from "mongoose"
+import { model, Schema, models, Model } from "mongoose"
 import { IStaffDocument } from "./types"
 import autoIncrementPlugin from "src/config/database/autoIncrementInit";
 

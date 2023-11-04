@@ -23,7 +23,6 @@ export default function register(req:Request, res:Response) {
             }
 
             const newUserObjectId = new mongoose.Types.ObjectId();
-            const newEmployeeId = "1234567";
 
             staffModel.create({
                 _id: new mongoose.Types.ObjectId(),
@@ -53,7 +52,6 @@ export default function register(req:Request, res:Response) {
                 providerRole: requestBody.providerRole,
                 hiredAt: requestBody.hiredAt,
                 username: requestBody.username.toLowerCase(),
-                employeeId: newEmployeeId,
                 jobSchedule: requestBody.jobSchedule,
                 password: hashedPassword,
                 role:'STAFF'

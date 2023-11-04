@@ -41,17 +41,34 @@ export default function fetchAllStaffs(pageNumber:number) {
             const mappedStaffs:Array<staffList>  = [];
 
             for await ( const staff of foundStaffs ) {
-                mappedStaffs.push({
-                    id: staff._id.toString(),
-                    staffId: staff.staffId,
-                    profileImage: staff.profileImage,
-                    firstname: staff.firstname,
-                    lastname: staff.lastname,
-                    dob: staff.dob,
-                    role: (await getStaffRoleById(staff.providerRole)).title,
-                    phoneNumber: staff.phoneNumber.work,
-                    gender: staff.gender,
-                    lastSeen: staff.lastSeen
+                getStaffRoleById(staff.providerRole)
+                .then((foundRole)=> {
+                    mappedStaffs.push({
+                        id: staff._id.toString(),
+                        staffId: staff.staffId,
+                        profileImage: staff.profileImage,
+                        firstname: staff.firstname,
+                        lastname: staff?.lastname ?? "nill",
+                        dob: staff.dob,
+                        role: foundRole ? foundRole.title :"nill",
+                        phoneNumber: staff.phoneNumber.work,
+                        gender: staff.gender,
+                        lastSeen: staff.lastSeen
+                    })
+                })
+                .catch((error)=> {
+                    mappedStaffs.push({
+                        id: staff._id.toString(),
+                        staffId: staff.staffId,
+                        profileImage: staff.profileImage,
+                        firstname: staff.firstname,
+                        lastname: staff?.lastname ?? "nill",
+                        dob: staff.dob,
+                        role: "nill",
+                        phoneNumber: staff.phoneNumber.work,
+                        gender: staff.gender,
+                        lastSeen: staff.lastSeen
+                    })
                 })
             }
 

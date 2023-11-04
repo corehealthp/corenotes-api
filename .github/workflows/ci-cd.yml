@@ -23,7 +23,7 @@ jobs:
             git pull origin/master
             npm install && npm run build
             pm2 restart corenotesapp
-      
+
       # - name: Deploy to EC2
       #   run: |
       #     echo "${{ secrets.SSH_KEY2 }}" > private_key.pem

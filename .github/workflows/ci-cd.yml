@@ -18,11 +18,10 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           #passphrase: ${{ secrets.PASSPHRASE }}
-          script: |
+          run: |
             cd corenotes-api
             git pull origin/master
             npm install && npm run build
-            pm2 restart corenotesapp
 
       # - name: Deploy to EC2
       #   run: |

@@ -10,9 +10,10 @@ compartmentRouter.post('/:compartmentId', validateToken, compartmentControllers.
 compartmentRouter.patch('/:compartmentId/services', patchServiceToCompartment);
 compartmentRouter.get('/:compartmentId/services', validateToken, compartmentControllers.fetchCompartmentServices);
 
-compartmentRouter.get('/:pageNumber', validateToken, compartmentControllers.fetchCompartments);
+compartmentRouter.get('/details/:compartmentId', validateToken, compartmentControllers.fetchCompartmentDetails);
+
 compartmentRouter.post('/', validateToken, uploadFile('single', 'compartmentImage'), compartmentControllers.createCompartment);
 
-compartmentRouter.get('/details/:compartmentId', validateToken, compartmentControllers.fetchCompartmentDetails);
+compartmentRouter.get('/:pageNumber', validateToken, compartmentControllers.fetchCompartments);
 
 export default compartmentRouter;

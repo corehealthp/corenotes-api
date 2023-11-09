@@ -119,7 +119,7 @@ const staffSchema = new Schema<IStaffDocument>({
 .plugin(autoIncrementPlugin, {
     model: 'staffs',
     field: 'staffId',
-    startAt: 1,
+    startAt: 10,
 });
 
 export = Model<IStaffDocument> = models.staffs || model<IStaffDocument>('staff', staffSchema);

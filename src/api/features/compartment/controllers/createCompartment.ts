@@ -52,6 +52,6 @@ export default function createCompartment(req:Request, res:Response) {
     .catch((error)=> {
         console.log('VALIDATION ERROR: There was an error validating create compartment request body')
         console.log(error)
-        return sendFailureResponse({ res, statusCode: 500, message:"There was a validation error" })
+        return sendFailureResponse({ res, statusCode: 500, message: error.message})
     })
 }

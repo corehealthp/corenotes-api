@@ -5,7 +5,7 @@ import { NotAuthorizedError } from "../server/Error";
 import { getAuthUserByAuthAccessToken } from "../../services/db/auth.service";
 
 export default function validateToken (req:Request, res:Response, next:NextFunction) {
-    let token:string = req.headers.authorization!;
+    let token:string = req.headers.authorization! ?? req.headers.cookie;
 
     if(!token || !token.includes('sid')) {
         const nonAuthorizedError = new NotAuthorizedError('Unauthorized')

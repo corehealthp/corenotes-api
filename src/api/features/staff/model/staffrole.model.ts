@@ -16,4 +16,4 @@ export default models.staffRole || model('staffRole', new Schema<IStaffRole>({
             type:Boolean,
         },
     }
-}))
+}, { timestamps:{} }))

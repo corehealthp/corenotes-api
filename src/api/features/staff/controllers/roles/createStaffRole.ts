@@ -15,7 +15,7 @@ export default function createStaffRole(req:Request, res:Response) {
 
             insertStaffRoleToDB(requestBody)
             .then(()=> {
-                fetchAllStaffRoles(1)
+                fetchAllStaffRoles()
                 .then((staffRolesForClient)=> {
                     return sendSuccessResponse({ 
                         res, 

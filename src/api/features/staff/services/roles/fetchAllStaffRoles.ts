@@ -8,16 +8,16 @@ interface IFetchAllStaffRolesResponse {
     staffRoles:Array<IStaffRoleForClient>
 }
 
-export default function fetchAllStaffRoles(pageNumber:number) {
+export default function fetchAllStaffRoles() {
     return new Promise<IFetchAllStaffRolesResponse>((resolve, reject)=> {
 
-        const   parsedPageNumber = pageNumber - 1 ?? 0,
-            resultsPerPage = 10, 
-            pageOffset = resultsPerPage * parsedPageNumber;
+        // const   parsedPageNumber = pageNumber - 1 ?? 0,
+        //     resultsPerPage = 10, 
+        //     pageOffset = resultsPerPage * parsedPageNumber;
 
         staffroleModel.find()
-        .skip(pageOffset)
-        .limit(resultsPerPage)
+        // .skip(pageOffset)
+        // .limit(resultsPerPage)
         .sort({ createdAt: -1 })
         .then((foundStaffRole)=> {
             formatStaffRolesForClient(foundStaffRole)
@@ -26,10 +26,10 @@ export default function fetchAllStaffRoles(pageNumber:number) {
                 staffroleModel.count()
                 .then((totalStaffCount:number)=> {
 
-                    const totalPageNumber = Math.ceil(totalStaffCount / resultsPerPage);
+                    // const totalPageNumber = Math.ceil(totalStaffCount / resultsPerPage);
                     resolve({
-                        currentPage: pageNumber,
-                        totalPages: totalPageNumber,
+                        currentPage: 1,
+                        totalPages: 1,
                         staffRoles: staffRolesForClient
                     })
                 })

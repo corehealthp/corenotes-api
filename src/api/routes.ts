@@ -28,7 +28,7 @@ export default function routes() {
         res.json({
             application: "Corenotes API",
             message: "Endpoint working",
-            version: "1.0.4"
+            version: "1.0.5"
         })
     });
 

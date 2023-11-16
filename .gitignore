@@ -3,5 +3,4 @@ dist
 public
 src/ssl/*
 
-.env
 package-lock.json

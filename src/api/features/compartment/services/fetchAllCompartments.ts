@@ -24,7 +24,8 @@ export default function fetchAllCompartments(pageNumber:number) {
                     image: compartment.image,
                     subCompartmentsCount: compartment.subCompartments.length,
                     meta: compartment.meta,
-                    createdAt: compartment.createdAt.toString()
+                    createdAt: compartment.createdAt.toString(),
+                    fileSizeLimit: process.env.IMAGE_FILE_SIZE!
                 }
             })
 

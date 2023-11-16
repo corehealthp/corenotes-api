@@ -25,8 +25,6 @@ export interface RequestFileType extends Express.Multer.File {
     type?: string
 }
 
-console.log(process.env)
-
 const MAX_FILE_SIZE:number = parseFloat(process.env.IMAGE_FILE_SIZE!);
 const MAX_FILE_SIZE_CAT:string = process.env.IMAGE_FILE_SIZE_CAT!;
 
@@ -35,6 +33,7 @@ let maxFileSize:number = 0;
 if(MAX_FILE_SIZE_CAT === 'MB') {
     // convert MB to Bytes
     maxFileSize = parseFloat((MAX_FILE_SIZE * 1000000).toString());
+    console.log(maxFileSize);
 }
 
 let uploadError:string = '';
@@ -43,7 +42,7 @@ export default function uploadFile(fileAmount:UploadFileType['fileAmount'], fiel
     return (req:Request, res:Response, next:NextFunction)=> {
         const upload = multer({ 
             dest: 'public/',
-            limits: { fileSize:  maxFileSize }
+            limits: { fileSize:  parseFloat(((MAX_FILE_SIZE  * 1000000) ?? (10000000)).toString()) }
         })
 
         let totalFiles = 0,

@@ -3,7 +3,6 @@ import { ICompartment } from "./types";
 import autoIncrementPlugin from "src/config/database/autoIncrementInit"
 
 const compartmentModel:Model<ICompartment> = models.compartments || model<ICompartment>('compartments', new Schema<ICompartment>({
-    _id:Types.ObjectId,
     compartmentId:{ type:Number },
     title:{ type:String },
     image:{ type:String },

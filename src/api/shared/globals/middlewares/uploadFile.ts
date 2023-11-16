@@ -25,6 +25,8 @@ export interface RequestFileType extends Express.Multer.File {
     type?: string
 }
 
+console.log(process.env)
+
 const MAX_FILE_SIZE:number = parseFloat(process.env.IMAGE_FILE_SIZE!);
 const MAX_FILE_SIZE_CAT:string = process.env.IMAGE_FILE_SIZE_CAT!;
 

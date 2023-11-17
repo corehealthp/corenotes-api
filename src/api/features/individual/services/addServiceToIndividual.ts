@@ -1,7 +1,7 @@
-import {getIndividualByIndividualId, updateIndividualServicesById} from "src/api/shared/services/db/individual.service";
+import {getIndividualByIndividualId, updateIndividualServicesById} from "@services/db/individual.service";
 import { IAssignServiceToIndividualReqBody } from "./validateAssignIndividualServiceRequest";
 import { IIndividualServicesList } from "./fetchAllIndividualServices";
-import { getServiceByObjectId, updateServiceAssignedIndividualsById } from "src/api/shared/services/db/service.service";
+import { getServiceByObjectId, updateServiceAssignedIndividualsById } from "@services/db/service.service";
 import { ConflictError, NotFoundError } from "@globals/server/Error";
 import detMedSchedule from "./detMedSchedule";
 
@@ -41,7 +41,6 @@ export default function addServiceToIndividual(data:IAssignServiceToIndividualRe
                                 id: foundService._id.toString(),
                                 serviceId: foundService.serviceId,
                                 title: foundService.title,
-                                refName: foundService.refName,
                                 category: foundService.category,
                                 startDate: service.schedule.startDate,
                                 time: service.schedule.time,

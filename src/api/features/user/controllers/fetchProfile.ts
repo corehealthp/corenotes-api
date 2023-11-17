@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import { sendFailureResponse, sendSuccessResponse } from "src/api/shared/globals/server/serverResponse";
 import staffModel from "@staff/model/staff.model";
-import { getStaffRoleById } from "src/api/shared/services/db/staff.service";
+import { getStaffRoleById } from "@services/db/staff.service";
 
 export default function fetchProfile (req:Request, res:Response) {
     
@@ -17,8 +17,8 @@ export default function fetchProfile (req:Request, res:Response) {
             id: foundStaff.id,
             active: foundStaff.active,
             role: {
-                title: staffRole?.title.toUpperCase(),
-                privileges: staffRole?.privileges
+                title: staffRole.title.toUpperCase(),
+                privileges: staffRole.privileges
             },
             lastSeen: foundStaff.lastSeen,
             firstname: foundStaff.firstname,

@@ -2,7 +2,7 @@ import { Model, Schema, model, models } from "mongoose";
 import autoIncrementPlugin from "src/config/database/autoIncrementInit";
 import { IService } from "./types";
 
-export const serviceModel:Model<IService> = models.services || model<IService>('services', new Schema<IService>({
+export = Model<IService> = models.services || model<IService>('services', new Schema<IService>({
     serviceId:{ 
         type:Number,
         unique:true
@@ -33,5 +33,3 @@ export const serviceModel:Model<IService> = models.services || model<IService>('
     field: 'serviceId',
     startAt: 1,
 }));
-
-export default serviceModel;

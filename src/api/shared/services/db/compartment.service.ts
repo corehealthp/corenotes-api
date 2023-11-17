@@ -3,22 +3,22 @@ import compartmentModel from "src/api/features/compartment/models/compartment.mo
 import { ICompartment } from "src/api/features/compartment/models/types";
 
 export function updateCompartmentServicesById({compartmentId, serviceId}:{compartmentId:string, serviceId:string}) {
-    return new Promise<ICompartment|null>((resolve, reject)=> {
+    return new Promise<ICompartment>((resolve, reject)=> {
         const query = { _id: compartmentId };
         const updateObj = { $push: { services: serviceId } }
     
         compartmentModel.findOneAndUpdate(query, updateObj, { new: true })
-        .then((updatedService)=> resolve(updatedService))
+        .then((updatedService:ICompartment)=> resolve(updatedService))
         .catch((error)=> reject(error))
     })
 }
 
 export function getCompartmentById(compartmentId:string) {
-    return new Promise<ICompartment|null>((resolve, reject)=> {
+    return new Promise<ICompartment>((resolve, reject)=> {
         const query = { _id: compartmentId };
     
         compartmentModel.findOne(query)
-        .then((foundCompartment)=> {
+        .then((foundCompartment:ICompartment)=> {
             resolve(foundCompartment)
         })
         .catch((error)=> reject(error))

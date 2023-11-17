@@ -62,7 +62,7 @@ individualRouter.post('/:individualId/services', validateToken, assignIndividual
 individualRouter.get('/profile/:individualId', fetchIndividualProfile)
 individualRouter.get('/:pageNumber', fetchIndividuals)
 
-individualRouter.post('/', validateToken, registerIndividual)
+individualRouter.post('/', uploadFile('single', 'profileImage'), registerIndividual)
 
 
 export default individualRouter;

@@ -12,6 +12,7 @@ export interface registerIndividualRequestBodyType {
   weight: string;
   medicaidNumber: string;
   codeAlert: Array<string>;
+  profileImage?: Blob | MediaSource;
   contact: {
     name: string;
     email: string;
@@ -19,7 +20,6 @@ export interface registerIndividualRequestBodyType {
   };
   // NEW HEALTH INFORMATION
   compartment: string;
-  subCompartmentId:string;
   requestedServices: Array<{
     service: string;
     startDate: string;

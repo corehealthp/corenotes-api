@@ -1,3 +1,4 @@
+import { sendSuccessResponse } from "@globals/server/serverResponse"
 import serviceModel from "../models/service.model"
 import { IService } from "../models/types"
 import { addServiceIdToCompartment } from "./addServiceIdToCompartment"
@@ -21,16 +22,16 @@ export default function createNewService(newServiceData:ICreateServiceRequestBod
             })
 
             // if(createdService.category.toLowerCase() === 'requested') {
-                // createdServiceDocument.compartments.forEach(compartment => {
-                //     addServiceIdToCompartment({
-                //         compartmentObjectId: compartment,
-                //         serviceObjectId: createdService.id
-                //     })
-                //     .catch((error)=> {
-                //         console.log('There was an error adding new requested service to compartment')
-                //         reject(error)
-                //     })
-                // })
+                createdServiceDocument.compartments.forEach(compartment => {
+                    addServiceIdToCompartment({
+                        compartmentObjectId: compartment,
+                        serviceObjectId: createdService.id
+                    })
+                    .catch((error)=> {
+                        console.log('There was an error adding new requested service to compartment')
+                        reject(error)
+                    })
+                })
             // }
 
             resolve(createdService)

@@ -14,6 +14,8 @@ import createStaffRole from "../controllers/roles/createStaffRole";
 import fetchStaffRoles from "../controllers/roles/fetchStaffRoles";
 import fetchStaffRolesDetails from "@staff/controllers/roles/fetchStaffRoleDetails";
 import updateStaffProfile from "@staff/controllers/updateStaffProfile";
+import createStaffClockin from "@staff/controllers/clockins/createStaffClockin";
+import FetchStaffClockout from "@staff/controllers/clockouts/fetchStaffClockout";
 import postNewShift from "@staff/controllers/shifts/postNewShift";
 import getStaffShifts from "@staff/controllers/shifts/getStaffShifts";
 import getClockIn from "@staff/controllers/shifts/getClockIn";
@@ -46,5 +48,11 @@ staffRouter.post('/:staffId/activate', validateToken, activateStaff)
 staffRouter.post('/:staffId/activities/:pageNumber', fetchStaffActivities)
 
 staffRouter.get('/:pageNumber', fetchStaffs)
+
+staffRouter.post('/:staffId/clock-in', validateToken,createStaffClockin)
+staffRouter.get('/:staffId/clock-in', validateToken,createStaffClockin)
+
+staffRouter.post('/:staffId/clock-out', validateToken,FetchStaffClockout)
+staffRouter.get('/:staffId/clock-out', validateToken,FetchStaffClockout)
 
 export default staffRouter;

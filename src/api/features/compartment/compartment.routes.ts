@@ -7,9 +7,10 @@ const compartmentRouter = Router();
 
 compartmentRouter.post('/services', compartmentControllers.addServiceToCompartment);
 
-compartmentRouter.get('/:pageNumber', validateToken, compartmentControllers.fetchCompartments);
+compartmentRouter.get('/details/:compartmentId', validateToken, compartmentControllers.fetchCompartmentDetails);
+
 compartmentRouter.post('/', validateToken, uploadFile('single', 'compartmentImage'), compartmentControllers.createCompartment);
 
-compartmentRouter.get('/details/:compartmentId', validateToken, compartmentControllers.fetchCompartmentDetails);
+compartmentRouter.get('/:pageNumber', validateToken, compartmentControllers.fetchCompartments);
 
 export default compartmentRouter;

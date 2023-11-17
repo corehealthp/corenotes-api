@@ -1,4 +1,4 @@
-import { model, Schema, models, Model, Types } from "mongoose"
+import { model, Schema, models, Model } from "mongoose"
 import { IStaffDocument } from "./types"
 import autoIncrementPlugin from "src/config/database/autoIncrementInit";
 
@@ -131,7 +131,7 @@ const staffSchema = new Schema<IStaffDocument>({
 .plugin(autoIncrementPlugin, {
     model: 'staffs',
     field: 'staffId',
-    startAt: 1,
+    startAt: 10,
 });
 
 export = Model<IStaffDocument> = models.staffs || model<IStaffDocument>('staff', staffSchema);

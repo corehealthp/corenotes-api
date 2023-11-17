@@ -26,7 +26,8 @@ export default function fetchAllCompartments(pageNumber:number) {
                     staffRolesCount: compartment.staffRoles.length,
                     assignedIndividualsCount: compartment.assignedIndividuals.length,
                     meta: compartment.meta,
-                    createdAt: compartment.createdAt.toString()
+                    createdAt: compartment.createdAt.toString(),
+                    fileSizeLimit: process.env.IMAGE_FILE_SIZE!
                 }
             })
 

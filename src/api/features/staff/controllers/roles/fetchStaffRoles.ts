@@ -4,7 +4,7 @@ import { sendFailureResponse, sendSuccessResponse } from "@globals/server/server
 import { ServerError } from "@globals/server/Error";
 
 export default function fetchStaffRoles(req:Request, res:Response) {
-    fetchAllStaffRoles(parseInt(req.params.pageNumber))
+    fetchAllStaffRoles()
     .then((responseData)=> {
         return sendSuccessResponse({ 
             res, 

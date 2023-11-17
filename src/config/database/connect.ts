@@ -1,6 +1,9 @@
 import mongoose, { connect } from 'mongoose';
+<<<<<<< HEAD
 import dotenv from 'dotenv';
 dotenv.config();
+=======
+>>>>>>> 4c0bf23a89c42992065c41b867232e976ab40894
 
 
 mongoose.set('strictQuery', false)

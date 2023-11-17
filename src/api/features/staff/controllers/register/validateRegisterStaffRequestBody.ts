@@ -6,7 +6,7 @@ export default function validateRegisterStaffRequestBody (data:registerStaffRequ
     return new Promise<validateRegisterStaffRequestBodyType>(async (resolve, reject)=> {
 
         // check if any field is empty and return error if true
-        if(Object.keys(data).length === 0) reject({ status: false, code: 422, message:'Input field cannot be empty' })
+        if(Object.keys(data).length === 0) reject({ status: false, code: 422, message:'Request body cannot be empty' })
 
         if(!data.firstname) reject({ status: false, code: 422,  message:'Firstname field cannot be empty' });
         if(!data.lastname) reject({ status: false, code: 422,  message:'Lastname field cannot be empty' });

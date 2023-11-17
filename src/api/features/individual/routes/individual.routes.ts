@@ -31,6 +31,10 @@ import getAssessmentsToAssign from "@individual/controllers/assessments/getAsses
 
 const individualRouter = Router();
 
+individualRouter.post('/', validateToken, registerIndividual)
+individualRouter.get('/profile/:individualId', fetchIndividualProfile)
+individualRouter.get('/:pageNumber', fetchIndividuals)
+
 individualRouter.get('/:individualId/documents/:pageNumber', validateToken, fetchIndividualDocuments)
 individualRouter.post('/:individualId/documents', validateToken, uploadFile('single', 'individualDocFile'), uploadIndividualDocument)
 
@@ -59,10 +63,13 @@ individualRouter.post('/:individualId/services/goal-tracking', validateToken, ad
 individualRouter.get('/:individualId/services', validateToken, fetchIndividualServices)
 individualRouter.post('/:individualId/services', validateToken, assignIndividualServices)
 
+<<<<<<< HEAD
 individualRouter.get('/profile/:individualId', fetchIndividualProfile)
 individualRouter.get('/:pageNumber', fetchIndividuals)
 
 individualRouter.post('/', uploadFile('single', 'profileImage'), registerIndividual)
 
+=======
+>>>>>>> 4c0bf23a89c42992065c41b867232e976ab40894
 
 export default individualRouter;

@@ -23,6 +23,8 @@ import getClockOut from "@staff/controllers/shifts/getClockOut";
 
 const staffRouter = Router();
 
+staffRouter.post('/register', validateToken, register)
+
 staffRouter.post('/clock-out', validateToken, getClockOut);
 staffRouter.post('/clock-in', validateToken, getClockIn);
 
@@ -35,7 +37,6 @@ staffRouter.get('/roles/details/:roleId', validateToken, fetchStaffRolesDetails)
 staffRouter.post('/roles', validateToken, createStaffRole)
 staffRouter.get('/roles/:pageNumber', validateToken, fetchStaffRoles)
 
-staffRouter.post('/register', validateToken, register)
 staffRouter.get('/profile/:staffId', validateToken, fetchStaffProfile)
 
 staffRouter.get('/:staffId/documents/:pageNumber', validateToken, fetchStaffDocuments)

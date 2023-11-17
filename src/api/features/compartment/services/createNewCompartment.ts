@@ -18,7 +18,7 @@ export default function createNewCompartment(newCompartmentData:INewCompartmentD
         .then((createdCompartmentDocument:ICompartment)=> {
 
             const createdCompartment:ICompartmentFormat = Object.freeze({
-                id: createdCompartmentDocument._id.toString(),
+                id: createdCompartmentDocument.id,
                 compartmentId: createdCompartmentDocument.compartmentId,
                 title: createdCompartmentDocument.title,
                 image: createdCompartmentDocument.image,

@@ -1,4 +1,4 @@
-import { INewDocument } from "@individual/controllers/documents/uploadStaffDocument/validateUploadIndividualDocument";
+import { INewDocument } from "@individual/controllers/documents/uploadIndividualDocument/validateUploadIndividualDocument";
 import { individualModel } from "@individual/models/individual.model";
 
 

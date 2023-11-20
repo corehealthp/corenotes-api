@@ -3,7 +3,7 @@ import fetchAllIndividualDocuments from "@individual/services/documents/fetchAll
 import { Request, Response } from "express"
 
 export default function fetchIndividualDocuments(req:Request, res:Response) {
-    fetchAllIndividualDocuments(parseInt(req.params.staffId), parseInt(req.params.pageNumber))
+    fetchAllIndividualDocuments(parseInt(req.params.individualId), parseInt(req.params.pageNumber))
     .then((response)=> {
         return sendSuccessResponse({
             res, 

@@ -8,10 +8,10 @@ const MAX_FILE_SIZE_CAT:string = process.env.IMAGE_FILE_SIZE_CAT!;
 export default function validateImageFile(file:any) {
     return new Promise<{message:string}>(async(resolve, reject)=> {
         if(!isFileSizeValid(file)) reject({ message: `File ${file?.originalname} is larger than ${MAX_FILE_SIZE}${MAX_FILE_SIZE_CAT}. Please select another image` });
-        isFileImage(file)
-        .catch(()=> {
-            reject({ message: `File ${file?.originalname} is not a valid image` })
-        })
+        // isFileImage(file)
+        // .catch(()=> {
+        //     reject({ message: `File ${file?.originalname} is not a valid image` })
+        // })
 
         resolve({message: ''});
 

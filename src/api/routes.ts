@@ -24,8 +24,6 @@ export default function routes() {
     router.use('/medications', medicationRouter);
     router.use('/tasks', taskRouter);
 
-<<<<<<< HEAD
-=======
     router.get('/health', (req, res, next) => {
         res.json({
             application: "Corenotes API",
@@ -34,6 +32,5 @@ export default function routes() {
         })
     });
 
->>>>>>> 4c0bf23a89c42992065c41b867232e976ab40894
     return router;
 }

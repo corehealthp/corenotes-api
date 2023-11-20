@@ -1,5 +1,5 @@
 import { readFile } from "fs"
-import { validateBufferMIMEType } from "validate-image-type";
+import { validateBufferMIMEType, validateMIMEType } from "validate-image-type";
 
 const MAX_FILE_SIZE:number = parseFloat(process.env.IMAGE_FILE_SIZE!);
 const MAX_FILE_SIZE_CAT:string = process.env.IMAGE_FILE_SIZE_CAT!;
@@ -8,10 +8,10 @@ const MAX_FILE_SIZE_CAT:string = process.env.IMAGE_FILE_SIZE_CAT!;
 export default function validateImageFile(file:any) {
     return new Promise<{message:string}>(async(resolve, reject)=> {
         if(!isFileSizeValid(file)) reject({ message: `File ${file?.originalname} is larger than ${MAX_FILE_SIZE}${MAX_FILE_SIZE_CAT}. Please select another image` });
-        isFileImage(file)
-        .catch(()=> {
-            reject({ message: `File ${file?.originalname} is not a valid image` })
-        })
+        // isFileImage(file)
+        // .catch(()=> {
+        //     reject({ message: `File ${file?.originalname} is not a valid image` })
+        // })
 
         resolve({message: ''});
 
@@ -37,9 +37,12 @@ async function isFileImage(file:Express.Multer.File) {
             if(error) return reject(false);
             if(!buffer) return reject(false)
 
-            return await validateBufferMIMEType(buffer, {
+            const validationOptions = {
                 allowMimeTypes: ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/pdf']
-            }).then((result)=> {
+            }
+            
+            return await validateMIMEType(file.path, validationOptions)
+            .then((result)=> {
                 if(!result.ok) reject(false);
                 else resolve(true)
             })

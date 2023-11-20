@@ -33,7 +33,6 @@ let maxFileSize:number = 0;
 if(MAX_FILE_SIZE_CAT === 'MB') {
     // convert MB to Bytes
     maxFileSize = parseFloat((MAX_FILE_SIZE * 1000000).toString());
-    console.log(maxFileSize);
 }
 
 let uploadError:string = '';
@@ -42,7 +41,7 @@ export default function uploadFile(fileAmount:UploadFileType['fileAmount'], fiel
     return (req:Request, res:Response, next:NextFunction)=> {
         const upload = multer({ 
             dest: 'public/',
-            limits: { fileSize:  parseFloat(((MAX_FILE_SIZE  * 1000000) ?? (10000000)).toString()) }
+            limits: { fileSize:  maxFileSize }
         })
 
         let totalFiles = 0,

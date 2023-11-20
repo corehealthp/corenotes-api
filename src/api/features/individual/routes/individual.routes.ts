@@ -25,7 +25,7 @@ import fetchIndividualBehaviorManagementServices from "@individual/controllers/s
 import addChoreService from "@individual/controllers/services/chores/addChoreService";
 import fetchIndividualChoreServices from "@individual/controllers/services/chores/fetchIndividualChoreServices";
 import fetchIndividualDocuments from "@individual/controllers/documents/fetchIndividualDocuments";
-import uploadIndividualDocument from "@individual/controllers/documents/uploadStaffDocument/uploadIndividualDocument";
+import uploadIndividualDocument from "@individual/controllers/documents/uploadIndividualDocument/uploadIndividualDocument";
 import addAssessmentToIndividual from "@individual/controllers/assessments/addAssessmentToIndividual";
 import getAssessmentsToAssign from "@individual/controllers/assessments/getAssessmentsToAssign";
 

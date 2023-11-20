@@ -1,7 +1,7 @@
 import { NotFoundError } from "@globals/server/Error"
 import getServiceByServiceId from "./db/getServiceByServiceId"
 import { individualModel } from "@individual/models/individual.model";
-import { getCompartmentById } from "src/api/shared/services/db/compartment.service";
+import { getCompartmentById } from "@services/db/compartment.service";
 import { IFetchIndividualResponse, IIndividualListItem } from "@individual/services/fetchAllServices";
 import calcAge from "@globals/helpers/calcAge";
 
@@ -40,7 +40,7 @@ export default function getServiceIndividuals(serviceId:number, pageNumber:numbe
                         lastname: individual.lastname,
                         age: calcAge(individual.dob),
                         gender: individual.gender,
-                        compartment: (await getCompartmentById(individual.compartment))!.title,
+                        compartment: (await getCompartmentById(individual.compartment)).title,
                         medicaidNumber: individual.medicaidNumber
                     })
                 }

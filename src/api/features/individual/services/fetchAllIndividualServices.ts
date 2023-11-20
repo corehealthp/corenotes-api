@@ -1,13 +1,12 @@
 import { NotFoundError } from "@globals/server/Error";
-import { getIndividualByIndividualId } from "src/api/shared/services/db/individual.service";
-import { getServiceByObjectId } from "src/api/shared/services/db/service.service";
+import { getIndividualByIndividualId } from "@services/db/individual.service";
+import { getServiceByObjectId } from "@services/db/service.service";
 import detMedSchedule from "./detMedSchedule";
 
 export interface IIndividualServicesList {
     id:string;
     serviceId:number;
     title:string;
-    refName:string;
     category:string;
     startDate:string;
     time:string;
@@ -35,7 +34,6 @@ export default function fetchAllIndividualServices(individualId:number) {
                             id: foundService._id.toString(),
                             serviceId: foundService.serviceId,
                             title: foundService.title,
-                            refName: foundService.refName,
                             category: foundService.category,
                             startDate: service.schedule.startDate,
                             time: service.schedule.time,

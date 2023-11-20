@@ -2,7 +2,7 @@ import calcAge from "@globals/helpers/calcAge";
 import { NotFoundError } from "@globals/server/Error";
 import { individualModel } from "@individual/models/individual.model";
 import { IIndividualDocument } from "@individual/models/types";
-import { getCompartmentById } from "src/api/shared/services/db/compartment.service";
+import { getCompartmentById } from "@services/db/compartment.service";
 
 export interface IFetchIndividualResponse {
     currentPage:number;
@@ -52,7 +52,7 @@ export default function fetchAllIndividuals(pageNumber:number) {
                     lastname: individual.lastname,
                     age: calcAge(individual.dob),
                     gender: individual.gender,
-                    compartment: (await getCompartmentById(individual.compartment))!.title,
+                    compartment: (await getCompartmentById(individual.compartment)).title,
                     medicaidNumber: individual.medicaidNumber
                 })
             }

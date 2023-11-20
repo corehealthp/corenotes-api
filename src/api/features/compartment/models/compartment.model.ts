@@ -1,22 +1,18 @@
-import { Model, Schema, Types, model, models } from "mongoose";
+import { Model, Schema, model, models } from "mongoose";
 import { ICompartment } from "./types";
 import autoIncrementPlugin from "src/config/database/autoIncrementInit"
 
+<<<<<<< HEAD
+export = Model<ICompartment> = models.compartments || model<ICompartment>('compartments', new Schema<ICompartment>({
+=======
 const compartmentModel:Model<ICompartment> = models.compartments || model<ICompartment>('compartments', new Schema<ICompartment>({
+>>>>>>> 4c0bf23a89c42992065c41b867232e976ab40894
     compartmentId:{ type:Number },
     title:{ type:String },
-    image:{ type:String },
-    subCompartments:[{
-        title:{ type:String },
-        description:{ type:String },
-        services:[String],
-        staffRoles:[String],
-        individuals:[String],
-        createdAt:{ 
-            type:Date,
-            default:Date.now
-        },
-    }],
+    image:{ type:String }, 
+    services:Array<String>,
+    staffRoles:[String],
+    assignedIndividuals:[String],
     meta: {
         bgColor: { type:String },
         labelColor: { type:String }
@@ -30,5 +26,3 @@ const compartmentModel:Model<ICompartment> = models.compartments || model<ICompa
     field: 'compartmentId',
     startAt: 1,
 }));
-
-export default compartmentModel;

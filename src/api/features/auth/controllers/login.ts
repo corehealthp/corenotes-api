@@ -1,10 +1,11 @@
 import { Request, Response } from "express"
 import validateLoginRequestBody from "./validateLoginRequestBody";
-import { verifyPassword } from "src/api/shared/services/security/password";
+import { verifyPassword } from "@services/security/password";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
-import generateAuthToken from "src/api/shared/services/security/token/generateAccessToken";
-import storeAuthToken from "src/api/shared/services/security/token/storeAccessToken";
-import { getStaffUserByUsername } from "src/api/shared/services/db/staff.service";
+import generateAuthToken from "@services/security/token/generateAccessToken";
+import storeAuthToken from "@services/security/token/storeAccessToken";
+import { getStaffUserByUsername, updateStaffLastSeenById } from "@services/db/staff.service";
+import getUserByObjectId from "@services/db/user.service";
 
 export default async function logIn(req:Request, res:Response) {
 
@@ -14,9 +15,10 @@ export default async function logIn(req:Request, res:Response) {
         getStaffUserByUsername(requestBody.username)
         .then((foundStaff)=> {
             if(!foundStaff) return sendFailureResponse({res, statusCode: 401, message: 'Oops! The username or password entered does not match our record. Please confirm and try again.'});
-            
+            console.log(requestBody.password, foundStaff.password!)
             verifyPassword(requestBody.password, foundStaff.password!)
             .then(async (isVerified)=> {
+                console.log(isVerified)
                 if(!isVerified) return sendFailureResponse({res, statusCode: 401, message: 'Oops! The username or password entered does not match our record. Please confirm and try again.'});
 
                 generateAuthToken(foundStaff.id, res)

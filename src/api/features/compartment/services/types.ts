@@ -2,7 +2,8 @@ export interface ICompartmentFormat {
     id:string;
     compartmentId:number;
     title:string;
-    subCompartmentsCount:number;
+    staffRoles:Array<string>;
+    assignedIndividuals:Array<string>;
     meta: {
         bgColor:string;
         labelColor:string;
@@ -11,7 +12,7 @@ export interface ICompartmentFormat {
 }
 
 export interface ICompartmentsListType extends Omit<ICompartmentFormat, 'staffRoles'|'assignedIndividuals'> {
-    // servicesCount:number;
-    // staffRolesCount:number;
-    // assignedIndividualsCount:number;
+    servicesCount:number;
+    staffRolesCount:number;
+    assignedIndividualsCount:number;
 }

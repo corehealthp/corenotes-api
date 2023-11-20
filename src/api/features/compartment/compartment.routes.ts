@@ -1,14 +1,11 @@
-import { Router } from "express";
 import validateToken from "@globals/middlewares/validateToken";
+import { Router } from "express";
 import compartmentControllers from "./controllers";
 import uploadFile from "@globals/middlewares/uploadFile";
-import patchServiceToCompartment from "./controllers/patchServiceToCompartment";
 
 const compartmentRouter = Router();
 
-compartmentRouter.post('/:compartmentId', validateToken, compartmentControllers.createSubcompartment);
-compartmentRouter.patch('/:compartmentId/services', patchServiceToCompartment);
-compartmentRouter.get('/:compartmentId/services', validateToken, compartmentControllers.fetchCompartmentServices);
+compartmentRouter.post('/services', compartmentControllers.addServiceToCompartment);
 
 compartmentRouter.get('/details/:compartmentId', validateToken, compartmentControllers.fetchCompartmentDetails);
 

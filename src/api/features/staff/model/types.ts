@@ -51,6 +51,11 @@ export interface IStaffDocument extends Document {
         docFileName: string;
         createdAt: Date
     }>;
+
+    // CLOCK-IN AND CLOCK-OUT TIMES
+    clockedIn: boolean;
+    lastClockInTime: Date
+    lastClockOutTime: Date;
     maritalStatus:string;
     isClockedIn:boolean;
 }

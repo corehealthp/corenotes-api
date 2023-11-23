@@ -1,15 +1,15 @@
 import { Request, Response } from "express"
-import validateUploadStaffRequestBody, { INewDocument } from "./validateUploadIndividualDocument"
+import validateUploadIndividualRequestBody, { INewDocument } from "./validateUploadIndividualDocument"
 import uploadFileToCloud from "src/api/shared/services/fileSystem/uploadFileToCloud"
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse"
 import { ServerError } from "@globals/server/Error"
-import addDocumentToStaff from "@staff/services/addDocumentToStaff"
-import fetchAllStaffDocuments from "@staff/services/fetchAllStaffDocuments"
+import fetchAllIndividualDocuments from "@individual/services/documents/fetchAllIndividualDocuments"
+import addDocumentToIndividual from "@individual/services/documents/addDocumentToIndividual"
 
-export default function uploadStaffDocument(req:Request, res:Response) {
-    validateUploadStaffRequestBody({ staffId: req.params.staffId, ...req.body, staffDocFile: req.file})
+export default function uploadIndividualDocument(req:Request, res:Response) {
+    validateUploadIndividualRequestBody({ individualId: req.params.individualId, ...req.body, individualDocFile: req.file})
     .then(({ requestBody })=> {
-        uploadFileToCloud(requestBody.staffDocFile, 'staff-documents')
+        uploadFileToCloud(requestBody.individualDocFile, 'individual-documents')
         .then((fileLink:string)=> {
 
             const newDocument:INewDocument = {
@@ -20,19 +20,19 @@ export default function uploadStaffDocument(req:Request, res:Response) {
                 docFileName: requestBody.docFileName
             }
 
-            addDocumentToStaff(parseInt(requestBody.staffId), newDocument)
+            addDocumentToIndividual(requestBody.individualId, newDocument)
             .then(()=> {
-                fetchAllStaffDocuments(parseInt(requestBody.staffId), 1)
+                fetchAllIndividualDocuments(requestBody.individualId, 1)
                 .then((response)=> {
                     return sendSuccessResponse({
                         res, 
                         statusCode: 200, 
-                        message: "New staff document uploaded successfully", 
+                        message: "New individual document uploaded successfully", 
                         data: response
                     })
                 })
                 .catch((error)=> {
-                    console.log("There was an error fetching updated staff documents list :", error);
+                    console.log("There was an error fetching updated individual documents list :", error);
                     const serverError = new ServerError()
                     return sendFailureResponse({ 
                         res, 
@@ -42,7 +42,7 @@ export default function uploadStaffDocument(req:Request, res:Response) {
                 })
             })
             .catch((error)=> {
-                console.log("There was an error adding new staff document :", error);
+                console.log("There was an error adding new individual document :", error);
                 const serverError = new ServerError()
                 return sendFailureResponse({ 
                     res, 
@@ -60,7 +60,7 @@ export default function uploadStaffDocument(req:Request, res:Response) {
     })
     .catch((error)=> {
         // TODO: return error if validation is failed
-        console.log(`VALIDATION ERROR: There was an error validating register staff request body`)
+        console.log(`VALIDATION ERROR: There was an error validating register individual request body`)
         console.log(error)
         sendFailureResponse({res, statusCode: error.code, message: error.message});
     })

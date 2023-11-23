@@ -18,6 +18,8 @@ import postNewShift from "@staff/controllers/shifts/postNewShift";
 import getStaffShifts from "@staff/controllers/shifts/getStaffShifts";
 import getClockIn from "@staff/controllers/shifts/getClockIn";
 import getClockOut from "@staff/controllers/shifts/getClockOut";
+import deactivateStaffProfile from "@staff/controllers/deactivateStaffProfile";
+import activateStaffProfile from "@staff/controllers/activateStaffProfile";
 
 const staffRouter = Router();
 
@@ -36,6 +38,8 @@ staffRouter.post('/roles', validateToken, createStaffRole)
 staffRouter.get('/roles/:pageNumber', validateToken, fetchStaffRoles)
 
 staffRouter.get('/profile/:staffId', validateToken, fetchStaffProfile)
+staffRouter.put('/profile/deactivate/:staffId', validateToken,deactivateStaffProfile)
+staffRouter.put('/profile/activate/:staffId', validateToken,activateStaffProfile)
 
 staffRouter.get('/:staffId/documents/:pageNumber', validateToken, fetchStaffDocuments)
 staffRouter.post('/:staffId/documents', validateToken, uploadFile('single', 'staffDocFile'), uploadStaffDocument)
@@ -47,5 +51,6 @@ staffRouter.post('/:staffId/activate', validateToken, activateStaff)
 staffRouter.post('/:staffId/activities/:pageNumber', fetchStaffActivities)
 
 staffRouter.get('/:pageNumber', fetchStaffs)
+
 
 export default staffRouter;

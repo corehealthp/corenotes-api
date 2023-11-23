@@ -3,8 +3,7 @@ export interface UploadIndividualRequestBodyType {
     docTitle:string,
     docType:string,
     docDate:string,
-    staffDocFile:Express.Multer.File,
-    staffId:string,
+    individualDocFile:Express.Multer.File,
     docFileName:string
 }
 
@@ -32,7 +31,7 @@ export default function validateUploadIndividualRequestBody(data:UploadIndividua
         if(!data.docTitle) reject({ status: false, code: 422,  message:'Document title field cannot be empty' });
         if(!data.docType) reject({ status: false, code: 422,  message:'Document type field cannot be empty' });
         if(!data.docDate) reject({ status: false, code: 422,  message:'Document date field cannot be empty' });
-        if(!data.staffDocFile) reject({ status: false, code: 422,  message:'Document file field cannot be empty' });
+        if(!data.individualDocFile) reject({ status: false, code: 422,  message:'Document file field cannot be empty' });
         if(!data.docFileName) reject({ status: false, code: 422,  message:'Document name parameter cannot be empty' });
         
         // return success if true

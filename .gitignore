@@ -4,3 +4,4 @@ public
 src/ssl/*
 
 package-lock.json
+.env

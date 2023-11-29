@@ -11,7 +11,7 @@ import postCreateAssessment from "../controllers/createAssessment/postCreateAsse
 
 const assessmentRouter = Router();
 
-assessmentRouter.post('/upload-with-csv', uploadFile("single", "assessment-csv"), createAssessmentsFromCSV)
+assessmentRouter.post('/upload-with-csv', uploadFile("single", "assessmentCSV"), createAssessmentsFromCSV)
 
 assessmentRouter.get('/categories', fetchAssessmentCategories)
 assessmentRouter.post('/assessment-categories', createAssessmentCategory)

@@ -18,7 +18,7 @@ export default function resetStaffPassword(req:Request, res:Response) {
             return sendSuccessResponse({
                 res, 
                 statusCode: 200,
-                message: "Staff user has been updated successfully"
+                message: "Staff password has been updated successfully"
             })
         })
         .catch((error)=> {

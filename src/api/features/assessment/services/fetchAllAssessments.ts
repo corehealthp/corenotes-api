@@ -33,11 +33,14 @@ export default function fetchAllAssessments(pageNumber:number) {
             const mappedAssessments:IMappedAssessment[] = [];
 
             for await (const assessment of foundAssessments) {
+                
+                const category = await fetchAssessmentCategoryDetails(assessment.category);
+
                 mappedAssessments.push({
                     id: assessment._id.toString(),
                     assessmentId: assessment.assessmentId,
                     title: assessment.title,
-                    category: await fetchAssessmentCategoryDetails(assessment.category),
+                    category:  category ?? assessment.category,
                     questionsCount: assessment.questions.length,
                     assignees: `${assessment.assignees?.length} individuals`
                 });

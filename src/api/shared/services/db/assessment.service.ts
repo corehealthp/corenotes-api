@@ -1,5 +1,19 @@
+import { createAssessmentReqBodyType } from "@assessment/controllers/createAssessment/types";
 import { assessmentModel } from "src/api/features/assessment/model/assessment.model.ts";
 import { IAssessmentDocument } from "src/api/features/assessment/model/assessment.model.ts/types";
+
+
+export function fetchAssessmentsByPage() {
+    
+}
+
+export function createAssessment(newAssessmentObj:createAssessmentReqBodyType) {
+    return new Promise<IAssessmentDocument|null>((resolve, reject)=> {
+        assessmentModel.create(newAssessmentObj)
+        .then((createdAssessment)=> resolve(createdAssessment))
+        .catch((error)=> reject(error))
+    })
+}
 
 export function getAssessmentByTitle(title:string) {
     return new Promise<IAssessmentDocument|null>((resolve, reject)=> {
@@ -22,7 +36,6 @@ export function getAssessmentByObjId(assessmentObjId:string) {
         .catch(error => reject(error))
     })
 }
-
 
 export function getAssessmentByAssessmentId(assessmentId:number) {
     return new Promise<IAssessmentDocument|null>((resolve, reject)=> {

@@ -32,7 +32,7 @@ export default function fetchAssessmentDetails(assessmentId:number) {
             for await ( const question of  foundAssessment?.questions!) {
                 questionsWithCategories.push({
                     id: question?._id.toString()!,
-                    category: (await fetchAssessmentQuestionCategoryDetails(question?.category!)).toString(),
+                    category: question?.category,
                     question: question?.question!
                 })
             }

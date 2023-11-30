@@ -7,7 +7,8 @@ import { getCompartmentById } from "src/api/shared/services/db/compartment.servi
 export interface IFetchIndividualResponse {
     currentPage:number;
     totalPages:number,
-    individuals:IIndividualListItem[]
+    individuals:IIndividualListItem[];
+    total:number;
 }
 
 export interface IIndividualListItem {
@@ -58,14 +59,15 @@ export default function fetchAllIndividuals(pageNumber:number) {
             }
 
             individualModel.count()
-            .then((totalIndividualCount:number)=> {
+            .then((totalIndividualCount)=> {
                 
                 const totalPageNumber = Math.ceil(totalIndividualCount / resultsPerPage);
 
                 resolve({
                     currentPage: pageNumber, 
                     totalPages: totalPageNumber,
-                    individuals: mappedIndividuals
+                    individuals: mappedIndividuals,
+                    total: totalIndividualCount
                 })
             })
         })

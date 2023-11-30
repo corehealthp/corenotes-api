@@ -1,7 +1,7 @@
+.env
 node_modules
 dist
 public
 src/ssl/*
 
 package-lock.json
-.env

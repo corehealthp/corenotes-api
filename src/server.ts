@@ -1,7 +1,10 @@
 import express, { urlencoded } from "express"
 import { createServer } from "http"
 import cors from "cors";
+import "./config/database/connect";
 import routes from "./api/routes";
+import dotenv from "dotenv"
+dotenv.config()
 
 const app = express();
 

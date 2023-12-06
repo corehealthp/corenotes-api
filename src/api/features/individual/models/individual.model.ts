@@ -42,6 +42,13 @@ const individualSchema = new Schema<IIndividualDocument>({
         type:Number,
         unique:true
     },
+    insurance:{
+      type:String,
+    },
+    insuranceNo:{
+        type:Number,
+        unique:true
+    },
     codeAlert:Array<String>,
     weight:{
         type:Number

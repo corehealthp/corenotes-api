@@ -48,6 +48,18 @@ export default function validateRegisterIndividual(
           code: 422,
           message: "SSN field cannot be empty",
         });
+      if (!data.insurance)
+        reject({
+          status: false,
+          code: 422,
+          message: "INSURANCE field cannot be empty",
+        });
+      if (!data.insuranceNo)
+        reject({
+          status: false,
+          code: 422,
+          message: "INSURANCENO field cannot be empty",
+        });
       if (!data.contact?.name)
         reject({
           status: false,

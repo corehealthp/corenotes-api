@@ -21,6 +21,8 @@ export interface IIndividualDocument {
     religion:string,
     ssn:number,
     medicaidNumber:number,
+    insurance:string,
+    insuranceNo:number,
     codeAlert: Array<string>
     weight:number,
     contact: {

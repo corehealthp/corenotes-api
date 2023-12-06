@@ -22,6 +22,9 @@ export default function registerIndividual(req: Request, res: Response) {
           religion: requestBody.religion,
 
           ssn: requestBody.ssn,
+          insurance:requestBody.insurance,
+          insuranceNo:requestBody.insuranceNo,
+          
           contact: {
             name: requestBody.contact.name,
             email: requestBody.contact.email,

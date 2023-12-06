@@ -11,6 +11,8 @@ export interface registerIndividualRequestBodyType {
   ssn: string;
   weight: string;
   medicaidNumber: string;
+  insurance:string;
+  insuranceNo:number;
   codeAlert: Array<string>;
   contact: {
     name: string;

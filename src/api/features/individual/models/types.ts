@@ -20,9 +20,11 @@ export interface IIndividualDocument {
     maritalStatus:string,
     religion:string,
     ssn:number,
-    medicaidNumber:number,
+    medicareIdNo:number,
     insurance:string,
     insuranceNo:number,
+    medicareNo:number,
+    otherInsuranceNo:number,
     codeAlert: Array<string>
     weight:number,
     contact: {

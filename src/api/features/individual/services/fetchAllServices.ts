@@ -19,7 +19,7 @@ export interface IIndividualListItem {
     age:number;
     gender:string;
     compartment:string;
-    medicaidNumber:number;
+    medicareIdNo:number;
 }
 
 export default function fetchAllIndividuals(pageNumber:number) {
@@ -53,7 +53,7 @@ export default function fetchAllIndividuals(pageNumber:number) {
                     age: calcAge(individual.dob),
                     gender: individual.gender,
                     compartment: (await getCompartmentById(individual.compartment))!.title,
-                    medicaidNumber: individual.medicaidNumber
+                    medicareIdNo: individual.medicareIdNo
                 })
             }
 

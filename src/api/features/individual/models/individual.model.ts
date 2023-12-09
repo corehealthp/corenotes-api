@@ -38,12 +38,21 @@ const individualSchema = new Schema<IIndividualDocument>({
         type:Number,
         unique:true
     },
-    medicaidNumber:{
+    insurance:{
+      type:String,
+      unique:true
+    },
+    medicareNo:{
         type:Number,
         unique:true
     },
-    insurance:{
-      type:String,
+    medicareIdNo:{
+        type:Number,
+        unique:true,
+    },
+    otherInsuranceNo:{
+        type:Number,
+        unique:true
     },
     insuranceNo:{
         type:Number,

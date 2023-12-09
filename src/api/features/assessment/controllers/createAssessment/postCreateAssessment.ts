@@ -3,8 +3,9 @@ import validateCreateAssessmentReq from "./validateCreateAssessmentReq";
 import { validateCreateAssessmentType } from "./types";
 import { assessmentModel } from "src/api/features/assessment/model/assessment.model.ts";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
+import fetchAllAssessments from "@assessment/services/fetchAllAssessments";
 
-export default function createAssessment(req:Request, res:Response) {
+export default function postCreateAssessment(req:Request, res:Response) {
     validateCreateAssessmentReq(req.body)
     .then(({requestBody}:validateCreateAssessmentType)=> {
 
@@ -16,8 +17,20 @@ export default function createAssessment(req:Request, res:Response) {
 
         assessmentModel.create(newAssessmentObj)
         .then(()=> {
-            console.log('RESOURCE CREATED: new assessment created successfully')
-            sendSuccessResponse({res, statusCode:201, message:"Assessment created successfully", data:{}})
+            fetchAllAssessments(1)
+            .then((assessmentResponse)=> {
+                return sendSuccessResponse({
+                    res, 
+                    statusCode: 200, 
+                    message: "RESOURCE CREATED: new assessment created successfully", 
+                    data: assessmentResponse
+                })
+            })
+            .catch((error)=> {
+                console.log(`QUERY ERROR: There was an error fetching all assessments`)
+                console.log(error)
+                return sendFailureResponse({res, statusCode:500, message:"There was an error fetching assessments"})
+            })
         })
         .catch((error)=> {
             console.log(error)

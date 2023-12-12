@@ -9,7 +9,8 @@ const allowedOrigins = [
     'https://corenotes.netlify.app', 
     'https://corenotes.net', 
     'www.corenotes.net', 
-    'https://34.197.199.182'
+    'https://34.197.199.182',
+    'http://127.0.0.1:3100'
 ]
 const options: cors.CorsOptions = { origin: allowedOrigins, credentials: true }
 

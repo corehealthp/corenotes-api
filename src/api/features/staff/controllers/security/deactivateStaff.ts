@@ -47,7 +47,7 @@ export default function deactivateStaff(req:Request, res:Response) {
         })
     })
     .catch((error)=> {
-        console.log(`There was an error deactivating staff`)
+        console.log(`There was an error deactivating staffdd`)
         console.log(error)
         sendFailureResponse({res,statusCode:500, message: "There was an error deactivating staff"});
     })

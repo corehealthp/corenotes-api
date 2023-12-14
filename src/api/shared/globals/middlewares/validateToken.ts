@@ -5,17 +5,9 @@ import { NotAuthorizedError } from "../server/Error";
 import { getAuthUserByAuthAccessToken } from "../../services/db/auth.service";
 
 export default function validateToken (req:Request, res:Response, next:NextFunction) {
-    let token:string  = req.headers.authorization! ?? req.headers.cookie;
+    let token:string = req.headers.authorization! ?? req.headers.cookie;
 
-    // if(!token || !token.includes('sid')) {
-    //     const nonAuthorizedError = new NotAuthorizedError('Unauthorized')
-    //     return sendFailureResponse({
-    //         res, 
-    //         statusCode: nonAuthorizedError.statusCode, 
-    //         message: nonAuthorizedError.message
-    //     });
-    // }
-    if(!token && !token.includes('sid')) {
+    if(!token || !token.includes('sid')) {
         const nonAuthorizedError = new NotAuthorizedError('Unauthorized')
         return sendFailureResponse({
             res, 

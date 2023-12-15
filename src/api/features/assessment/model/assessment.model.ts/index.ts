@@ -1,5 +1,5 @@
 import { model, Schema, models, Model } from "mongoose"
-import { IAssessmentCategoryDocument, IAssessmentDocument, IAssessmentQuestionCategoryDocument } from "./types";
+import { AssessmentTypesList, IAssessmentCategoryDocument, IAssessmentDocument, IAssessmentQuestionCategoryDocument } from "./types";
 import autoIncrementPlugin from "src/config/database/autoIncrementInit";
 
 const assessmentSchema = new Schema<IAssessmentDocument>({
@@ -21,7 +21,7 @@ const assessmentSchema = new Schema<IAssessmentDocument>({
 }).plugin(autoIncrementPlugin, {
     model: 'assessments',
     field: 'assessmentId',
-    startAt: 111,
+    startAt: 1,
 })
 
 export const assessmentModel:Model<IAssessmentDocument> = models.assessments || model<IAssessmentDocument>('assessments', assessmentSchema);

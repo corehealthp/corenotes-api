@@ -1,5 +1,4 @@
 import fetchAssessmentCategoryDetails from "@assessment/controllers/utils/fetchAssessmentCategoryDetails";
-import { Types, isValidObjectId } from "mongoose";
 import { assessmentModel } from "src/api/features/assessment/model/assessment.model.ts";
 
 interface IAssessmentsResponse {
@@ -34,20 +33,11 @@ export default function fetchAllAssessments(pageNumber:number) {
             const mappedAssessments:IMappedAssessment[] = [];
 
             for await (const assessment of foundAssessments) {
-
-                // let category =  "";  
-                
-                // if(Types.ObjectId.isValid(assessment?.category)) {
-                //     // console.log(assessment.category)
-                const category = (await fetchAssessmentCategoryDetails(assessment.category))
-                //     console.log(assessment.title, category)
-                // }
-
                 mappedAssessments.push({
                     id: assessment._id.toString(),
                     assessmentId: assessment.assessmentId,
                     title: assessment.title,
-                    category:  category,
+                    category: await fetchAssessmentCategoryDetails(assessment.category),
                     questionsCount: assessment.questions.length,
                     assignees: `${assessment.assignees?.length} individuals`
                 });

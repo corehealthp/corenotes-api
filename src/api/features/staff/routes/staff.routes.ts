@@ -44,7 +44,7 @@ staffRouter.put('/profile/activate/:staffId', validateToken,activateStaffProfile
 
 staffRouter.get('/:staffId/documents/:pageNumber', validateToken, fetchStaffDocuments)
 staffRouter.post('/:staffId/documents', validateToken, uploadFile('single', 'staffDocFile'), uploadStaffDocument)
-staffRouter.delete('/:staffId/documents',validateToken,  DeleteStaffDocument)
+staffRouter.delete('/:staffId/:documentId',validateToken,  DeleteStaffDocument)
 
 staffRouter.post('/:staffId/password-reset', validateToken, resetStaffPassword)
 staffRouter.post('/:staffId/deactivate', validateToken, deactivateStaff)

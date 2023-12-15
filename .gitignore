@@ -1,4 +1,4 @@
-.env
+.evn
 node_modules
 dist
 public

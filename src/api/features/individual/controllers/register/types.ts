@@ -10,7 +10,11 @@ export interface registerIndividualRequestBodyType {
   religion: string;
   ssn: string;
   weight: string;
-  medicaidNumber: string;
+  medicareIdNo: number;
+  insurance:string;
+  insuranceNo:number;
+  medicareNo:number;
+  otherInsuranceNo:number;
   codeAlert: Array<string>;
   contact: {
     name: string;

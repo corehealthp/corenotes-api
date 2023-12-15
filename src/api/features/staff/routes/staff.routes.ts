@@ -20,6 +20,7 @@ import getClockIn from "@staff/controllers/shifts/getClockIn";
 import getClockOut from "@staff/controllers/shifts/getClockOut";
 import deactivateStaffProfile from "@staff/controllers/deactivateStaffProfile";
 import activateStaffProfile from "@staff/controllers/activateStaffProfile";
+import DeleteStaffDocument from "@staff/controllers/documents/deleteStaffDocument";
 
 const staffRouter = Router();
 
@@ -43,6 +44,7 @@ staffRouter.put('/profile/activate/:staffId', validateToken,activateStaffProfile
 
 staffRouter.get('/:staffId/documents/:pageNumber', validateToken, fetchStaffDocuments)
 staffRouter.post('/:staffId/documents', validateToken, uploadFile('single', 'staffDocFile'), uploadStaffDocument)
+staffRouter.delete('/:staffId/documents',validateToken,  DeleteStaffDocument)
 
 staffRouter.post('/:staffId/password-reset', validateToken, resetStaffPassword)
 staffRouter.post('/:staffId/deactivate', validateToken, deactivateStaff)

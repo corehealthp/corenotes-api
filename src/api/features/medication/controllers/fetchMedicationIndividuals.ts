@@ -35,7 +35,7 @@ export default function fetchMedicationIndividuals(req:Request, res:Response) {
                     age: calcAge(individual.dob),
                     gender: individual.gender,
                     compartment: individual.compartment,
-                    medicaidNumber: individual.medicaidNumber,
+                    medicareIdNo: individual.medicareIdNo,
                 }));
 
                 return sendSuccessResponse({

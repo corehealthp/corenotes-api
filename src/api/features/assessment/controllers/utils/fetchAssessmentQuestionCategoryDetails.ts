@@ -1,11 +1,7 @@
-import { Types,  } from "mongoose";
 import { AssessmentQuestionsCategoryModel } from "src/api/features/assessment/model/assessment.model.ts";
 
-export default async function fetchAssessmentQuestionCategoryDetails(categoryId:string) {
+export default async function fetchAssessmentQuestionCategoryDetails(categoryId:String) {
     return new Promise<string>((resolve)=> {
-
-        if(!Types.ObjectId.isValid(categoryId)) return resolve(categoryId)
-
         const query = { _id: categoryId }
 
         AssessmentQuestionsCategoryModel.findOne(query)

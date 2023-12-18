@@ -53,8 +53,7 @@ export default function getServiceIndividuals(serviceId:number, pageNumber:numbe
                     resolve({
                         currentPage: pageNumber, 
                         totalPages: totalPageNumber,
-                        individuals: mappedIndividuals,
-                        total: totalIndividualCount
+                        individuals: mappedIndividuals
                     })
                 })
 

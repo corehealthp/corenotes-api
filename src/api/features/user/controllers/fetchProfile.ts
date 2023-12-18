@@ -5,7 +5,7 @@ import { getStaffRoleById } from "src/api/shared/services/db/staff.service";
 
 export default function fetchProfile (req:Request, res:Response) {
     
-    const query = { _id: req.params.userId || req.currentUser.id };
+    const query = { _id: req.params.userId ?  req.params.userId : req.currentUser.id };
 
     staffModel.findOne(query)
     .then(async (foundStaff)=> {

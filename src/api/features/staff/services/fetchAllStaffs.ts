@@ -1,12 +1,13 @@
 import { getStaffRoleById } from "src/api/shared/services/db/staff.service";
+import getUserByObjectId from "src/api/shared/services/db/user.service";
 import staffModel from "@staff/model/staff.model";
 import { IStaffDocument } from "@staff/model/types";
+import { IUserDocument } from "@user/models/types";
 
 interface IFetchStaffResponse {
     currentPage:number, 
     totalPages:number,
-    staffs:staffList[],
-    total:number;
+    staffs:staffList[]
 }
 
 interface staffList {
@@ -40,7 +41,7 @@ export default function fetchAllStaffs(pageNumber:number) {
             const mappedStaffs:Array<staffList>  = [];
 
             for await ( const staff of foundStaffs ) {
-                await getStaffRoleById(staff.providerRole)
+                getStaffRoleById(staff.providerRole)
                 .then((foundRole)=> {
                     mappedStaffs.push({
                         id: staff._id.toString(),
@@ -49,14 +50,13 @@ export default function fetchAllStaffs(pageNumber:number) {
                         firstname: staff.firstname,
                         lastname: staff?.lastname ?? "nill",
                         dob: staff.dob,
-                        role: foundRole ? foundRole.title.toUpperCase() :"nill",
+                        role: foundRole ? foundRole.title :"nill",
                         phoneNumber: staff.phoneNumber.work,
                         gender: staff.gender,
                         lastSeen: staff.lastSeen
                     })
                 })
                 .catch((error)=> {
-                    console.log("There was an error getting staff role", error);
                     mappedStaffs.push({
                         id: staff._id.toString(),
                         staffId: staff.staffId,
@@ -73,15 +73,14 @@ export default function fetchAllStaffs(pageNumber:number) {
             }
 
             staffModel.count()
-            .then((totalStaffCount)=> {
+            .then((totalStaffCount:number)=> {
                 
                 const totalPageNumber = Math.ceil(totalStaffCount / resultsPerPage);
 
                 resolve({
                     currentPage: pageNumber, 
                     totalPages: totalPageNumber,
-                    staffs: mappedStaffs,
-                    total: totalStaffCount
+                    staffs: mappedStaffs
                 })
             })
             .catch((error)=> reject(error))

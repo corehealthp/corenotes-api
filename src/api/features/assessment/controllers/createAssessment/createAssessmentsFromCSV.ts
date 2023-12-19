@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { sendFailureResponse, sendSuccessResponse, sendValidationFailureResponse } from "@globals/server/serverResponse";
 import csv from "csvtojson";
-import { createAssessment } from "@services/db/assessment.service";
+// import { createAssessment } from "@services/db/assessment.service";
 import { createAssessmentReqBodyType } from "./types";
 import fetchAllAssessments from "@assessment/services/fetchAllAssessments";
 
@@ -23,25 +23,25 @@ export function createAssessmentsFromCSV(req:Request, res:Response) {
             questions: jsonObj
         }
 
-        createAssessment(newAssessmentObj)
-        .then(()=> {
-            fetchAllAssessments(1)
-            .then((assessmentResponse)=> {
-                return sendSuccessResponse({
-                    res, 
-                    statusCode: 200, 
-                    message: "RESOURCE CREATED: new assessment created successfully", 
-                    data: assessmentResponse
-                })
-            })
-            .catch((error)=> {
-                console.log(`QUERY ERROR: There was an error fetching all assessments`, error)
-                return sendFailureResponse({
-                    res, 
-                    statusCode:500, 
-                    message:"There was an error fetching assessments"
-                })
-            })
-        })
+        // createAssessment(newAssessmentObj)
+        // .then(()=> {
+        //     fetchAllAssessments(1)
+        //     .then((assessmentResponse)=> {
+        //         return sendSuccessResponse({
+        //             res, 
+        //             statusCode: 200, 
+        //             message: "RESOURCE CREATED: new assessment created successfully", 
+        //             data: assessmentResponse
+        //         })
+        //     })
+        //     .catch((error)=> {
+        //         console.log(`QUERY ERROR: There was an error fetching all assessments`, error)
+        //         return sendFailureResponse({
+        //             res, 
+        //             statusCode:500, 
+        //             message:"There was an error fetching assessments"
+        //         })
+        //     })
+        // })
     })
 }

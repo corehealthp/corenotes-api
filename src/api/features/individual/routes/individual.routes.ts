@@ -28,11 +28,13 @@ import fetchIndividualDocuments from "@individual/controllers/documents/fetchInd
 import uploadIndividualDocument from "@individual/controllers/documents/uploadStaffDocument/uploadIndividualDocument";
 import addAssessmentToIndividual from "@individual/controllers/assessments/addAssessmentToIndividual";
 import getAssessmentsToAssign from "@individual/controllers/assessments/getAssessmentsToAssign";
+import updateIndividualProfile from "@individual/controllers/updateIndividualProfile";
 
 const individualRouter = Router();
 
 individualRouter.post('/', validateToken, registerIndividual)
 individualRouter.get('/profile/:individualId', fetchIndividualProfile)
+individualRouter.patch('/profile/:individualId', validateToken,updateIndividualProfile)
 individualRouter.get('/:pageNumber', fetchIndividuals)
 
 individualRouter.get('/:individualId/documents/:pageNumber', validateToken, fetchIndividualDocuments)

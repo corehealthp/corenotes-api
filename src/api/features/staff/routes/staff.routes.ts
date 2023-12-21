@@ -32,19 +32,20 @@ staffRouter.post('/clock-in', validateToken, getClockIn);
 staffRouter.post('/:staffId/shifts', validateToken, postNewShift);
 staffRouter.get('/:staffId/shifts/:pageNumber', validateToken, getStaffShifts);
 
-staffRouter.patch('/update', validateToken, updateStaffProfile)
 
 staffRouter.get('/roles/details/:roleId', validateToken, fetchStaffRolesDetails)
 staffRouter.post('/roles', validateToken, createStaffRole)
 staffRouter.get('/roles/:pageNumber', validateToken, fetchStaffRoles)
 
 staffRouter.get('/profile/:staffId', validateToken, fetchStaffProfile)
+// staffRouter.patch('/update/:staffId', validateToken, updateStaffProfile)
+staffRouter.patch('/profile/:staffId', validateToken, updateStaffProfile)
 staffRouter.put('/profile/deactivate/:staffId', validateToken,deactivateStaffProfile)
 staffRouter.put('/profile/activate/:staffId', validateToken,activateStaffProfile)
 
 staffRouter.get('/:staffId/documents/:pageNumber', validateToken, fetchStaffDocuments)
 staffRouter.post('/:staffId/documents', validateToken, uploadFile('single', 'staffDocFile'), uploadStaffDocument)
-staffRouter.delete('/:staffId/:documentId',validateToken,  DeleteStaffDocument) //For the delete staff document
+staffRouter.delete('/:staffId/:documentId',validateToken,  DeleteStaffDocument)
 
 staffRouter.post('/:staffId/password-reset', validateToken, resetStaffPassword)
 staffRouter.post('/:staffId/deactivate', validateToken, deactivateStaff)
@@ -53,6 +54,7 @@ staffRouter.post('/:staffId/activate', validateToken, activateStaff)
 staffRouter.post('/:staffId/activities/:pageNumber', fetchStaffActivities)
 
 staffRouter.get('/:pageNumber', fetchStaffs)
+
 
 
 export default staffRouter;

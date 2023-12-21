@@ -5,19 +5,22 @@ import { getStaffRoleById } from "src/api/shared/services/db/staff.service";
 
 export default function fetchProfile (req:Request, res:Response) {
     
-    const query = { _id: req.params.userId ?  req.params.userId : req.currentUser.id };
+    const userId = req.params?.userId ? req.params?.userId  : req.currentUser?.id;
+    const query = { _id:userId};
+    console.log(query)
 
     staffModel.findOne(query)
     .then(async (foundStaff)=> {
         if(!foundStaff) return sendFailureResponse({res, statusCode: 404, message: "Staff User profile doesn't exist"});
 
+        console.log(foundStaff.providerRole)
         const staffRole = await getStaffRoleById(foundStaff.providerRole)
 
         const user = {
             id: foundStaff.id,
             active: foundStaff.active,
             role: {
-                title: staffRole?.title.toUpperCase(),
+                title: staffRole?.title?.toUpperCase(),
                 privileges: staffRole?.privileges
             },
             lastSeen: foundStaff.lastSeen,

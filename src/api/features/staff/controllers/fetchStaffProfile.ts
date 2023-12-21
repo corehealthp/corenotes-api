@@ -6,7 +6,8 @@ export default function fetchStaffProfile(req:Request, res:Response) {
 
     getStaffUserByStaffId(parseInt(req.params.staffId))
     .then(async (foundStaff)=> {
-        foundStaff.providerRole = (await getStaffRoleById(foundStaff.providerRole)).title;
+        console.log(foundStaff)
+        foundStaff.providerRole = (await getStaffRoleById(foundStaff.providerRole))?.title;
 
         return sendSuccessResponse({
             res, 
@@ -15,10 +16,11 @@ export default function fetchStaffProfile(req:Request, res:Response) {
             data: { staff: foundStaff }
         })
     })
-    .catch(()=> {
+    .catch((error)=> {
+        console.log('error fetching staff profile', error)
         return sendFailureResponse({
             res,
-            statusCode:200, 
+            statusCode:500, 
             message:"There was an error fetching staff profile"
         })
     })

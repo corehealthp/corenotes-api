@@ -38,7 +38,6 @@ staffRouter.post('/roles', validateToken, createStaffRole)
 staffRouter.get('/roles/:pageNumber', validateToken, fetchStaffRoles)
 
 staffRouter.get('/profile/:staffId', validateToken, fetchStaffProfile)
-// staffRouter.patch('/update/:staffId', validateToken, updateStaffProfile)
 staffRouter.patch('/profile/:staffId', validateToken, updateStaffProfile)
 staffRouter.put('/profile/deactivate/:staffId', validateToken,deactivateStaffProfile)
 staffRouter.put('/profile/activate/:staffId', validateToken,activateStaffProfile)

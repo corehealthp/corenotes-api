@@ -4,6 +4,6 @@ import { Router } from "express";
 
 const userRouter = Router();
 
-userRouter.get('/profile', fetchProfile);
+userRouter.get('/profile/:userId', fetchProfile);
 
 export default userRouter 

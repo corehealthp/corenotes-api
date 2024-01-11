@@ -33,7 +33,7 @@ export default function registerIndividual(req: Request, res: Response) {
           },
           weight: requestBody.weight,
           medicareNo: requestBody.medicareNo,
-          medicareIdNo: requestBody.medicareIdNo,
+          medicaidNumber: requestBody.medicaidNumber,
           maritalStatus: requestBody.maritalStatus,
 
           codeAlert: requestBody.codeAlert,

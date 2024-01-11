@@ -65,6 +65,7 @@ export default function uploadFile(fileAmount:UploadFileType['fileAmount'], fiel
         }
 
         return file(req, res, async (error:any) => {
+            console.log(error)
             // if(uploadError) {
             //     return sendFailureResponse({res, 417, uploadError); 
             // }

@@ -41,7 +41,7 @@ export default function getServiceIndividuals(serviceId:number, pageNumber:numbe
                         age: calcAge(individual.dob),
                         gender: individual.gender,
                         compartment: (await getCompartmentById(individual.compartment))!.title,
-                        medicareIdNo: individual.medicareIdNo
+                        medicaidNumber: individual.medicaidNumber
                     })
                 }
 

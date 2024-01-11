@@ -7,7 +7,6 @@ export interface IIndividualDocument {
 
     lastSeen:Date;
     createdAt:Date;
-    
     individualId:number;
 
     // PERSONAL INFORMATION
@@ -20,7 +19,7 @@ export interface IIndividualDocument {
     maritalStatus:string,
     religion:string,
     ssn:number,
-    medicareIdNo:number,
+    medicaidNumber:number,
     insurance:string,
     insuranceNo:number,
     medicareNo:number,

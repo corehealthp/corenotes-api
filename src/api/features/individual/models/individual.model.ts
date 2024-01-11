@@ -35,20 +35,16 @@ const individualSchema = new Schema<IIndividualDocument>({
         type:String
     },
     ssn:{
-        type:Number,
-        unique:true
+        type:Number
     },
     insurance:{
       type:String,
-      unique:true
     },
     medicareNo:{
         type:Number,
-        unique:true
     },
-    medicareIdNo:{
+    medicaidNumber:{
         type:Number,
-        unique:true,
     },
     otherInsuranceNo:{
         type:Number,
@@ -56,7 +52,6 @@ const individualSchema = new Schema<IIndividualDocument>({
     },
     insuranceNo:{
         type:Number,
-        unique:true
     },
     codeAlert:Array<String>,
     weight:{
@@ -303,5 +298,12 @@ const individualSchema = new Schema<IIndividualDocument>({
     startAt: 1,
 });
 
+
+
+
 export const individualModel:Model<IIndividualDocument> =  models.individuals || model<IIndividualDocument>('individuals', individualSchema);
+
+// individualModel.updateMany({}, {$unset: {"medicareIdNo": 1}}).then(res => {
+//    console.log(res)
+//   }).catch(err => console.log(err))
 

@@ -3,11 +3,9 @@ import { verify } from "jsonwebtoken";
 import { sendFailureResponse } from "../server/serverResponse";
 import { NotAuthorizedError } from "../server/Error";
 import { getAuthUserByAuthAccessToken } from "../../services/db/auth.service";
-// import { parse } from 'cookie';
 
 export default function validateToken (req:Request, res:Response, next:NextFunction) {
     let token:string =  req.headers.cookie ?? req.headers.authorization!;
-    //  console.log(token, !token || !token.includes('sid'),'authorization ', req.headers.authorization!,'parseCookie ',parse(req.headers.cookie || ''))
     
     if(!token || !token.includes('sid')) {
         const nonAuthorizedError = new NotAuthorizedError('Unauthorized')
@@ -19,14 +17,8 @@ export default function validateToken (req:Request, res:Response, next:NextFunct
     }
 
     const allCookies = token.toString().split(';');
-    const tokenCookie = allCookies?.filter(cookie => {
-        console.log('cookie', cookie)
-        return cookie.includes('sid')
-    });
-
+    const tokenCookie = allCookies?.filter(cookie => cookie.includes('sid'));
     token = tokenCookie[0]?.split('=')[1];
-    console.log('token ', token)
-
     
     verify(token, process.env.JWT_KEY!, (error:any, decodedToken:any)=> {
         if(error) {
@@ -49,7 +41,7 @@ export default function validateToken (req:Request, res:Response, next:NextFunct
             req.currentUser = {
                 id: foundUser.id,
                 staffObjectId: foundUser.staffObjectId,
-            staffId: foundUser.staffId,
+                staffId: foundUser.staffId,
                 email: foundUser.email,
                 firstname: foundUser.firstname
             }

@@ -96,7 +96,7 @@ export default function validateRegisterIndividual(
           code: 422,
           message: "Weight field cannot be empty",
         });
-      if (!data.medicareIdNo)
+      if (!data.medicaidNumber)
         reject({
           status: false,
           code: 422,

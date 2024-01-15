@@ -78,5 +78,6 @@ export interface IStaffShift extends Document {
 export interface IStaffClockHistory extends Document {
     _id:Types.ObjectId;
     staffRef:string;
+    comment:string;
     createdAt:Date;
 }

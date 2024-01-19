@@ -4,6 +4,8 @@ import cors from "cors";
 import "./config/database/connect";
 import routes from "./api/routes";
 import dotenv from "dotenv"
+import cookieParser from "cookie-parser";
+
 dotenv.config()
 
 const app = express();
@@ -23,6 +25,8 @@ app.use(cors(options));
 
 // parses incoming JSON payloads
 app.use(express.json())
+app.use(cookieParser());
+
 // parses incoming string or arrays payloads
 app.use(urlencoded())
 // configure routes

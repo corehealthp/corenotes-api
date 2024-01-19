@@ -7,7 +7,7 @@ export default function postNewShift(req:Request, res:Response) {
     const validationResult = validatePostNewShiftRequestBody(req.body);
     if(validationResult.error) return sendValidationFailureResponse(res, validationResult.message);
 
-    getStaffUserByStaffId(parseInt(req.params.staffId))
+    getStaffUserByStaffId(req.params.staffId)
     .then((foundStaff)=> {
         if(!foundStaff) return sendNotFoundFailureResponse(res, "Staff not found");
 

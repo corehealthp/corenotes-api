@@ -3,7 +3,7 @@ import { Request,Response } from "express";
 import { getStaffUserByStaffId } from "@services/db/staff.service";
 
 export default async function deleteStaffDocument (req: Request, res: Response) {
-  const staffId = parseInt(req.params.staffId);
+  const staffId = req.params.staffId;
   const documentId = req.params.id;
 
   try {

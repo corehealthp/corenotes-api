@@ -6,7 +6,7 @@ import { Request, Response } from "express"
 
 export default function fetchStaffDocuments(req:Request, res:Response) {
 
-    fetchAllStaffDocuments(parseInt(req.params.staffId), parseInt(req.params.pageNumber))
+    fetchAllStaffDocuments(req.params.staffId, parseInt(req.params.pageNumber))
     .then((response)=> {
         return sendSuccessResponse({
             res, 

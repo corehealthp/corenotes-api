@@ -78,6 +78,14 @@ export interface IStaffShift extends Document {
 export interface IStaffClockHistory extends Document {
     _id:Types.ObjectId;
     staffRef:string;
-    comment:string;
     createdAt:Date;
+}
+
+export interface IStaffClock extends Document {
+    staffId:string;
+    startAt:string;
+    from:string;
+    to:string;
+    comment:string;
+    EndAt:string;
 }

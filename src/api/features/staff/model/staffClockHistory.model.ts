@@ -8,7 +8,6 @@ const staffClockHistoryModel: Model<IStaffClockHistory> =
     new Schema<IStaffClockHistory>({
       _id: Types.ObjectId,
       staffRef: { type: String },
-      comment:{ type: String },
       createdAt: {
         type: Date,
         default: Date.now,

@@ -80,3 +80,12 @@ export interface IStaffClockHistory extends Document {
     staffRef:string;
     createdAt:Date;
 }
+
+export interface IStaffClock extends Document {
+    staffId:string;
+    startAt:string;
+    from:string;
+    to:string;
+    comment:string;
+    EndAt:string;
+}

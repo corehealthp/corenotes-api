@@ -12,9 +12,9 @@ export function getStaffUserByUserId(userId:string) {
     })
 }
 
-export function getStaffUserByStaffId(staffId:number) {
+export function getStaffUserByStaffId(staffId:string) {
     return new Promise<IStaffDocument>((resolve, reject)=> {
-        const query = { staffId: staffId };
+        const query = { _id: staffId };
     
         staffModel.findOne(query)
         .then((foundStaffUser:IStaffDocument)=> resolve(foundStaffUser))

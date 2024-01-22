@@ -20,9 +20,9 @@ export default function uploadStaffDocument(req:Request, res:Response) {
                 docFileName: requestBody.docFileName
             }
 
-            addDocumentToStaff(parseInt(requestBody.staffId), newDocument)
+            addDocumentToStaff(requestBody.staffId, newDocument)
             .then(()=> {
-                fetchAllStaffDocuments(parseInt(requestBody.staffId), 1)
+                fetchAllStaffDocuments(requestBody.staffId, 1)
                 .then((response)=> {
                     return sendSuccessResponse({
                         res, 

@@ -17,7 +17,7 @@ interface IFetchStaffProfileDocumentsResponse {
     totalPages:number;
 }
 
-export default function fetchAllStaffDocuments(staffId:number, pageNumber:number) {
+export default function fetchAllStaffDocuments(staffId:string, pageNumber:number) {
     return new Promise<IFetchStaffProfileDocumentsResponse>((resolve, reject)=> {
 
         getStaffUserByStaffId(staffId)

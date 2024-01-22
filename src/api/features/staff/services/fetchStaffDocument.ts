@@ -15,7 +15,7 @@ interface IFetchStaffProfileDocumentsResponse {
     documents:Array<IStaffProfileDocuments>;
 }
 
-export default function fetchStaffDocument(staffId:number) {
+export default function fetchStaffDocument(staffId:any) {
     return new Promise<IFetchStaffProfileDocumentsResponse>((resolve, reject)=> {
 
         getStaffUserByStaffId(staffId)

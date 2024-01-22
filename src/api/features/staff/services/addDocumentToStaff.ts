@@ -2,7 +2,7 @@ import { INewDocument } from "@staff/controllers/documents/uploadStaffDocument/v
 import staffModel from "@staff/model/staff.model";
 import { IStaffDocument } from "@staff/model/types";
 
-export default function addDocumentToStaff(staffId:number, document:INewDocument) {
+export default function addDocumentToStaff(staffId:string, document:INewDocument) {
     return new Promise((resolve, reject)=> {
         const query = { staffId: staffId };
         const updateObj = { $push: { documents: document } };

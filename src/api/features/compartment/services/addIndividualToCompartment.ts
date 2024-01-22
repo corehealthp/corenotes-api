@@ -8,6 +8,9 @@ export default function addIndividualToSubCompartment(compartmentId:string, subC
 
         compartmentModel.findOneAndUpdate(query, updateObj, { new: true })
         .then((updatedCompartment)=> resolve(updatedCompartment))
-        .catch((error)=> reject(error))
+        .catch((error)=> {
+            console.log(error)
+            reject(error)
+        })
     })
 }

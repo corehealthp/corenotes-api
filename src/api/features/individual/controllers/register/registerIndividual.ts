@@ -49,13 +49,17 @@ export default function registerIndividual(req: Request, res: Response) {
         })
         .then((newIndividual) => {
           console.log(`REGISTRATION: New individual registered successfully`);
+          // console.log('newIndividual', newIndividual)
           
-          addIndividualToCompartment(requestBody.compartment, requestBody.subCompartmentId, newIndividual.id)
+          addIndividualToCompartment(requestBody.compartment, requestBody.subCompartmentId, newIndividual._id.toString())
           .then(()=> console.log("Individual added to subcompartment successfully"))
-          .catch(()=> console.log("Individual wasn't added to subcompartment successfully"))
+          .catch((error)=> {
+            console.log(error)
+            console.log("Individual wasn't added to subcompartment successfully")
+          })
 
           requestBody.requestedServices.forEach(async (service) => {
-            await updateServiceAssignedIndividualsById(service.service, newIndividual._id.toString())
+            await updateServiceAssignedIndividualsById(service.service, newIndividual.individualId.toString())
             .finally(() => fetchIndividuals(req, res));
           });
         })

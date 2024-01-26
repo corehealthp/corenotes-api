@@ -23,6 +23,7 @@ import activateStaffProfile from "@staff/controllers/activateStaffProfile";
 import DeleteStaffDocument from "@staff/controllers/documents/deleteStaffDocument";
 import staffClockIn from "@staff/controllers/shifts/staffClockIn";
 import staffClockOut from "@staff/controllers/shifts/staffClockOut";
+import forgotPassword from "@staff/controllers/security/forgotPassword";
 
 const staffRouter = Router();
 
@@ -48,7 +49,8 @@ staffRouter.get('/:staffId/documents/:pageNumber', validateToken, fetchStaffDocu
 staffRouter.post('/:staffId/documents', validateToken, uploadFile('single', 'staffDocFile'), uploadStaffDocument)
 staffRouter.delete('/:staffId/:documentId',validateToken,  DeleteStaffDocument)
 
-staffRouter.post('/:staffId/password-reset', validateToken, resetStaffPassword)
+staffRouter.post('/password-reset',resetStaffPassword)
+staffRouter.post('/forgot-password',forgotPassword)
 staffRouter.post('/:staffId/deactivate', validateToken, deactivateStaff)
 staffRouter.post('/:staffId/activate', validateToken, activateStaff)
 

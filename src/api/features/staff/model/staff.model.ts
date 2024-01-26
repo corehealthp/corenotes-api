@@ -113,7 +113,9 @@ const staffSchema = new Schema<IStaffDocument>({
     isClockedIn:{ 
         type:Boolean, 
         default:false 
-    }
+    },
+    resetPasswordToken: { type: String }, 
+    resetPasswordExpires: { type: Date }, 
     
 }, { timestamps:{} })
 .plugin(autoIncrementPlugin, {

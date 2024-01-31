@@ -6,7 +6,7 @@ import staffModel from "@staff/model/staff.model";
 export default async function fetchStaffs(req:Request, res:Response) {
 
      try{
-          const fetchStaff = await staffModel.find();
+          const fetchStaff = await staffModel.find().sort({ createdAt: -1 });
           res.status(200).json(fetchStaff); 
 
      }

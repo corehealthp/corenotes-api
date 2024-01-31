@@ -3,11 +3,12 @@ import { sendFailureResponse, sendSuccessResponse } from "src/api/shared/globals
 import staffModel from "@staff/model/staff.model";
 import { getStaffRoleById } from "src/api/shared/services/db/staff.service";
 
-export default function fetchProfile (req:Request, res:Response) {
+export default async function fetchProfile (req:Request, res:Response) {
     
-    const query = { _id: req.params.userId ?  req.params.userId : req.currentUser.id };
-
-    staffModel.findOne(query)
+    
+    // console.log("req.params.userId",req.params.userId)
+    // const query = { _id: req.params.userId ?  req.params.userId : req.currentUser.id };
+    await staffModel.findOne({_id:req.params.userId})
     .then(async (foundStaff)=> {
         if(!foundStaff) return sendFailureResponse({res, statusCode: 404, message: "Staff User profile doesn't exist"});
 

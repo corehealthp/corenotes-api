@@ -6,7 +6,7 @@ import staffClockModel from "@staff/model/staffClock.model";
 
 export default async function getStaffShift(req:Request, res:Response) {
     try {
-        const singleUser = await staffClockModel.find({staffId:req.params.staffId});
+        const singleUser = await staffClockModel.find({staffId:req.params.staffId}).sort({ createdAt: -1 });
        
         res.status(200).json(singleUser);
       } catch (err) {

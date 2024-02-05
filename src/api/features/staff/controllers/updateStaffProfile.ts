@@ -15,6 +15,7 @@ export default function updateStaffProfile(req: Request, res: Response) {
     .then((singleUser) => {
       if (singleUser) {
         // If user is found, extract username and password
+        //comment
         const { username, password, providerRole, hiredAt, jobSchedule } =
           singleUser;
         const updateProps = {

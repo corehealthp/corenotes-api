@@ -12,23 +12,23 @@ export default function registerIndividual(req: Request, res: Response) {
     .then(({ requestBody }: validateRegisterIndividualRequestBodyType) => {
       individualModel
         .create({
-          firstname: requestBody.firstname,
-          middlename: requestBody.middlename,
-          lastname: requestBody.lastname,
-          nickname: requestBody.nickname,
+          firstname: requestBody.firstname.toLowerCase(),
+          middlename: requestBody.middlename.toLowerCase(),
+          lastname: requestBody.lastname.toLowerCase(),
+          nickname: requestBody.nickname.toLowerCase(),
 
           dob: requestBody.dob,
           gender: requestBody.gender,
           religion: requestBody.religion,
 
           ssn: requestBody.ssn,
-          insurance:requestBody.insurance,
-          insuranceNo:requestBody.insuranceNo,
-          otherInsuranceNo:requestBody.insuranceNo,
-          
+          insurance: requestBody.insurance,
+          insuranceNo: requestBody.insuranceNo,
+          otherInsuranceNo: requestBody.insuranceNo,
+
           contact: {
-            name: requestBody.contact.name,
-            email: requestBody.contact.email,
+            name: requestBody.contact.name.toLowerCase(),
+            email: requestBody.contact.email.toLowerCase(),
             phoneNumber: requestBody.contact.phoneNumber,
           },
           weight: requestBody.weight,
@@ -49,14 +49,26 @@ export default function registerIndividual(req: Request, res: Response) {
         })
         .then((newIndividual) => {
           console.log(`REGISTRATION: New individual registered successfully`);
-          
-          addIndividualToCompartment(requestBody.compartment, requestBody.subCompartmentId, newIndividual.id)
-          .then(()=> console.log("Individual added to subcompartment successfully"))
-          .catch(()=> console.log("Individual wasn't added to subcompartment successfully"))
+
+          addIndividualToCompartment(
+            requestBody.compartment,
+            requestBody.subCompartmentId,
+            newIndividual.id
+          )
+            .then(() =>
+              console.log("Individual added to subcompartment successfully")
+            )
+            .catch(() =>
+              console.log(
+                "Individual wasn't added to subcompartment successfully"
+              )
+            );
 
           requestBody.requestedServices.forEach(async (service) => {
-            await updateServiceAssignedIndividualsById(service.service, newIndividual._id.toString())
-            .finally(() => fetchIndividuals(req, res));
+            await updateServiceAssignedIndividualsById(
+              service.service,
+              newIndividual._id.toString()
+            ).finally(() => fetchIndividuals(req, res));
           });
         })
         .catch((error) => {

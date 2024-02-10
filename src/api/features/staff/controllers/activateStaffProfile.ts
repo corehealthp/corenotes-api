@@ -2,6 +2,8 @@ import { sendFailureResponse, sendSuccessResponse } from "@globals/server/server
 import { getStaffUserByStaffId } from "@services/db/staff.service";
 import { Request, Response } from "express";
 export default function activateStaffProfile(req:Request,res:Response){
+
+  
   getStaffUserByStaffId(req.params.staffId)
   .then(async (foundStaff)=> {
     

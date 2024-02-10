@@ -14,7 +14,7 @@ export interface IIndividualServicesList {
     frequency:string;
 }
 
-export default function fetchAllIndividualServices(individualId:number) {
+export default function fetchAllIndividualServices(individualId:string) {
     return new Promise<IIndividualServicesList[]>((resolve, reject)=> {
     
         getIndividualByIndividualId(individualId)

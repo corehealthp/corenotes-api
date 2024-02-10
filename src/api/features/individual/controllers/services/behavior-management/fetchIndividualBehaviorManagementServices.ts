@@ -3,7 +3,7 @@ import { sendFailureResponse, sendSuccessResponse } from "@globals/server/server
 import fetchBehaviorManagementServices from "./fetchBehaviorManagementServices"
 
 export default function fetchIndividualBehaviorManagementServices(req:Request, res:Response) {
-    fetchBehaviorManagementServices(parseInt(req.params.individualId), parseInt(req.params.pageNumber))
+    fetchBehaviorManagementServices(req.params.individualId, parseInt(req.params.pageNumber))
     .then((response)=> {
         console.log(response)
         return sendSuccessResponse({

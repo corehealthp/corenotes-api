@@ -18,7 +18,7 @@ import { IIMakeTornadoDrillTaskDets } from "./tornado-drill/makeTornadoDrillTask
 import createTornadoDrillTask from "./tornado-drill/createTornadoDrillTask";
 
 interface IRequestBody {
-    individualId:number;
+    individualId:string;
     serviceId:number;
     schedule:{
         startDate:string;

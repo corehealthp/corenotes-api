@@ -5,7 +5,7 @@ import { Request, Response } from "express";
 import fetchIndividualMedicationSupervisoryReviews from "../../services/fetchIndividualMedicationSupervisoryReviews";
 
 export default function getIndividualMedicationSupervisoryReview(req:Request, res:Response) {
-    const individualId:number = parseInt(req.params.individualId);
+    const individualId:string = req.params.individualId;
     const medicationId:number = parseInt(req.params.medicationId);
     const pageNumber:number = parseInt(req.params.pageNumber)
 

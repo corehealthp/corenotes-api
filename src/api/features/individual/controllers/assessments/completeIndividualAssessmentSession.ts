@@ -8,7 +8,7 @@ import { getAssessmentByObjId } from "src/api/shared/services/db/assessment.serv
 
 export default function completeIndividualAssessmentSession(req:Request, res:Response) {
 
-    getIndividualByIndividualId(parseInt(req.params.individualId))
+    getIndividualByIndividualId(req.params.individualId)
     .then((foundIndividual)=> {
         
         if(!foundIndividual) return sendNotFoundFailureResponse(res, "Individual not found");

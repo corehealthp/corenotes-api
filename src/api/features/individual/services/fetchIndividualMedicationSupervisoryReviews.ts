@@ -23,7 +23,7 @@ export interface IMedicationSupervisoryReviewListItem {
     reviewedAt:Date;
 }
 
-export default function fetchIndividualMedicationSupervisoryReviews(individualId:number, medicationObjectId:string, pageNumber:number) {
+export default function fetchIndividualMedicationSupervisoryReviews(individualId:string, medicationObjectId:string, pageNumber:number) {
     return new Promise<IFetchIndividualMedicationSupervisoryReviewResponse>((resolve, reject)=> {
         getIndividualByIndividualId(individualId)
         .then(async (foundIndividual)=> {

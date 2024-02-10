@@ -18,7 +18,7 @@ interface IIndividualDailyLivingActivity {
     time:string;
 }
 
-export default function fetchDailyLivingActivityServices(individualId:number, pageNumber:number) {
+export default function fetchDailyLivingActivityServices(individualId:string, pageNumber:number) {
     return new Promise<IFetchIndividualDailyLivingActivityResponse>((resolve, reject)=> {
         getIndividualByIndividualId(individualId)
         .then(async (foundIndividual)=> {

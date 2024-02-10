@@ -4,7 +4,7 @@ import fetchAllAssessmentsNotAssignedToIndividual from "@individual/services/ind
 import { getIndividualByIndividualId } from "src/api/shared/services/db/individual.service";
 
 export default function getAssessmentsToAssign(req:Request, res:Response) {
-    getIndividualByIndividualId(parseInt(req.params.individualId))
+    getIndividualByIndividualId(req.params.individualId)
     .then((foundIndividual)=> {
         if(!foundIndividual) return sendNotFoundFailureResponse(res, "Individial not found");
 

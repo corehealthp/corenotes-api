@@ -3,10 +3,10 @@ import { IStaffDocument } from "@staff/model/types";
 import { IUserDocument } from "@user/models/types";
 import userModel from "@user/models/user.model";
 
-export default function deactivateStaffUser(staffId:number) {
+export default function deactivateStaffUser(staffId:string) {
     return new Promise<IStaffDocument>((resolve, reject)=> {
         
-        const query = { staffId: staffId };
+        const query = { _id: staffId };
         const updateObj = { $set: { active: false } };
 
         staffModel.findOneAndUpdate(query, updateObj, { new: true })

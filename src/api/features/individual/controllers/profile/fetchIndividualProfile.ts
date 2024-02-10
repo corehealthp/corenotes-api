@@ -4,7 +4,7 @@ import { getIndividualByIndividualId } from "src/api/shared/services/db/individu
 import { Request, Response } from "express"
 
 export default function fetchIndividualProfile(req:Request, res:Response) {
-    getIndividualByIndividualId(parseInt(req.params.individualId))
+    getIndividualByIndividualId(req.params.individualId)
     .then((foundIndividual)=> {
 
         return sendSuccessResponse({

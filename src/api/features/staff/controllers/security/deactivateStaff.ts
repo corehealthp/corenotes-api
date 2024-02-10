@@ -2,13 +2,13 @@ import { Request, Response } from "express"
 import { verifyPassword } from "src/api/shared/services/security/password"
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse"
 import { IStaffDocument } from "@staff/model/types"
-import { getStaffUserById, getStaffUserByUserId } from "src/api/shared/services/db/staff.service"
+import { getStaffUserById, getStaffUserByStaffId, getStaffUserByUserId } from "src/api/shared/services/db/staff.service"
 import { NotAuthorizedError } from "@globals/server/Error"
 import deactivateStaffUser from "@staff/services/deactivateStaff"
 
 export default function deactivateStaff(req:Request, res:Response) {
 
-    getStaffUserByUserId(req.currentUser.id!)
+    getStaffUserByStaffId(req.currentUser.id!)
     .then((foundStaff:IStaffDocument)=> {
     
         verifyPassword(req.body.password, foundStaff.password!)
@@ -23,7 +23,7 @@ export default function deactivateStaff(req:Request, res:Response) {
                 });
             }
 
-            deactivateStaffUser(parseInt(req.params.staffId))
+            deactivateStaffUser(req.params.staffId)
             .then((deactivatedStaff:IStaffDocument)=> {
 
                 console.log("Staff has been deactivated successfully")

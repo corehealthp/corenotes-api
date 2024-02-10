@@ -13,10 +13,10 @@ interface IAdministerPRNMedicationResponse {
 }
 
 interface IAdministerPRNMedication {
-    individualId:number;
+    individualId:string;
     individualMedicationId:string;
     medicationId:string;
-    staffId:number;
+    staffId:string;
     amountAdministered:number;
     note:string;
 }

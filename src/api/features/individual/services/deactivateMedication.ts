@@ -2,7 +2,7 @@ import { NotFoundError } from "@globals/server/Error"
 import { individualModel } from "@individual/models/individual.model"
 import { IIndividualMedication } from "@individual/models/types"
 
-export default function deactivateIndividualMedication(medicationObjectId:string, individualId:number, newState:boolean) {
+export default function deactivateIndividualMedication(medicationObjectId:string, individualId:string, newState:boolean) {
     return new Promise<IIndividualMedication[]>((resolve, reject)=> {
 
         const query = { individualId, "medications.medicationId": medicationObjectId }

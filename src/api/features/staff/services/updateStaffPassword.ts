@@ -1,7 +1,7 @@
 import staffModel from "@staff/model/staff.model"
 import { IStaffDocument } from "@staff/model/types"
 
-export default function updateStaffPassword(staffId:number, newPassword:string) {
+export default function updateStaffPassword(staffId:string, newPassword:string) {
     return new Promise<IStaffDocument>((resolve, reject)=> {
 
         const query = { staffId: staffId }

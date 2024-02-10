@@ -13,9 +13,9 @@ export default function patchDiscontinueMedication(req:Request, res:Response) {
             return sendFailureResponse({ res, ...notFoundError });
         }
 
-        deactivateMedication(foundMedication._id.toString(), parseInt(req.params.individualId), req.body.active)
+        deactivateMedication(foundMedication._id.toString(), req.params.individualId, req.body.active)
         .then(()=> {
-            fetchIndividualMedications(parseInt(req.params.individualId), req.body.currentPage)
+            fetchIndividualMedications(req.params.individualId, req.body.currentPage)
             .then((response)=> {
                 console.log(response)
                 return sendSuccessResponse({

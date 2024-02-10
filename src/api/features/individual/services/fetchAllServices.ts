@@ -12,7 +12,7 @@ export interface IFetchIndividualResponse {
 
 export interface IIndividualListItem {
     id:string;
-    individualId:number;
+    individualId:string;
     profileImage:string;
     firstname:string;
     lastname:string;

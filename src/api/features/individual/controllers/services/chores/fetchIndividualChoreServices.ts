@@ -3,7 +3,7 @@ import { sendFailureResponse, sendSuccessResponse } from "@globals/server/server
 import fetchChoreServices from "./fetchChoreServices"
 
 export default function fetchIndividualChoreServices(req:Request, res:Response) {
-    fetchChoreServices(parseInt(req.params.individualId), parseInt(req.params.pageNumber))
+    fetchChoreServices(req.params.individualId, parseInt(req.params.pageNumber))
     .then((response)=> {
         return sendSuccessResponse({
             res, 

@@ -5,7 +5,7 @@ export interface IStaffDocument extends Document {
   active: boolean;
   lastSeen: Date;
   createdAt: Date;
-  staffId: number;
+  staffId: string;
   accessToken: string;
 
   // PERSONAL INFORMATION

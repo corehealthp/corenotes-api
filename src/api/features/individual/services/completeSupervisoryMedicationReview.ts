@@ -8,7 +8,7 @@ import { Types } from "mongoose";
 export default function completeSupervisoryMedicationReview({
     individualId, medicationId, newPharmacy, newAllocatedAmount, staffObjectId
 
-}:{individualId:number, medicationId:string, newPharmacy:string, newAllocatedAmount:number, staffObjectId?:string}) {
+}:{individualId:string, medicationId:string, newPharmacy:string, newAllocatedAmount:number, staffObjectId?:string}) {
     return new Promise<IIndividualDocument|null>((resolve, reject)=> {
         getIndividualByIndividualId(individualId)
         .then((foundIndividual)=> {

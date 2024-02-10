@@ -4,7 +4,7 @@ import autoIncrementPlugin from "src/config/database/autoIncrementInit";
 
 const individualSchema = new Schema<IIndividualDocument>({
     individualId: {
-        type:Number
+        type:String
     },
     active:{
         type:Boolean,

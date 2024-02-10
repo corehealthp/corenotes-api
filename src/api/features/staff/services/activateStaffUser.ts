@@ -2,10 +2,10 @@ import staffModel from "@staff/model/staff.model"
 import { IStaffDocument } from "@staff/model/types";
 import userModel from "@user/models/user.model";
 
-export default function activateStaffUser(staffId:number) {
+export default function activateStaffUser(staffId:string) {
     return new Promise<IStaffDocument>((resolve, reject)=> {
         
-        const query = { staffId: staffId };
+        const query = { _id: staffId };
         const updateObj = { $set: { active: true } };
 
         staffModel.findOneAndUpdate(query, updateObj, { new: true })

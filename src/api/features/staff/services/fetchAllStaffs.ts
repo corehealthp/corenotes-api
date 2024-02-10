@@ -12,7 +12,7 @@ interface IFetchStaffResponse {
 
 interface staffList {
     id:string;
-    staffId:number;
+    staffId:string;
     profileImage:string; 
     firstname:string; 
     lastname:string; 

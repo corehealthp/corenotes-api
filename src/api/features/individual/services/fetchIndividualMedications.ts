@@ -26,7 +26,7 @@ interface IIndividualMedication {
     time:string;
 }
 
-export default function fetchIndividualMedications(individualId:number, pageNumber:number) {
+export default function fetchIndividualMedications(individualId:string, pageNumber:number) {
     return new Promise<IFetchIndividualMedicationsResponse>((resolve, reject)=> {
         getIndividualByIndividualId(individualId)
         .then(async (foundIndividual)=> {

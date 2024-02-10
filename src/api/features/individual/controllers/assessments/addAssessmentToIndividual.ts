@@ -11,7 +11,7 @@ export default function addAssessmentToIndividual(req:Request, res:Response) {
 
     const assessments:string[] = req.body.assessments;
 
-    getIndividualByIndividualId(parseInt(req.params.individualId))
+    getIndividualByIndividualId(req.params.individualId)
     .then(async (foundIndividual)=> {
         if(!foundIndividual) return sendNotFoundFailureResponse(res, "Individual not found")
         

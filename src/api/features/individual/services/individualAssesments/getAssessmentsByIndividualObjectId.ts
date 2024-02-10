@@ -19,7 +19,7 @@ interface IMappedAssessment {
     status:string;
 }
 
-export default function getAssessmentsByIndividualId(individualId:number, pageNumber:number) {
+export default function getAssessmentsByIndividualId(individualId:string, pageNumber:number) {
     return new Promise<IIndividualAssessmentResponse>((resolve, reject)=> {
 
         getIndividualByIndividualId(individualId)

@@ -17,7 +17,7 @@ interface IIndividualGoal {
     time:string;
 }
 
-export default function fetchGoalTrackingServices(individualId:number, pageNumber:number) {
+export default function fetchGoalTrackingServices(individualId:string, pageNumber:number) {
     return new Promise<IFetchIndividualGoalsResponse>((resolve, reject)=> {
         getIndividualByIndividualId(individualId)
         .then(async (foundIndividual)=> {

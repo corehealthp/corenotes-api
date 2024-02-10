@@ -24,7 +24,7 @@ export default function addBehaviorService(req:Request, res:Response) {
         }
     }
 
-    getIndividualByIndividualId(parseInt(req.params.individualId))
+    getIndividualByIndividualId(req.params.individualId)
     .then((foundIndividual)=> {
         if(!foundIndividual) return sendNotFoundFailureResponse(res, "Individual not found");
 

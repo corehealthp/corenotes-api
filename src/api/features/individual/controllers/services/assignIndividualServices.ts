@@ -33,7 +33,7 @@ export default function assignIndividualServices(req:Request, res:Response) {
 
                 if(servicesToCreateTasksForOnAssign.includes(service.refName)) {
                     
-                    const individual = await getIndividualByIndividualId(parseInt(requestBody.individualId));
+                    const individual = await getIndividualByIndividualId(requestBody.individualId);
 
                     if(service.refName === "skin-integrity") {
                         const skinIntegrityDets:IIMakeSkinIntegrityTaskDets = {

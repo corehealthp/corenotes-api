@@ -18,7 +18,7 @@ interface IIndividualChore {
     createdAt:Date;
 }
 
-export default function fetchChoreServices(individualId:number, pageNumber:number) {
+export default function fetchChoreServices(individualId:string, pageNumber:number) {
     return new Promise<IFetchIndividualChoreResponse>((resolve, reject)=> {
         getIndividualByIndividualId(individualId)
         .then(async (foundIndividual)=> {

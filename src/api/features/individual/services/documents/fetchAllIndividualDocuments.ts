@@ -18,7 +18,7 @@ interface IFetchIndividualProfileDocumentsResponse {
     totalPages:number;
 }
 
-export default function fetchAllIndividualDocuments(staffId:number, pageNumber:number) {
+export default function fetchAllIndividualDocuments(staffId:string, pageNumber:number) {
     return new Promise<IFetchIndividualProfileDocumentsResponse>((resolve, reject)=> {
 
         getIndividualByIndividualId(staffId)

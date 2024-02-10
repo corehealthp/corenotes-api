@@ -3,7 +3,7 @@ import getAssessmentsByIndividualId from "@individual/services/individualAssesme
 import { Request, Response } from "express";
 
 export default function fetchIndividualAssessments(req:Request, res:Response) {
-    getAssessmentsByIndividualId(parseInt(req.params.individualId), parseInt(req.params.pageNumber))
+    getAssessmentsByIndividualId(req.params.individualId, parseInt(req.params.pageNumber))
     .then((response)=> {
         return sendSuccessResponse({
             res,

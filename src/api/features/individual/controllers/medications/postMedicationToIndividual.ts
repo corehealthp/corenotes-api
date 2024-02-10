@@ -6,7 +6,7 @@ import { getIndividualByIndividualId, updateIndividualMedicationsByIndividualId 
 import createNewMedicationTask from "src/api/features/task/services/medication/createNewMedicationTask";
 
 export default function postMedicationToIndividual(req:Request, res:Response) {
-    getIndividualByIndividualId(parseInt(req.params.individualId))
+    getIndividualByIndividualId(req.params.individualId)
     .then((foundIndividual)=> {
         if(!foundIndividual) {
             const notFoundError = new NotFoundError('Individual not found');
@@ -29,7 +29,7 @@ export default function postMedicationToIndividual(req:Request, res:Response) {
         }
 
         updateIndividualMedicationsByIndividualId({
-            individualId: parseInt(req.params.individualId), 
+            individualId: req.params.individualId, 
             medicationId: req.body.medicationId,
             pharmacy: req.body.pharmacy,
             schedule: req.body.schedule,
@@ -57,7 +57,7 @@ export default function postMedicationToIndividual(req:Request, res:Response) {
                 console.log("There was an error creating medication task", error)
             })
 
-            fetchIndividualMedications(parseInt(req.params.individualId), 1)
+            fetchIndividualMedications(req.params.individualId, 1)
             .then((response)=> {
                 sendSuccessResponse({
                     res,

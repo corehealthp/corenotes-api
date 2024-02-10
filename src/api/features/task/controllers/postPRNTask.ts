@@ -4,7 +4,7 @@ import { sendFailureResponse, sendSuccessResponse } from "@globals/server/server
 
 export default function postPRNTask(req:Request, res:Response) {
     const requestBody = {
-        individualId: parseInt(req.body.individualId),
+        individualId: req.body.individualId,
         serviceId: parseInt(req.body.serviceId),
         schedule: req.body.schedule,
     }

@@ -4,7 +4,7 @@ import { sendFailureResponse, sendSuccessResponse } from "@globals/server/server
 import { ServerError } from "@globals/server/Error";
 
 export default function fetchIndividualServices(req:Request, res:Response) {
-    fetchAllIndividualServices(parseInt(req.params.individualId))
+    fetchAllIndividualServices(req.params.individualId)
     .then((individualServices)=> {
         return sendSuccessResponse({
             res, statusCode: 200, 

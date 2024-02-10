@@ -29,10 +29,10 @@ export type IMedicationType = ""|"PRN"|"SCHEDULED"
 export interface IMedicationAdministrationHistoryDocument {
     _id:Types.ObjectId;
     historyId?:number;
-    individualRef:number;
+    individualRef:string;
     individualMedicationRef:string;
     medicationId:string;
-    staffRef:number;
+    staffRef:string;
     title:string;
     imageURL?:string;
     amountAdministered:number

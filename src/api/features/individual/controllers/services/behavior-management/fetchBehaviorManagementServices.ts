@@ -18,7 +18,7 @@ interface IIndividualBehavior {
     createdAt:Date;
 }
 
-export default function fetchBehaviorManagementServices(individualId:number, pageNumber:number) {
+export default function fetchBehaviorManagementServices(individualId:string, pageNumber:number) {
     return new Promise<IFetchIndividualBehaviorResponse>((resolve, reject)=> {
         getIndividualByIndividualId(individualId)
         .then(async (foundIndividual)=> {

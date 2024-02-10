@@ -3,7 +3,7 @@ import { sendFailureResponse, sendSuccessResponse } from "@globals/server/server
 import fetchGoalTrackingServices from "./fetchGoalTrackingServices"
 
 export default function fetchIndividualGoalsTrackingServices(req:Request, res:Response) {
-    fetchGoalTrackingServices(parseInt(req.params.individualId), parseInt(req.params.pageNumber))
+    fetchGoalTrackingServices(req.params.individualId, parseInt(req.params.pageNumber))
     .then((response)=> {
         return sendSuccessResponse({
             res, statusCode: 201, message:"New goal added successfully", data: response

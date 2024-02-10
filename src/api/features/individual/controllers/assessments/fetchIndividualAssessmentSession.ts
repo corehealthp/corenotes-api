@@ -21,7 +21,7 @@ export interface IAssessmentSessionResponse {
 export default function fetchIndividualAssessmentSession(req:Request, res:Response) {
 
     const requestBody = {
-        individualId: parseInt(req.params.individualId),
+        individualId: req.params.individualId,
         assessmentId: req.params.assessmentId
     }
 

@@ -4,7 +4,7 @@ import fetchIndividualMedications from "@individual/services/fetchIndividualMedi
 import { Request, Response } from "express";
 
 export default function getIndividualMedications(req:Request, res:Response) {
-    fetchIndividualMedications(parseInt(req.params.individualId), parseInt(req.params.pageNumber))
+    fetchIndividualMedications(req.params.individualId, parseInt(req.params.pageNumber))
     .then((response)=> {
         return sendSuccessResponse({
             res,

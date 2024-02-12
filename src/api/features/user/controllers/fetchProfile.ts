@@ -23,6 +23,7 @@ export default function fetchProfile (req:Request, res:Response) {
             lastSeen: foundStaff.lastSeen,
             firstname: foundStaff.firstname,
             lastname: foundStaff.lastname,
+            isClockedIn: foundStaff.isClockedIn,
             profileImage: foundStaff.profileImage,
         }
 

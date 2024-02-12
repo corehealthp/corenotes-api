@@ -21,23 +21,25 @@ import getClockOut from "@staff/controllers/shifts/getClockOut";
 import deactivateStaffProfile from "@staff/controllers/deactivateStaffProfile";
 import activateStaffProfile from "@staff/controllers/activateStaffProfile";
 import DeleteStaffDocument from "@staff/controllers/documents/deleteStaffDocument";
+import staffClockIn from "@staff/controllers/shifts/staffClockIn";
+import staffClockOut from "@staff/controllers/shifts/staffClockOut";
 
 const staffRouter = Router();
 
 staffRouter.post('/register', validateToken, register)
 
-staffRouter.post('/clock-out', validateToken, getClockOut);
-staffRouter.post('/clock-in', validateToken, getClockIn);
+staffRouter.post('/clock-out', validateToken, staffClockOut);
+staffRouter.post('/clock-in',validateToken, staffClockIn);
 
-staffRouter.post('/:staffId/shifts', validateToken, postNewShift);
+staffRouter.get('/shifts/:staffId', getStaffShifts);
 staffRouter.get('/:staffId/shifts/:pageNumber', validateToken, getStaffShifts);
+staffRouter.get('/profile/:staffId',  fetchStaffProfile)
 
 
 staffRouter.get('/roles/details/:roleId', validateToken, fetchStaffRolesDetails)
 staffRouter.post('/roles', validateToken, createStaffRole)
 staffRouter.get('/roles/:pageNumber', validateToken, fetchStaffRoles)
 
-staffRouter.get('/profile/:staffId', validateToken, fetchStaffProfile)
 staffRouter.patch('/profile/:staffId', validateToken, updateStaffProfile)
 staffRouter.put('/profile/deactivate/:staffId', validateToken,deactivateStaffProfile)
 staffRouter.put('/profile/activate/:staffId', validateToken,activateStaffProfile)
@@ -52,7 +54,9 @@ staffRouter.post('/:staffId/activate', validateToken, activateStaff)
 
 staffRouter.post('/:staffId/activities/:pageNumber', fetchStaffActivities)
 
-staffRouter.get('/:pageNumber', fetchStaffs)
+// staffRouter.get('/:pageNumber', fetchStaffs)
+staffRouter.get('/get-all-staff', fetchStaffs)
+
 
 
 

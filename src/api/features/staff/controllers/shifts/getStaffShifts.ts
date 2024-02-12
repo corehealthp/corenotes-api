@@ -2,23 +2,14 @@ import { sendNotFoundFailureResponse, sendServerFailureResponse, sendSuccessResp
 import { getStaffUserByStaffId } from "src/api/shared/services/db/staff.service";
 import fetchStaffShifts from "@staff/services/shifts/fetchStaffShifts";
 import { Request, Response } from "express";
+import staffClockModel from "@staff/model/staffClock.model";
 
-export default function getNewShift(req:Request, res:Response) {
-    getStaffUserByStaffId(parseInt(req.params.staffId))
-    .then((foundStaff)=> {
-        if(!foundStaff) return sendNotFoundFailureResponse(res, "Staff not found");
-
-        fetchStaffShifts(foundStaff.id, parseInt(req.params.pageNumber))
-        .then((response)=> {
-            return sendSuccessResponse({ res, statusCode: 200, message:"Staff shifts retrieved successfully", data: response })
-        })
-        .catch((error)=> {
-            console.log("There was an error fetching staff shifts", error);
-            return sendServerFailureResponse(res, "There was a server error, please try again");
-        })
-    })
-    .catch((error)=> {
-        console.log("There was an error getting staff user by staff id", error);
-        return sendServerFailureResponse(res, "There was a server error, please try again");
-    })
+export default async function getStaffShift(req:Request, res:Response) {
+    try {
+        const singleUser = await staffClockModel.find({staffId:req.params.staffId});
+       
+        res.status(200).json(singleUser);
+      } catch (err) {
+        res.status(500).json(err);
+      }
 }

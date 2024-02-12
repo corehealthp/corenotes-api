@@ -1,5 +1,5 @@
 export interface ICompartmentFormat {
-    // id:string;
+    id:string;
     compartmentId:number;
     title:string;
     subCompartmentsCount:number;

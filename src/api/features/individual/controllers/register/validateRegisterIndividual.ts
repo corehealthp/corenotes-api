@@ -80,7 +80,11 @@ export default function validateRegisterIndividual(
           code: 422,
           message: "Email field cannot be empty",
         });
-      if (!isEmailValid(data.contact.email))
+      if (
+        data.contact &&
+        data.contact.email &&
+        !isEmailValid(data.contact.email)
+      )
         reject({ status: false, code: 422, message: "Email is invalid" });
 
       if (!data.contact?.phoneNumber)
@@ -102,7 +106,7 @@ export default function validateRegisterIndividual(
           code: 422,
           message: "MedicareId number field cannot be empty",
         });
-      if (!data.medicareNo)
+      if (!data.medicareIdNo)
         reject({
           status: false,
           code: 422,
@@ -115,7 +119,7 @@ export default function validateRegisterIndividual(
           message: "Marital status field cannot be empty",
         });
 
-      if (!data.codeAlert.length)
+      if (!data.codeAlert?.length)
         reject({
           status: false,
           code: 422,
@@ -128,7 +132,7 @@ export default function validateRegisterIndividual(
           code: 422,
           message: "Compartment field cannot be empty",
         });
-      
+
       if (!data.subCompartmentId)
         reject({
           status: false,
@@ -136,7 +140,7 @@ export default function validateRegisterIndividual(
           message: "'subCompartmentId' field cannot be empty",
         });
 
-      if (!data.requestedServices?.length)
+      if (!data.services?.length)
         reject({
           status: false,
           code: 422,

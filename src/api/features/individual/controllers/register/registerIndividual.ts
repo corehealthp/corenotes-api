@@ -1,85 +1,73 @@
 import { Request, Response } from "express";
-import validateRegisterIndividual from "./validateRegisterIndividual";
-import { validateRegisterIndividualRequestBodyType } from "./types";
 import fetchIndividuals from "../fetchIndividuals";
 import { sendFailureResponse } from "@globals/server/serverResponse";
 import { updateServiceAssignedIndividualsById } from "src/api/shared/services/db/service.service";
 import { individualModel } from "@individual/models/individual.model";
 import addIndividualToCompartment from "src/api/features/compartment/services/addIndividualToCompartment";
+import { registerIndividualRequestBodyType } from "./types";
 
 export default function registerIndividual(req: Request, res: Response) {
-  validateRegisterIndividual({ ...req.body })
-    .then(({ requestBody }: validateRegisterIndividualRequestBodyType) => {
-      individualModel
-        .create({
-          firstname: requestBody.firstname.toLowerCase(),
-          middlename: requestBody.middlename.toLowerCase(),
-          lastname: requestBody.lastname.toLowerCase(),
-          nickname: requestBody.nickname.toLowerCase(),
+  const individualData: registerIndividualRequestBodyType = {
+    firstname: req.body.firstname?.toLowerCase(),
+    middlename: req.body.middlename?.toLowerCase(),
+    lastname: req.body.lastname?.toLowerCase(),
+    nickname: req.body.nickname?.toLowerCase(),
 
-          dob: requestBody.dob,
-          gender: requestBody.gender,
-          religion: requestBody.religion,
+    dob: req.body.dob,
+    gender: req.body.gender,
+    religion: req.body.religion,
 
-          ssn: requestBody.ssn,
-          insurance: requestBody.insurance,
-          insuranceNo: requestBody.insuranceNo,
-          otherInsuranceNo: requestBody.insuranceNo,
+    ssn: req.body.ssn,
+    insurance: req.body.insurance,
+    insuranceNo: req.body.insuranceNo,
+    otherInsuranceNo: req.body.otherInsuranceNo,
 
-          contact: {
-            name: requestBody.contact.name.toLowerCase(),
-            email: requestBody.contact.email.toLowerCase(),
-            phoneNumber: requestBody.contact.phoneNumber,
-          },
-          weight: requestBody.weight,
-          medicareNo: requestBody.medicareNo,
-          medicaidNumber: requestBody.medicaidNumber,
-          maritalStatus: requestBody.maritalStatus,
+    contact: {
+      name: req.body.contact?.name?.toLowerCase(),
+      email: req.body.contact?.email?.toLowerCase(),
+      phoneNumber: req.body.contact?.phoneNumber,
+    },
+    weight: req.body.weight,
+    medicareIdNo: req.body.medicareIdNo,
+    medicaidNumber: req.body.medicaidNumber,
+    maritalStatus: req.body.maritalStatus,
 
-          codeAlert: requestBody.codeAlert,
-          compartment: requestBody.compartment,
-          subCompartment: requestBody.subCompartmentId,
-          services: requestBody.requestedServices,
-          diet: requestBody.diet,
-          allergies: {
-            food: requestBody.allergies.food,
-            med: requestBody.allergies.med,
-            other: requestBody.allergies.other,
-          },
-        })
-        .then((newIndividual) => {
-          console.log(`REGISTRATION: New individual registered successfully`);
+    codeAlert: req.body.codeAlert,
+    compartment: req.body.compartment,
+    subCompartmentId: req.body.subCompartmentId,
+    services: req.body.requestedServices,
+    diet: req.body.diet,
+    allergies: {
+      food: req.body.allergies?.food,
+      med: req.body.allergies?.med,
+      other: req.body.allergies?.other,
+    },
+  };
 
-          addIndividualToCompartment(
-            requestBody.compartment,
-            requestBody.subCompartmentId,
-            newIndividual.id
-          )
-            .then(() =>
-              console.log("Individual added to subcompartment successfully")
-            )
-            .catch(() =>
-              console.log(
-                "Individual wasn't added to subcompartment successfully"
-              )
-            );
+  individualModel
+    .create(individualData)
+    .then((newIndividual) => {
+      console.log(`REGISTRATION: New individual registered successfully`);
 
-          requestBody.requestedServices.forEach(async (service) => {
-            await updateServiceAssignedIndividualsById(
-              service.service,
-              newIndividual._id.toString()
-            ).finally(() => fetchIndividuals(req, res));
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-          return sendFailureResponse({
-            res,
-            statusCode: 422,
-            message:
-              error.message ?? "There was an error creating new individual",
-          });
-        });
+      addIndividualToCompartment(
+        req.body.compartment!,
+        req.body.subCompartmentId!,
+        newIndividual.id
+      )
+        .then(() =>
+          console.log("Individual added to subcompartment successfully")
+        )
+        .catch(() =>
+          console.log("Individual wasn't added to subcompartment successfully")
+        );
+
+      individualData.services?.forEach(async (service) => {
+        if (service.service)
+          await updateServiceAssignedIndividualsById(
+            service?.service,
+            newIndividual._id.toString()
+          ).finally(() => fetchIndividuals(req, res));
+      });
     })
     .catch((error) => {
       console.log(error);

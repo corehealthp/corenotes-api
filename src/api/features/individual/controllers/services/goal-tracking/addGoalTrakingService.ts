@@ -21,7 +21,7 @@ export default function addGoalTrackingService(req:Request, res:Response) {
         }
     }
     
-    const query = { individualId: parseInt(req.params.individualId) }
+    const query = { individualId: req.params.individualId }
     const updateObj = { $push: { goalTracking: newGoalData } }
     
     individualModel.findOneAndUpdate(query, updateObj, { new: true })

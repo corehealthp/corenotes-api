@@ -26,7 +26,7 @@ export default function validateToken(
 
   verify(token, process.env.JWT_KEY!, (error: any, decodedToken: any) => {
     if (error) {
-      console.log("error", error);
+      console.log("error",error);
       const unauthorizedError = new NotAuthorizedError("There was an error");
       return sendFailureResponse({
         res,

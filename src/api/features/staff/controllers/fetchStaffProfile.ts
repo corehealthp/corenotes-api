@@ -30,7 +30,6 @@ import Staff from "../model/staff.model";
 
 
 export default async function fetchStaffProfile(req:Request, res:Response) {
-    console.log(req.params.staffId)
     try {
         const singleUser = await Staff.findOne({_id:req.params.staffId});
        

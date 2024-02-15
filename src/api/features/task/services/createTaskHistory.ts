@@ -3,10 +3,10 @@ import { medicationAdministrationHistoryModel } from "../../medication/model/med
 import { IMedicationAdministrationHistoryDocument } from "../../medication/model/types";
 
 export interface IAdministerMedicationHistory {
-    individualId:number;
+    individualId:string;
     individualMedicationId:string;
     medicationId:string;
-    staffId:number;
+    staffId:string;
     title:string;
     image?:string;
     amountAdministered:number;

@@ -4,7 +4,7 @@ declare global {
             currentUser: {
                 id?:string;
                 staffObjectId?:string;
-                staffId?:number;
+                staffId?:string;
                 email?:string;
                 firstname?:string;
                 role?:string;

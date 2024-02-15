@@ -22,7 +22,7 @@ export default function addDailyLivingActivityService(req:Request, res:Response)
         }
     }
     
-    const query = { individualId: parseInt(req.params.individualId) }
+    const query = { individualId: req.params.individualId }
     const updateObj = { $push: { dailyLivingActivities: newDailyActivityData } }
     
     individualModel.findOneAndUpdate(query, updateObj, { new: true })

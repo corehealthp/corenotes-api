@@ -7,7 +7,7 @@ export interface IIndividualDocument {
 
     lastSeen:Date;
     createdAt:Date;
-    individualId:number;
+    individualId:string;
 
     // PERSONAL INFORMATION
     firstname:string,

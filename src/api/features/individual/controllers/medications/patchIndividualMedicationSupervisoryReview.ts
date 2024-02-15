@@ -8,7 +8,7 @@ import { getMedicationByMedicationId } from "src/api/shared/services/db/medicati
 
 export default function patchIndividualMedicationSupervisoryReview(req:Request, res:Response) {
     completeSupervisoryMedicationReview({
-        individualId: parseInt(req.params.individualId),
+        individualId:req.params.individualId,
         medicationId: req.body.medicationId,
         newPharmacy: req.body.newPharmacy,
         newAllocatedAmount: req.body.newAmountAllocated,

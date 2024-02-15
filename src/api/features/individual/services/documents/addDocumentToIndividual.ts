@@ -2,7 +2,7 @@ import { INewDocument } from "@individual/controllers/documents/uploadStaffDocum
 import { individualModel } from "@individual/models/individual.model";
 
 
-export default function addDocumentToIndividual(individualId:number, document:INewDocument) {
+export default function addDocumentToIndividual(individualId:string, document:INewDocument) {
     return new Promise((resolve, reject)=> {
         const query = { individualId: individualId };
         const updateObj = { $push: { documents: document } };

@@ -2,16 +2,15 @@ import { Request, Response } from "express"
 import UserModel from "@user/models/user.model"
 import { verifyPassword } from "src/api/shared/services/security/password"
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse"
-import { getStaffUserByUserId } from "src/api/shared/services/db/staff.service"
+import { getStaffUserByStaffId, getStaffUserByUserId } from "src/api/shared/services/db/staff.service"
 import { IStaffDocument } from "@staff/model/types"
 import { NotAuthorizedError } from "@globals/server/Error"
 import activateStaffUser from "@staff/services/activateStaffUser"
 
 export default function activateStaff(req:Request, res:Response) {
 
-    getStaffUserByUserId(req.currentUser.id!)
+    getStaffUserByStaffId(req.currentUser.id!)
     .then((foundStaff:IStaffDocument)=> {
-
         verifyPassword(req.body.password, foundStaff.password!)
         .then((isVerified:boolean)=> {
              
@@ -24,7 +23,7 @@ export default function activateStaff(req:Request, res:Response) {
                 });
             }
 
-            activateStaffUser(parseInt(req.params.staffId))
+            activateStaffUser(req.params.staffId)
             .then((deactivatedStaff:IStaffDocument)=> {
 
                 console.log("Staff has been activated successfully")

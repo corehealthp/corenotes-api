@@ -23,6 +23,8 @@ import activateStaffProfile from "@staff/controllers/activateStaffProfile";
 import DeleteStaffDocument from "@staff/controllers/documents/deleteStaffDocument";
 import staffClockIn from "@staff/controllers/shifts/staffClockIn";
 import staffClockOut from "@staff/controllers/shifts/staffClockOut";
+import forgotPassword from "@staff/controllers/security/forgotPassword";
+import adminResetStaffPasword from "@staff/controllers/adminResetStaffPassword";
 
 const staffRouter = Router();
 
@@ -41,16 +43,20 @@ staffRouter.post('/roles', validateToken, createStaffRole)
 staffRouter.get('/roles/:pageNumber', validateToken, fetchStaffRoles)
 
 staffRouter.patch('/profile/:staffId', validateToken, updateStaffProfile)
-staffRouter.put('/profile/deactivate/:staffId', validateToken,deactivateStaffProfile)
-staffRouter.put('/profile/activate/:staffId', validateToken,activateStaffProfile)
+// staffRouter.put('/profile/deactivate/:staffId', validateToken,deactivateStaffProfile)
+// staffRouter.put('/profile/activate/:staffId', validateToken,activateStaffProfile)
 
 staffRouter.get('/:staffId/documents/:pageNumber', validateToken, fetchStaffDocuments)
 staffRouter.post('/:staffId/documents', validateToken, uploadFile('single', 'staffDocFile'), uploadStaffDocument)
 staffRouter.delete('/:staffId/:documentId',validateToken,  DeleteStaffDocument)
 
-staffRouter.post('/:staffId/password-reset', validateToken, resetStaffPassword)
-staffRouter.post('/:staffId/deactivate', validateToken, deactivateStaff)
-staffRouter.post('/:staffId/activate', validateToken, activateStaff)
+staffRouter.post('/password-reset',resetStaffPassword)
+staffRouter.post('/forgot-password',forgotPassword)
+
+
+staffRouter.put('/:staffId/deactivate', validateToken, deactivateStaff)
+staffRouter.put('/:staffId/activate', validateToken, activateStaff)
+staffRouter.post('/:staffId/password-reset',validateToken, adminResetStaffPasword)
 
 staffRouter.post('/:staffId/activities/:pageNumber', fetchStaffActivities)
 

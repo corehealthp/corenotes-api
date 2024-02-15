@@ -1,5 +1,5 @@
 export interface UploadIndividualRequestBodyType {
-    individualId:number;
+    individualId:string;
     docTitle:string,
     docType:string,
     docDate:string,

@@ -22,7 +22,7 @@ export function getIndividualByObjectId(individualObjectId:string) {
     })
 }
 
-export function getIndividualByIndividualId(individualId:number) {
+export function getIndividualByIndividualId(individualId:string) {
     return new Promise<IIndividualDocument|null>((resolve, reject)=> {
         const query = { individualId };
 
@@ -103,7 +103,7 @@ export function updateIndividualMedicationsByIndividualId({
     schedule,
     amountAllocated
 }:{
-    individualId:number; 
+    individualId:string; 
     medicationId:string;
     pharmacy:string;
     schedule:{

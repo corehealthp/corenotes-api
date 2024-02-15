@@ -1,6 +1,4 @@
-import staffModel from "@staff/model/staff.model"
-
-
+import staffModel from "@staff/model/staff.model";
 
 // export default  function updateStaffProfileByStaffId(staffId:string, updateProps:object) {
 //     return new Promise(async (resolve, reject)=> {

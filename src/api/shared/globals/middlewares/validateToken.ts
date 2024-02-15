@@ -36,7 +36,6 @@ export default function validateToken(
     }
 
     getAuthUserByAuthAccessToken(decodedToken.id, token!)
-    
       .then((foundUser) => {
         if (!foundUser) {
           const nonAuthorizedError = new NotAuthorizedError("Unauthorized 2");

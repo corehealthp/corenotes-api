@@ -15,7 +15,7 @@ export function getStaffUserByUserId(userId: string) {
 
 export function getStaffUserByStaffId(staffId: string) {
   return new Promise<IStaffDocument>((resolve, reject) => {
-    const query = { staffId };
+    const query = {_id: staffId };
 
     staffModel
       .findOne(query)

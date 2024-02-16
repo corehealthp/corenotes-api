@@ -52,7 +52,7 @@ export function getAuthUserByAuthAccessToken(
   return new Promise<{
     id: string;
     staffObjectId: string;
-    staffId: number;
+    staffId: string;
     email: string;
     firstname: string;
   }>((resolve, reject) => {

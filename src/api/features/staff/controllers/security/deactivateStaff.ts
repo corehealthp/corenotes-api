@@ -8,6 +8,7 @@ import deactivateStaffUser from "@staff/services/deactivateStaff"
 
 export default function deactivateStaff(req:Request, res:Response) {
 
+  
     getStaffUserByStaffId(req.currentUser.id!)
     .then((foundStaff:IStaffDocument)=> {
     

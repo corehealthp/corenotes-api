@@ -6,7 +6,7 @@ import { individualModel } from "@individual/models/individual.model";
 import addIndividualToCompartment from "src/api/features/compartment/services/addIndividualToCompartment";
 import { registerIndividualRequestBodyType } from "./types";
 
-export default function registerIndividual(req: Request, res: Response) {
+export default async function registerIndividual(req: Request, res: Response) {
   const individualData: registerIndividualRequestBodyType = {
     firstname: req.body.firstname?.toLowerCase(),
     middlename: req.body.middlename?.toLowerCase(),
@@ -28,7 +28,7 @@ export default function registerIndividual(req: Request, res: Response) {
       phoneNumber: req.body.contact?.phoneNumber,
     },
     weight: req.body.weight,
-    medicareIdNo: req.body.medicareIdNo,
+    medicareNo: req.body.medicareNo,
     medicaidNumber: req.body.medicaidNumber,
     maritalStatus: req.body.maritalStatus,
 

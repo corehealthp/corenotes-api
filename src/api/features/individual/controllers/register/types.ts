@@ -13,7 +13,7 @@ export interface registerIndividualRequestBodyType {
   medicaidNumber?: number;
   insurance?: string;
   insuranceNo?: number;
-  medicareIdNo?: number;
+  medicareNo?: number;
   otherInsuranceNo?: number;
   codeAlert?: Array<string>;
   contact?: {

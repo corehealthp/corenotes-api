@@ -40,7 +40,7 @@ staffRouter.get('/profile/:staffId',  fetchStaffProfile)
 
 staffRouter.get('/roles/details/:roleId', validateToken, fetchStaffRolesDetails)
 staffRouter.post('/roles', validateToken, createStaffRole)
-staffRouter.get('/roles/:pageNumber', validateToken, fetchStaffRoles)
+staffRouter.get('/roles', validateToken, fetchStaffRoles)
 
 staffRouter.patch('/profile/:staffId', validateToken, updateStaffProfile)
 // staffRouter.put('/profile/deactivate/:staffId', validateToken,deactivateStaffProfile)

@@ -16,6 +16,7 @@ export interface registerStaffRequestBodyType {
         other: string
     },
     emergencyContact: {
+        emergencyName: any
         name: string,
         relationship: string,
         phoneNumber: string

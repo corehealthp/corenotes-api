@@ -23,10 +23,10 @@ export default function validateRegisterStaffRequestBody (data:registerStaffRequ
         if(!data.phoneNumber.work) reject({ status: false, code: 422,  message:'Work phone number field cannot be empty' });
         if(!data.phoneNumber.cell) reject({ status: false, code: 422,  message:'Cell phone number field cannot be empty' });
 
-        if(!data.emergencyContact.name) reject({ status: false, code: 422,  message:'Emergency contact\'s number field cannot be empty' });
+        if(!data.emergencyContact.name) reject({ status: false, code: 422,  message:'Emergency contact\'s name field cannot be empty' });
         if(!data.emergencyContact.relationship) reject({ status: false, code: 422,  message:'Emergency contact\'s relationship field cannot be empty' });
         if(!data.emergencyContact.phoneNumber) reject({ status: false, code: 422,  message:'Emergency contact\'s phone number field cannot be empty' });
-
+  
         // check if email is registered already and return error if true
         if(!data.email) reject({ status: false, code: 422,  message:'Email field cannot be empty' });
         if(!isEmailValid(data.email)) reject({ status:false, code: 422, message:'Email is invalid' });

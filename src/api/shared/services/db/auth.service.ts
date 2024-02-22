@@ -63,7 +63,6 @@ export function getAuthUserByAuthAccessToken(
     staffModel
       .findOne(query)
       .then((foundStaff) => {
-        console.log("====================================");
         if (!foundStaff) {
           const notFoundError = new NotFoundError("Staff user not found");
           reject(notFoundError);

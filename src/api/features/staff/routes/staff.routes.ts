@@ -28,42 +28,54 @@ import adminResetStaffPasword from "@staff/controllers/adminResetStaffPassword";
 
 const staffRouter = Router();
 
-staffRouter.post('/register', validateToken, register)
+staffRouter.post("/register", validateToken, register);
 
-staffRouter.post('/clock-out', validateToken, staffClockOut);
-staffRouter.post('/clock-in',validateToken, staffClockIn);
+staffRouter.post("/clock-out", validateToken, staffClockOut);
+staffRouter.post("/clock-in", validateToken, staffClockIn);
 
-staffRouter.get('/shifts/:staffId', getStaffShifts);
-staffRouter.get('/:staffId/shifts/:pageNumber', validateToken, getStaffShifts);
-staffRouter.get('/profile/:staffId',  fetchStaffProfile)
+staffRouter.get("/shifts/:staffId", getStaffShifts);
+staffRouter.get("/:staffId/shifts/:pageNumber", validateToken, getStaffShifts);
+staffRouter.get("/profile/:staffId", fetchStaffProfile);
 
-
-staffRouter.get('/roles/details/:roleId', validateToken, fetchStaffRolesDetails)
-staffRouter.post('/roles', validateToken, createStaffRole)
-staffRouter.get('/roles', validateToken, fetchStaffRoles)
-
-staffRouter.patch('/profile/:staffId', validateToken, updateStaffProfile)
+staffRouter.get(
+  "/roles/details/:roleId",
+  validateToken,
+  fetchStaffRolesDetails
+);
+staffRouter.get("/roles/details/:roleId", validateToken, fetchStaffRolesDetails);
+staffRouter.post("/roles", validateToken, createStaffRole);
+// staffRouter.get("/roles/:pageNumber", validateToken, fetchStaffRoles);
+staffRouter.patch("/profile/:staffId", validateToken, updateStaffProfile);
 // staffRouter.put('/profile/deactivate/:staffId', validateToken,deactivateStaffProfile)
 // staffRouter.put('/profile/activate/:staffId', validateToken,activateStaffProfile)
 
-staffRouter.get('/:staffId/documents/:pageNumber', validateToken, fetchStaffDocuments)
-staffRouter.post('/:staffId/documents', validateToken, uploadFile('single', 'staffDocFile'), uploadStaffDocument)
-staffRouter.delete('/:staffId/:documentId',validateToken,  DeleteStaffDocument)
+staffRouter.get(
+  "/:staffId/documents/:pageNumber",
+  validateToken,
+  fetchStaffDocuments
+);
+staffRouter.post(
+  "/:staffId/documents",
+  validateToken,
+  uploadFile("single", "staffDocFile"),
+  uploadStaffDocument
+);
+staffRouter.delete("/:staffId/:documentId", validateToken, DeleteStaffDocument);
 
-staffRouter.post('/password-reset',resetStaffPassword)
-staffRouter.post('/forgot-password',forgotPassword)
+staffRouter.post("/password-reset", resetStaffPassword);
+staffRouter.post("/forgot-password", forgotPassword);
 
+staffRouter.put("/:staffId/deactivate", validateToken, deactivateStaff);
+staffRouter.put("/:staffId/activate", validateToken, activateStaff);
+staffRouter.post(
+  "/:staffId/password-reset",
+  validateToken,
+  adminResetStaffPasword
+);
 
-staffRouter.put('/:staffId/deactivate', validateToken, deactivateStaff)
-staffRouter.put('/:staffId/activate', validateToken, activateStaff)
-staffRouter.post('/:staffId/password-reset',validateToken, adminResetStaffPasword)
-
-staffRouter.post('/:staffId/activities/:pageNumber', fetchStaffActivities)
+staffRouter.post("/:staffId/activities/:pageNumber", fetchStaffActivities);
 
 // staffRouter.get('/:pageNumber', fetchStaffs)
-staffRouter.get('/get-all-staff', fetchStaffs)
-
-
-
+staffRouter.get("/get-all-staff", fetchStaffs);
 
 export default staffRouter;

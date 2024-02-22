@@ -106,7 +106,7 @@ export default function validateRegisterIndividual(
           code: 422,
           message: "MedicareId number field cannot be empty",
         });
-      if (!data.medicareIdNo)
+      if (!data.medicareNo)
         reject({
           status: false,
           code: 422,

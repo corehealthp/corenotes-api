@@ -15,7 +15,6 @@ export default function updateStaffProfile(req: Request, res: Response) {
     .then((singleUser) => {
       if (singleUser) {
         // If user is found, extract username and password
-        //comment
         const { username, password, providerRole, hiredAt, jobSchedule } =
           singleUser;
         const updateProps = {
@@ -29,7 +28,7 @@ export default function updateStaffProfile(req: Request, res: Response) {
             relationship: req.body.emergencyContact.relationship,
             phoneNumber: req.body.emergencyContact.phoneNumber,
           },
-          providerRole: providerRole,
+          providerRole: req.body.providerRole,
           firstname: req.body.firstname,
           lastname: req.body.lastname,
           email: req.body.email,
@@ -44,10 +43,10 @@ export default function updateStaffProfile(req: Request, res: Response) {
           state: req.body.state,
           zipCode: req.body.zipCode,
           title: req.body.title,
-          hiredAt: hiredAt,
+          hiredAt: req.body.hiredAt,
           employeeId: req.body.employeeId,
           profileImage: req.body.profileImage,
-          jobSchedule: jobSchedule,
+          jobSchedule: req.body.jobSchedule,
         };
 
         updateStaffProfileByStaffId(req.params.staffId, updateProps)

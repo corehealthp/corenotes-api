@@ -34,7 +34,7 @@ export interface IIndividualDocument {
     profileImage:string,
 
     // HEALTH INFORMATION
-    compartment:string;
+    compartment?:string;
     services: Array<IIndividualServicesSubDocument>,
     diet: Array<string>,
     allergies: {

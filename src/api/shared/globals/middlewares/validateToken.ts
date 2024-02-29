@@ -11,6 +11,10 @@ export default function validateToken(
 ) {
   let token: string = req.headers.cookie ?? req.headers.authorization!;
 
+  console.log("====================================");
+  console.log("TOKEN", token);
+  console.log("====================================");
+
   if (!token || !token.includes("sid")) {
     const nonAuthorizedError = new NotAuthorizedError("Unauthorized 1");
     return sendFailureResponse({
@@ -24,9 +28,13 @@ export default function validateToken(
   const tokenCookie = allCookies?.filter((cookie) => cookie.includes("sid"));
   token = tokenCookie[0]?.split("=")[1];
 
+  console.log("====================================");
+  console.log("TOKEN", token);
+  console.log("====================================");
+
   verify(token, process.env.JWT_KEY!, (error: any, decodedToken: any) => {
     if (error) {
-      console.log("error",error);
+      console.log("error", error);
       const unauthorizedError = new NotAuthorizedError("There was an error");
       return sendFailureResponse({
         res,
@@ -34,6 +42,10 @@ export default function validateToken(
         message: unauthorizedError.message,
       });
     }
+
+    console.log("====================================");
+    console.log("TOKEN", token);
+    console.log("====================================");
 
     getAuthUserByAuthAccessToken(decodedToken.id, token!)
       .then((foundUser) => {

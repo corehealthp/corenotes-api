@@ -1,106 +1,84 @@
-import { assessmentModel } from "src/api/features/assessment/model/assessment.model.ts"
-import { NotFoundError, ServerError } from "@globals/server/Error";
+import { NotFoundError } from "@globals/server/Error";
 import { getIndividualByIndividualId } from "src/api/shared/services/db/individual.service";
-import getAssessmentCategoryByObjectId from "./getAssessmentCategoryByObjectId";
-import getIndividualAssessmentSession from "./getIndividualAssessmentSession";
+import { IndividualAssessmentModel } from "@individual/models/individual-assessment.model";
 
 interface IIndividualAssessmentResponse {
-    currentPage:number;
-    totalPages:number;
-    list:IMappedAssessment[]
+  currentPage: number;
+  totalPages: number;
+  list: IMappedAssessment[];
 }
 
 interface IMappedAssessment {
-    id:string;
-    assessmentId:number;
-    title:string;
-    category:string;
-    questionCount:number;
-    status:string;
+  individualId: number;
+  assessmentId: string;
+  category: string;
+  questionCount: number;
 }
 
-export default function getAssessmentsByIndividualId(individualId:string, pageNumber:number) {
-    return new Promise<IIndividualAssessmentResponse>((resolve, reject)=> {
+export default function getAssessmentsByIndividualId(
+  individualId: string,
+  pageNumber: number
+) {
+  return new Promise<IIndividualAssessmentResponse>((resolve, reject) => {
+    getIndividualByIndividualId(individualId)
+      .then((foundIndividual) => {
+        if (!foundIndividual) {
+          const notFoundError = new NotFoundError(
+            "Individual has not been assigned any assessments"
+          );
+          reject(notFoundError);
+        }
 
-        getIndividualByIndividualId(individualId)
-        .then((foundIndividual)=> {
+        const query = { individualId: parseInt(individualId) };
 
-            if(!foundIndividual) {
-                const notFoundError = new NotFoundError("Individual has not been assigned any assessments");
-                reject(notFoundError);
+        const queryPageNumber = pageNumber - 1 ?? 0,
+          resultsPerPage = 10,
+          pageOffset = resultsPerPage * queryPageNumber;
+
+        IndividualAssessmentModel.find(query)
+          .skip(pageOffset)
+          .limit(resultsPerPage)
+          // .sort({ createdAt: -1 })
+          .then(async (foundAssessments) => {
+            const mappedAssessments: IMappedAssessment[] = [];
+
+            for (const assessment of foundAssessments) {
+              mappedAssessments.push({
+                individualId: assessment.individualId,
+                assessmentId: assessment._id.toString(),
+                category: assessment.category,
+                questionCount: assessment.questions.length,
+              });
             }
-            
-            const query = { "assignees": foundIndividual?._id.toString() };
 
-            const queryPageNumber = pageNumber - 1 ?? 0,
-            resultsPerPage = 10, 
-            pageOffset = resultsPerPage * queryPageNumber;
+            IndividualAssessmentModel.count(query).then(
+              (totalIndividualCount: number) => {
+                const totalPageNumber = Math.ceil(
+                  totalIndividualCount / resultsPerPage
+                );
 
-            assessmentModel.find(query)
-            .skip(pageOffset)
-            .limit(resultsPerPage)
-            // .sort({ createdAt: -1 })
-            .then(async (foundAssessments)=> {
-                
-                const mappedAssessments:IMappedAssessment[] = []
-
-                for await ( const assessment of foundAssessments ) {
-                    await getAssessmentCategoryByObjectId(assessment.category)
-                    .then(async (foundAssessmentCategory)=> {
-                        if(foundAssessmentCategory) {
-                            await getIndividualAssessmentSession(assessment.id!, foundIndividual!._id.toString())
-                            .then((foundIndividualAssessmentSession)=> {
-                                
-                                mappedAssessments.push({
-                                    id: assessment._id.toString(),
-                                    assessmentId: assessment.assessmentId,
-                                    title: assessment.title,
-                                    category: foundAssessmentCategory.name,
-                                    questionCount: assessment.questions.length,
-                                    status: foundIndividualAssessmentSession ?foundIndividualAssessmentSession.status! :"PENDING"
-                                })
-                            })
-                            .catch((error)=> {
-                                console.log("There was an error fetching individual assessment session status", error);
-
-                                mappedAssessments.push({
-                                    id: assessment._id.toString(),
-                                    assessmentId: assessment.assessmentId,
-                                    title: assessment.title,
-                                    category: foundAssessmentCategory.name,
-                                    questionCount: assessment.questions.length,
-                                    status: ""
-                                })
-                            })
-                        }
-                    })
-                    .catch((error)=> {
-                        console.log("There was a server error", error)
-                        const serverError = new ServerError();
-                        reject(serverError);
-                    })
-                }
-
-                assessmentModel.count(query)
-                .then((totalIndividualCount:number)=> {
-                
-                    const totalPageNumber = Math.ceil(totalIndividualCount / resultsPerPage);
-
-                    resolve({
-                        currentPage: pageNumber,
-                        totalPages: totalPageNumber,
-                        list: mappedAssessments
-                    })
-                })
-            })
-            .catch((error)=> {
-                console.log("There was an error retrieving assessments by individual object Id", error);
-                reject(error);
-            })
-        })
-        .catch((error)=> {
-            console.log("There was an error finding individual assessments by individual object Id", error);
+                resolve({
+                  currentPage: pageNumber,
+                  totalPages: totalPageNumber,
+                  list: mappedAssessments,
+                });
+              }
+            );
+          })
+          .catch((error) => {
+            console.log(
+              "There was an error retrieving assessments by individual object Id",
+              error
+            );
             reject(error);
-        })
-    })
+          });
+      })
+      .catch((error) => {
+        console.log(
+          "There was an error finding individual assessments by individual object Id",
+          error
+        );
+        reject(error);
+      });
+  });
 }

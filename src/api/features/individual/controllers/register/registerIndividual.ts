@@ -44,8 +44,26 @@ export default async function registerIndividual(req: Request, res: Response) {
     },
   };
 
+  // Filter out specified fields with empty string or null values
+  const filteredIndividualData = Object.fromEntries(
+    Object.entries(individualData).filter(
+      ([key, value]) =>
+        // Check if the field is not one of the specified fields or if it has a non-empty value
+        ![
+          "ssn",
+          "insurance",
+          "insuranceNo",
+          "otherInsuranceNo",
+          "medicareNo",
+          "medicaidNumber",
+          "compartment",
+          "subCompartmentId",
+        ].includes(key) || ![null, ""].includes(value)
+    )
+  );
+
   individualModel
-    .create(individualData)
+    .create(filteredIndividualData)
     .then((newIndividual) => {
       console.log(`REGISTRATION: New individual registered successfully`);
 

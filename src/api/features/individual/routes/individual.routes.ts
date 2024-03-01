@@ -1,7 +1,6 @@
 import { Router } from "express";
 import uploadFile from "../../../shared/globals/middlewares/uploadFile";
 import registerIndividual from "../controllers/register/registerIndividual";
-import fetchIndividuals from "../controllers/fetchIndividuals";
 import fetchIndividualProfile from "../controllers/profile/fetchIndividualProfile";
 import validateToken from "@globals/middlewares/validateToken";
 import fetchIndividualServices from "../controllers/services/fetchIndividualServices";
@@ -25,60 +24,24 @@ import fetchIndividualDocuments from "@individual/controllers/documents/fetchInd
 import uploadIndividualDocument from "@individual/controllers/documents/uploadStaffDocument/uploadIndividualDocument";
 import addAssessmentToIndividual from "@individual/controllers/assessments/addAssessmentToIndividual";
 import updateIndividualProfile from "@individual/controllers/updateIndividualProfile";
+import fetchIndividuals from "@individual/controllers/fetchIndividuals";
 
 const individualRouter = Router();
 
-individualRouter.post("/", validateToken, registerIndividual);
-individualRouter.get("/profile/:individualId", fetchIndividualProfile);
-individualRouter.patch(
-  "/profile/:individualId",
-  validateToken,
-  updateIndividualProfile
-);
-individualRouter.get("/:pageNumber", fetchIndividuals);
+individualRouter.post('/', validateToken, registerIndividual)
+individualRouter.get('/profile/:individualId', fetchIndividualProfile)
+individualRouter.patch('/profile/:individualId', validateToken,updateIndividualProfile)
+individualRouter.get('/get-all-individuals', fetchIndividuals) 
 
-individualRouter.get(
-  "/:individualId/documents/:pageNumber",
-  validateToken,
-  fetchIndividualDocuments
-);
-individualRouter.post(
-  "/:individualId/documents",
-  validateToken,
-  uploadFile("single", "individualDocFile"),
-  uploadIndividualDocument
-);
+individualRouter.get('/:individualId/documents/:pageNumber', validateToken, fetchIndividualDocuments)
+individualRouter.post('/:individualId/documents', validateToken, uploadFile('single', 'individualDocFile'), uploadIndividualDocument)
 
-individualRouter.post(
-  "/:individualId/medications/prn-medication",
-  validateToken,
-  postPRNMedicationToIndividual
-);
-individualRouter.get(
-  "/:individualId/medications/:medicationId/supervisory-medication-review/:pageNumber",
-  validateToken,
-  getIndividualMedicationSupervisoryReview
-);
-individualRouter.patch(
-  "/:individualId/medications/supervisory-medication-review",
-  validateToken,
-  patchIndividualMedicationSupervisoryReview
-);
-individualRouter.patch(
-  "/:individualId/medications/toggle",
-  validateToken,
-  patchDiscontinueMedication
-);
-individualRouter.post(
-  "/:individualId/medications",
-  validateToken,
-  postMedicationToIndividual
-);
-individualRouter.get(
-  "/:individualId/medications/:pageNumber",
-  validateToken,
-  getIndividualMedications
-);
+individualRouter.post('/:individualId/medications/prn-medication', validateToken, postPRNMedicationToIndividual)
+individualRouter.get('/:individualId/medications/:medicationId/supervisory-medication-review/:pageNumber', validateToken, getIndividualMedicationSupervisoryReview)
+individualRouter.patch('/:individualId/medications/supervisory-medication-review', validateToken, patchIndividualMedicationSupervisoryReview)
+individualRouter.patch('/:individualId/medications/toggle', validateToken, patchDiscontinueMedication)
+individualRouter.post('/:individualId/medications', validateToken, postMedicationToIndividual)
+individualRouter.get('/:individualId/medications/:pageNumber', validateToken, getIndividualMedications)
 
 /**
  * @swagger
@@ -224,55 +187,16 @@ individualRouter.get(
   fetchIndividualAssessments
 );
 
-individualRouter.get(
-  "/:individualId/services/chore/:pageNumber",
-  validateToken,
-  fetchIndividualChoreServices
-);
-individualRouter.post(
-  "/:individualId/services/chore",
-  validateToken,
-  addChoreService
-);
-individualRouter.get(
-  "/:individualId/services/behavior-management/:pageNumber",
-  validateToken,
-  fetchIndividualBehaviorManagementServices
-);
-individualRouter.post(
-  "/:individualId/services/behavior-management",
-  validateToken,
-  addBehaviorService
-);
-individualRouter.get(
-  "/:individualId/services/daily-living-activity/:pageNumber",
-  validateToken,
-  fetchIndividualDailyLivingActivityServices
-);
-individualRouter.post(
-  "/:individualId/services/daily-living-activity",
-  validateToken,
-  addDailyLivingActivityService
-);
-individualRouter.get(
-  "/:individualId/services/goal-tracking/:pageNumber",
-  validateToken,
-  fetchIndividualGoalsTrackingServices
-);
-individualRouter.post(
-  "/:individualId/services/goal-tracking",
-  validateToken,
-  addGoalTrackingService
-);
-individualRouter.get(
-  "/:individualId/services",
-  validateToken,
-  fetchIndividualServices
-);
-individualRouter.post(
-  "/:individualId/services",
-  validateToken,
-  assignIndividualServices
-);
+individualRouter.get('/:individualId/services/chore/:pageNumber', validateToken, fetchIndividualChoreServices)
+individualRouter.post('/:individualId/services/chore', validateToken, addChoreService)
+individualRouter.get('/:individualId/services/behavior-management/:pageNumber', validateToken, fetchIndividualBehaviorManagementServices)
+individualRouter.post('/:individualId/services/behavior-management', validateToken, addBehaviorService)
+individualRouter.get('/:individualId/services/daily-living-activity/:pageNumber', validateToken, fetchIndividualDailyLivingActivityServices)
+individualRouter.post('/:individualId/services/daily-living-activity', validateToken, addDailyLivingActivityService)
+individualRouter.get('/:individualId/services/goal-tracking/:pageNumber', validateToken, fetchIndividualGoalsTrackingServices)
+individualRouter.post('/:individualId/services/goal-tracking', validateToken, addGoalTrackingService)
+individualRouter.get('/:individualId/services', validateToken, fetchIndividualServices)
+individualRouter.post('/:individualId/services', validateToken, assignIndividualServices)
+
 
 export default individualRouter;

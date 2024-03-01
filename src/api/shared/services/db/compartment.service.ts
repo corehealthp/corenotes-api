@@ -13,14 +13,12 @@ export function updateCompartmentServicesById({compartmentId, serviceId}:{compar
     })
 }
 
-export function getCompartmentById(compartmentId:string) {
+export function getCompartmentById(compartmentId:any) {
     return new Promise<ICompartment|null>((resolve, reject)=> {
         const query = { _id: compartmentId };
     
         compartmentModel.findOne(query)
-        .then((foundCompartment)=> {
-            resolve(foundCompartment)
-        })
+        .then((foundCompartment)=> resolve(foundCompartment))
         .catch((error)=> reject(error))
     })
 }

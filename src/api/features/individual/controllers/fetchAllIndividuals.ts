@@ -23,27 +23,28 @@ export interface IIndividualListItem {
   medicareNo:string;
 }
 
-export default function fetchAllIndividuals() {
-  return new Promise<any>((resolve, reject) => {
-    
+export default function fetchAllIndividuals(pageNumber: number) {
+  return new Promise<IFetchIndividualResponse>((resolve, reject) => {
+    const queryPageNumber = pageNumber - 1 ?? 0,
+      resultsPerPage = 10,
+      pageOffset = resultsPerPage * queryPageNumber;
+
+    const query = { active: true };
+
     individualModel
-      .find().then(async (foundIndividuals: any[]) => {
+      .find(query)
+      .skip(pageOffset)
+      .limit(resultsPerPage)
+      .sort({ createdAt: -1 })
+      .then(async (foundIndividuals: IIndividualDocument[]) => {
         if (!foundIndividuals.length) {
           const notFoundError = new NotFoundError("No individuals found");
           reject(notFoundError);
         }
 
-        const mappedIndividuals: any[] = [];
+        const mappedIndividuals: IIndividualListItem[] = [];
 
         for await (const individual of foundIndividuals) {
-          let compartmentTitle = 'No Compartment';
-        
-          if (individual.compartment) {
-            const compartmentInfo = await getCompartmentById(individual.compartment);
-            if (compartmentInfo) {
-              compartmentTitle = compartmentInfo.title;
-            }
-          }
           mappedIndividuals.push({
             id: individual._id.toString(),
             individualId: individual.individualId,
@@ -51,18 +52,21 @@ export default function fetchAllIndividuals() {
             firstname: individual.firstname,
             lastname: individual.lastname,
             age: calcAge(individual.dob),
-            gender: individual.gender, 
+            gender: individual.gender,
             medicaidNumber: individual.medicaidNumber,
-            medicareNo: individual.medicareNo,
-            compartment: compartmentTitle, // Use compartment title retrieved or default value
+            medicareNo:individual.medicareNo,
+            compartment: (await getCompartmentById(individual.compartment))!.title,
           });
         }
-        
 
         individualModel.count().then((totalIndividualCount: number) => {
-         
+          const totalPageNumber = Math.ceil(
+            totalIndividualCount / resultsPerPage
+          );
 
-          return resolve({
+          resolve({
+            currentPage: pageNumber,
+            totalPages: totalPageNumber,
             individuals: mappedIndividuals,
           });
         });

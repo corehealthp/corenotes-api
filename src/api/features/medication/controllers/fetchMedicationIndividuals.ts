@@ -36,6 +36,7 @@ export default function fetchMedicationIndividuals(req:Request, res:Response) {
                     gender: individual.gender,
                     compartment: individual.compartment,
                     medicaidNumber: individual.medicaidNumber,
+                    medicareNo:individual.medicareNo
                 }));
 
                 return sendSuccessResponse({

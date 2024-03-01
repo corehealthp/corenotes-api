@@ -5,6 +5,8 @@ import "./config/database/connect";
 import routes from "./api/routes";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "../swaggerConfig";
 
 dotenv.config();
 
@@ -31,6 +33,8 @@ app.use(cookieParser());
 app.use(urlencoded({ extended: true }));
 // configure routes
 app.use("/api/v1", routes());
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 const server = createServer(app);
 

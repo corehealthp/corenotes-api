@@ -15,6 +15,22 @@ export interface registerIndividualRequestBodyType {
   insuranceNo?: number;
   medicareNo?: number;
   otherInsuranceNo?: number;
+
+  activityLimitations: string;
+  dischargePlan: string;
+  expectedDurationOfService: string;
+  hardOfHearing: string;
+  medicallyFrail: string;
+  oxygen: string;
+  proneToFalling: string;
+  shortnessOfBreath: string;
+  seizureActivity: string;
+  visionLoss: string;
+  weigthBearingLimitation: string;
+  incontinentSafety: string;
+  daysOfService: string;
+  expectedFrequency: string;
+  
   codeAlert?: Array<string>;
   contact?: {
     name?: string;

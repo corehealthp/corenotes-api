@@ -1,7 +1,6 @@
 import { Router } from "express";
 import uploadFile from "../../../shared/globals/middlewares/uploadFile";
 import registerIndividual from "../controllers/register/registerIndividual";
-import fetchIndividuals from "../controllers/fetchIndividuals";
 import fetchIndividualProfile from "../controllers/profile/fetchIndividualProfile";
 import fetchIndividualAssessmentSession from "../controllers/assessments/fetchIndividualAssessmentSession";
 import saveIndividualAssessmentSession from "../controllers/assessments/saveIndividualAssessmentSession";
@@ -29,141 +28,42 @@ import uploadIndividualDocument from "@individual/controllers/documents/uploadSt
 import addAssessmentToIndividual from "@individual/controllers/assessments/addAssessmentToIndividual";
 import getAssessmentsToAssign from "@individual/controllers/assessments/getAssessmentsToAssign";
 import updateIndividualProfile from "@individual/controllers/updateIndividualProfile";
+import fetchIndividuals from "@individual/controllers/fetchIndividuals";
 
 const individualRouter = Router();
 
-individualRouter.post("/", validateToken, registerIndividual);
-individualRouter.get("/profile/:individualId", fetchIndividualProfile);
-individualRouter.patch(
-  "/profile/:individualId",
-  validateToken,
-  updateIndividualProfile
-);
-individualRouter.get("/:pageNumber", fetchIndividuals);
+individualRouter.post('/', validateToken, registerIndividual)
+individualRouter.get('/profile/:individualId', fetchIndividualProfile)
+individualRouter.patch('/profile/:individualId', validateToken,updateIndividualProfile)
+individualRouter.get('/get-all-individuals', fetchIndividuals) 
 
-individualRouter.get(
-  "/:individualId/documents/:pageNumber",
-  validateToken,
-  fetchIndividualDocuments
-);
-individualRouter.post(
-  "/:individualId/documents",
-  validateToken,
-  uploadFile("single", "individualDocFile"),
-  uploadIndividualDocument
-);
+individualRouter.get('/:individualId/documents/:pageNumber', validateToken, fetchIndividualDocuments)
+individualRouter.post('/:individualId/documents', validateToken, uploadFile('single', 'individualDocFile'), uploadIndividualDocument)
 
-individualRouter.post(
-  "/:individualId/medications/prn-medication",
-  validateToken,
-  postPRNMedicationToIndividual
-);
-individualRouter.get(
-  "/:individualId/medications/:medicationId/supervisory-medication-review/:pageNumber",
-  validateToken,
-  getIndividualMedicationSupervisoryReview
-);
-individualRouter.patch(
-  "/:individualId/medications/supervisory-medication-review",
-  validateToken,
-  patchIndividualMedicationSupervisoryReview
-);
-individualRouter.patch(
-  "/:individualId/medications/toggle",
-  validateToken,
-  patchDiscontinueMedication
-);
-individualRouter.post(
-  "/:individualId/medications",
-  validateToken,
-  postMedicationToIndividual
-);
-individualRouter.get(
-  "/:individualId/medications/:pageNumber",
-  validateToken,
-  getIndividualMedications
-);
+individualRouter.post('/:individualId/medications/prn-medication', validateToken, postPRNMedicationToIndividual)
+individualRouter.get('/:individualId/medications/:medicationId/supervisory-medication-review/:pageNumber', validateToken, getIndividualMedicationSupervisoryReview)
+individualRouter.patch('/:individualId/medications/supervisory-medication-review', validateToken, patchIndividualMedicationSupervisoryReview)
+individualRouter.patch('/:individualId/medications/toggle', validateToken, patchDiscontinueMedication)
+individualRouter.post('/:individualId/medications', validateToken, postMedicationToIndividual)
+individualRouter.get('/:individualId/medications/:pageNumber', validateToken, getIndividualMedications)
 
-individualRouter.post(
-  "/:individualId/assessments",
-  validateToken,
-  addAssessmentToIndividual
-);
-individualRouter.get(
-  "/:individualId/assessments/:pageNumber",
-  validateToken,
-  fetchIndividualAssessments
-);
-individualRouter.get(
-  "/:individualId/assessments/:assessmentId/session",
-  validateToken,
-  fetchIndividualAssessmentSession
-);
-individualRouter.post(
-  "/:individualId/assessments/:assessmentId/session",
-  validateToken,
-  completeIndividualAssessmentSession
-);
-individualRouter.patch(
-  "/assessments/:assessmentId/session",
-  validateToken,
-  saveIndividualAssessmentSession
-);
-individualRouter.get(
-  "/:individualId/unassigned-assessments/:pageNumber",
-  validateToken,
-  getAssessmentsToAssign
-);
+individualRouter.post('/:individualId/assessments', validateToken, addAssessmentToIndividual);
+individualRouter.get('/:individualId/assessments/:pageNumber', validateToken, fetchIndividualAssessments)
+individualRouter.get('/:individualId/assessments/:assessmentId/session', validateToken, fetchIndividualAssessmentSession)
+individualRouter.post('/:individualId/assessments/:assessmentId/session', validateToken, completeIndividualAssessmentSession)
+individualRouter.patch('/assessments/:assessmentId/session', validateToken, saveIndividualAssessmentSession)
+individualRouter.get('/:individualId/unassigned-assessments/:pageNumber', validateToken, getAssessmentsToAssign);
 
-individualRouter.get(
-  "/:individualId/services/chore/:pageNumber",
-  validateToken,
-  fetchIndividualChoreServices
-);
-individualRouter.post(
-  "/:individualId/services/chore",
-  validateToken,
-  addChoreService
-);
-individualRouter.get(
-  "/:individualId/services/behavior-management/:pageNumber",
-  validateToken,
-  fetchIndividualBehaviorManagementServices
-);
-individualRouter.post(
-  "/:individualId/services/behavior-management",
-  validateToken,
-  addBehaviorService
-);
-individualRouter.get(
-  "/:individualId/services/daily-living-activity/:pageNumber",
-  validateToken,
-  fetchIndividualDailyLivingActivityServices
-);
-individualRouter.post(
-  "/:individualId/services/daily-living-activity",
-  validateToken,
-  addDailyLivingActivityService
-);
-individualRouter.get(
-  "/:individualId/services/goal-tracking/:pageNumber",
-  validateToken,
-  fetchIndividualGoalsTrackingServices
-);
-individualRouter.post(
-  "/:individualId/services/goal-tracking",
-  validateToken,
-  addGoalTrackingService
-);
-individualRouter.get(
-  "/:individualId/services",
-  validateToken,
-  fetchIndividualServices
-);
-individualRouter.post(
-  "/:individualId/services",
-  validateToken,
-  assignIndividualServices
-);
+individualRouter.get('/:individualId/services/chore/:pageNumber', validateToken, fetchIndividualChoreServices)
+individualRouter.post('/:individualId/services/chore', validateToken, addChoreService)
+individualRouter.get('/:individualId/services/behavior-management/:pageNumber', validateToken, fetchIndividualBehaviorManagementServices)
+individualRouter.post('/:individualId/services/behavior-management', validateToken, addBehaviorService)
+individualRouter.get('/:individualId/services/daily-living-activity/:pageNumber', validateToken, fetchIndividualDailyLivingActivityServices)
+individualRouter.post('/:individualId/services/daily-living-activity', validateToken, addDailyLivingActivityService)
+individualRouter.get('/:individualId/services/goal-tracking/:pageNumber', validateToken, fetchIndividualGoalsTrackingServices)
+individualRouter.post('/:individualId/services/goal-tracking', validateToken, addGoalTrackingService)
+individualRouter.get('/:individualId/services', validateToken, fetchIndividualServices)
+individualRouter.post('/:individualId/services', validateToken, assignIndividualServices)
+
 
 export default individualRouter;

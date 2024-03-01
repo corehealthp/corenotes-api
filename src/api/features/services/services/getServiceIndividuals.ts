@@ -50,7 +50,8 @@ export default function getServiceIndividuals(
               age: calcAge(individual.dob),
               gender: individual.gender,
               medicaidNumber: individual.medicaidNumber,
-              // compartment: (await getCompartmentById(individual.compartment))!.title,
+              medicareNo:individual.medicareNo,
+               compartment: (await getCompartmentById(individual.compartment))!.title,
             });
           }
 

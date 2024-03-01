@@ -7,7 +7,10 @@ export default function addIndividualToSubCompartment(compartmentId:string, subC
         const updateObj = { $push: { "subCompartments.$.individuals": individualId } }
 
         compartmentModel.findOneAndUpdate(query, updateObj, { new: true })
-        .then((updatedCompartment)=> resolve(updatedCompartment))
+        .then((updatedCompartment)=> {
+            // console.log("updatedCompartment",updatedCompartment)
+           return resolve(updatedCompartment)
+        })
         .catch((error)=> reject(error))
     })
 }

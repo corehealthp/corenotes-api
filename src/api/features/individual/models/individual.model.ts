@@ -31,9 +31,7 @@ const individualSchema = new Schema<IIndividualDocument>({
   maritalStatus: {
     type: String,
   },
-  religion: {
-    type: String,
-  },
+
   ssn: {
     type: Number,
     unique: true,
@@ -43,15 +41,60 @@ const individualSchema = new Schema<IIndividualDocument>({
     type: String,
   },
   medicareNo: {
-    type: Number,
-    unique: true,
-    sparse: true,
+    type: String,
+    // unique: true,
+    // sparse: true,
   },
   medicaidNumber: {
-    type: Number,
-    unique: true,
-    sparse: true,
+    type: String,
+    // unique: true,
+    // sparse: true,
   },
+  activityLimitations:{
+    type: String
+  },
+  dischargePlan:{
+    type: String
+  },
+  expectedDurationOfService:{
+    type: String
+  },
+  hardOfHearing:{
+    type: String
+  },
+  medicallyFrail:{
+    type: String
+  },
+  oxygen:{
+    type: String
+  },
+  proneToFalling:{
+    type: String
+  },
+  shortnessOfBreath:{
+    type: String
+  },
+  seizureActivity:{
+    type: String
+  },
+  visionLoss:{
+    type: String
+  },
+  weigthBearingLimitation:{
+    type: String
+  },
+  incontinentSafety:{
+    type: String
+  },
+  daysOfService:{
+    type: String
+  },
+  expectedFrequency:{
+    type: String
+  },
+  
+  
+  
   otherInsuranceNo: {
     type: Number,
     unique: true,

@@ -5,7 +5,7 @@ import { Request, Response } from "express"
 
 export default function fetchIndividualProfile(req:Request, res:Response) {
     getIndividualByIndividualId(req.params.individualId)
-    .then((foundIndividual)=> {
+    .then((foundIndividual:any)=> {
 
         return sendSuccessResponse({
             res, 

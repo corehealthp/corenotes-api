@@ -4,7 +4,7 @@ import fetchAllIndividuals from "@individual/services/fetchAllServices";
 import { ServerError } from "@globals/server/Error";
 
 export default function fetchIndividuals(req:Request, res:Response) {
-    fetchAllIndividuals(1)
+    fetchAllIndividuals() 
     .then((responseIndividuals)=> {
         return sendSuccessResponse({
             res, 

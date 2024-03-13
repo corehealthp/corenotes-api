@@ -147,6 +147,10 @@ const individualSchema = new Schema<IIndividualDocument>({
         frequencyAttr: {
           type: String,
         },
+       
+      },
+      staffRole: {
+        type: String,
       },
       createdAt: {
         type: Date,

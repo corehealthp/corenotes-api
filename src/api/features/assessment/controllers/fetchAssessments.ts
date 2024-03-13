@@ -1,22 +1,31 @@
 import { Request, Response } from "express"
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import fetchAllAssessments from "@assessment/services/fetchAllAssessments";
+import { assessmentModel } from "@assessment/model/assessment.model.ts";
 
-export default function fetchAssessments(req:Request, res:Response) {
-    fetchAllAssessments(parseInt(req.params.pageNumber))
-    .then((assessmentResponse)=> {
-        return sendSuccessResponse({
-            res, 
-            statusCode: 200, 
-            message: "Assessments retrieved successfully", 
-            data: assessmentResponse 
-        })
-    })
-    .catch((error)=> {
-        console.log(`QUERY ERROR: There was an error fetching all assessments`)
-        console.log(error)
-        return sendFailureResponse({res, statusCode:500, message:"There was an error fetching assessments"})
-    })
+export default async function fetchAssessments(req:Request, res:Response) {
+    // fetchAllAssessments(parseInt(req.params.pageNumber))
+    // .then((assessmentResponse)=> {
+    //     return sendSuccessResponse({
+    //         res, 
+    //         statusCode: 200, 
+    //         message: "Assessments retrieved successfully", 
+    //         data: assessmentResponse 
+    //     })
+    // })
+    // .catch((error)=> {
+    //     console.log(`QUERY ERROR: There was an error fetching all assessments`)
+    //     console.log(error)
+    //     return sendFailureResponse({res, statusCode:500, message:"There was an error fetching assessments"})
+    // })
+    
+    try {
+        const fetchAssessments = await assessmentModel.find().sort({ createdAt: -1 });
+        res.status(200).json(fetchAssessments);
+      } catch (err) {
+        res.status(500).json(err);
+      }
+
             
     // assessmentModel.find(query)
     // .skip(pageOffset)

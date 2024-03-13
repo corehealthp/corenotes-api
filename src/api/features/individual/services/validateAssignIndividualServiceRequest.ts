@@ -4,6 +4,7 @@ import { getServiceByObjectId } from "src/api/shared/services/db/service.service
 export interface IAssignServiceToIndividualReqBody {
     serviceId:string;
     individualId:string;
+    staffRole:string;
     schedule: {
         startDate:string;
         time:string;
@@ -19,6 +20,7 @@ export default function validateAssignIndividualServiceRequest(data:IAssignServi
         if(!data.individualId) reject({ code: 422, message:'Individual id parameter cannot be empty' })
 
         if(!data.serviceId) reject({ code: 422, message:'Service id field cannot be empty' })
+        if(!data.staffRole) reject({ code: 422, message:'Staff Role field cannot be empty' })
 
         getServiceByObjectId(data.serviceId)
         .then((foundService)=> {

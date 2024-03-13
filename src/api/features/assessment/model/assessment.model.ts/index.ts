@@ -5,15 +5,15 @@ import autoIncrementPlugin from "src/config/database/autoIncrementInit";
 const assessmentSchema = new Schema<IAssessmentDocument>({
     assessmentId:{ type:Number },
     title:{ type:String },
-    category:{ type:String },
-    questions:[{
-        question:{ type:String },
-        category:{ type:String }
-    }],
-    assignees:{
-        type: [String],
-        default: []
-    },
+    // category:{ type:String },
+    // questions:[{
+    //     question:{ type:String },
+    //     category:{ type:String }
+    // }],
+    // assignees:{
+    //     type: [String],
+    //     default: []
+    // },
     createdAt: {
         type:Date,
         default: Date.now

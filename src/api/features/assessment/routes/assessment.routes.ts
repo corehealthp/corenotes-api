@@ -15,7 +15,7 @@ assessmentRouter.post('/question-categories', createQuestionCategory)
 
 assessmentRouter.get('/details/:assessmentId', fetchAssessmentDetails)
 // assessmentRouter.get('/:individualId/:pageNumber', fetchIndividualAssessments)
-assessmentRouter.get('/:pageNumber', fetchAssessments)
+assessmentRouter.get('/', fetchAssessments)
 assessmentRouter.post('/', validateToken, createAssessment)
 
 export default assessmentRouter;

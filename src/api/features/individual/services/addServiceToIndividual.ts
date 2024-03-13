@@ -36,6 +36,7 @@ export default function addServiceToIndividual(data:IAssignServiceToIndividualRe
 
                     await getServiceByObjectId(service.serviceId)
                     .then((foundService)=> {
+
                         if(foundService) {
                             servicesDetails.push({
                                 id: foundService._id.toString(),

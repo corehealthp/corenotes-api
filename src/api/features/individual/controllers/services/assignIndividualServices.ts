@@ -21,6 +21,7 @@ import createTornadoDrillTask from "src/api/features/task/services/tornado-drill
 import { IIMakeTornadoDrillTaskDets } from "src/api/features/task/services/tornado-drill/makeTornadoDrillTask";
 
 export default function assignIndividualServices(req:Request, res:Response) {
+
     validateAssignIndividualServiceRequest({...req.body, ...req.params})
     .then((requestBody)=> {
         addServiceToIndividual({...requestBody})

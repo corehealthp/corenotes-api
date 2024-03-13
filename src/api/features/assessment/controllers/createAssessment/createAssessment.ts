@@ -10,8 +10,8 @@ export default function createAssessment(req:Request, res:Response) {
 
         let newAssessmentObj:any = {
             title: requestBody.title.toLowerCase(),
-            category: requestBody.category,
-            questions: requestBody.questions,
+            // category: requestBody.category,
+            // questions: requestBody.questions,
         }
 
         assessmentModel.create(newAssessmentObj)

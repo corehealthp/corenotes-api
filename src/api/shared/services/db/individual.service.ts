@@ -42,10 +42,13 @@ export function getIndividualByIndividualId(individualId:string) {
 export function updateIndividualServicesById({
     individualId, 
     serviceId,
+    staffRole,
     schedule
 }:{
     individualId:string, 
     serviceId:string, 
+    staffRole:string,
+
     schedule: {
         startDate:string;
         time:string;
@@ -58,6 +61,7 @@ export function updateIndividualServicesById({
         const query = { _id: individualId };
 
         const newService = {
+            staffRole:staffRole,
             serviceId: serviceId,
             schedule: schedule,
         }

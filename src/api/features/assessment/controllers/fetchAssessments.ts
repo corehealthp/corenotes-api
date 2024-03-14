@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import fetchAllAssessments from "@assessment/services/fetchAllAssessments";
-import { assessmentModel } from "@assessment/model/assessment.model.ts";
+import { assessmentModel } from "src/api/features/assessment/model/assessment.model.ts";
 
 export default async function fetchAssessments(req:Request, res:Response) {
     // fetchAllAssessments(parseInt(req.params.pageNumber))

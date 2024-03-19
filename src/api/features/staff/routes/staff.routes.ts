@@ -44,7 +44,7 @@ staffRouter.get(
 );
 staffRouter.get("/roles/details/:roleId", validateToken, fetchStaffRolesDetails);
 staffRouter.post("/roles", validateToken, createStaffRole);
-staffRouter.get("/roles", validateToken, fetchStaffRoles);
+staffRouter.get("/roles",  fetchStaffRoles);
 // staffRouter.get("/roles/:pageNumber", validateToken, fetchStaffRoles);
 staffRouter.patch("/profile/:staffId", validateToken, updateStaffProfile);
 // staffRouter.put('/profile/deactivate/:staffId', validateToken,deactivateStaffProfile)

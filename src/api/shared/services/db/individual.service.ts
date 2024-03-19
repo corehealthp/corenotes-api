@@ -73,10 +73,13 @@ export function updateIndividualServicesById({
                 reject(conflictEror);
             }
 
+        
+
             const updateObj = { $push: { services: newService } }
     
             individualModel.findOneAndUpdate(query, updateObj, { new: true })
             .then((updatedIndividual)=> {
+                console.log("mate",updatedIndividual)
                 if(!updatedIndividual) {
                     const notFoundError = new NotFoundError("Individual not found")
                     reject(notFoundError);

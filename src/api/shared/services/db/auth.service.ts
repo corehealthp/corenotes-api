@@ -57,7 +57,8 @@ export function getAuthUserByAuthAccessToken(
     firstname: string;
   }>((resolve, reject) => {
     const query = {
-      $and: [{ _id: userDocumentId }, { accessToken }],
+      _id: userDocumentId,
+      accessToken,
     };
 
     staffModel

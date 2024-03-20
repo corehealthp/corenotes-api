@@ -50,51 +50,49 @@ const individualSchema = new Schema<IIndividualDocument>({
     // unique: true,
     // sparse: true,
   },
-  activityLimitations:{
-    type: String
+  activityLimitations: {
+    type: String,
   },
-  dischargePlan:{
-    type: String
+  dischargePlan: {
+    type: String,
   },
-  expectedDurationOfService:{
-    type: String
+  expectedDurationOfService: {
+    type: String,
   },
-  hardOfHearing:{
-    type: String
+  hardOfHearing: {
+    type: String,
   },
-  medicallyFrail:{
-    type: String
+  medicallyFrail: {
+    type: String,
   },
-  oxygen:{
-    type: String
+  oxygen: {
+    type: String,
   },
-  proneToFalling:{
-    type: String
+  proneToFalling: {
+    type: String,
   },
-  shortnessOfBreath:{
-    type: String
+  shortnessOfBreath: {
+    type: String,
   },
-  seizureActivity:{
-    type: String
+  seizureActivity: {
+    type: String,
   },
-  visionLoss:{
-    type: String
+  visionLoss: {
+    type: String,
   },
-  weigthBearingLimitation:{
-    type: String
+  weigthBearingLimitation: {
+    type: String,
   },
-  incontinentSafety:{
-    type: String
+  incontinentSafety: {
+    type: String,
   },
-  daysOfService:{
-    type: String
+  daysOfService: {
+    type: String,
   },
-  expectedFrequency:{
-    type: String
+  expectedFrequency: {
+    type: String,
   },
-  
-  
-  
+
   otherInsuranceNo: {
     type: Number,
     unique: true,
@@ -147,10 +145,14 @@ const individualSchema = new Schema<IIndividualDocument>({
         frequencyAttr: {
           type: String,
         },
-       
       },
       staffRole: {
         type: String,
+      },
+      staffRoleStatus: {
+        type: String,
+        default: "pending",
+        enum: ["pending", "completed"],
       },
       createdAt: {
         type: Date,

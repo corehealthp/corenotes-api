@@ -7,6 +7,7 @@ import detMedSchedule from "./detMedSchedule";
 
 export default function addServiceToIndividual(data:IAssignServiceToIndividualReqBody) {
     return new Promise((resolve, reject)=> {
+       
         getIndividualByIndividualId(data.individualId)
         .then((foundIndividual)=> {
             if(!foundIndividual) {

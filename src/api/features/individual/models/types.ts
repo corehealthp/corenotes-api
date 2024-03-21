@@ -199,6 +199,8 @@ export interface IIndividualGoaltrackingHistorySubDocument {
 export interface IIndividualServicesSubDocument {
   _id: Types.ObjectId;
   serviceId: string;
+  staffRole?: string;
+  staffRoleStatus?: string;
   schedule: {
     startDate: string;
     time: string;

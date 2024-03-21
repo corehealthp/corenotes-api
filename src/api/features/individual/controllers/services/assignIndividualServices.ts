@@ -1,7 +1,10 @@
 import { Request, Response } from "express";
 import validateAssignIndividualServiceRequest from "../../services/validateAssignIndividualServiceRequest";
 import { ServerError, ValidationError } from "@globals/server/Error";
-import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
+import {
+  sendFailureResponse,
+  sendSuccessResponse,
+} from "@globals/server/serverResponse";
 import addServiceToIndividual from "../../services/addServiceToIndividual";
 import { getServiceByObjectId } from "src/api/shared/services/db/service.service";
 import createSkinIntegrityTask from "src/api/features/task/services/skin-integrity/createSkinIntegrityTask";
@@ -19,157 +22,230 @@ import { IIMakeFireDrillTaskDets } from "src/api/features/task/services/fire-dri
 import createFireDrillTask from "src/api/features/task/services/fire-drill/createFireDrillTask";
 import createTornadoDrillTask from "src/api/features/task/services/tornado-drill/createTornadoDrillTask";
 import { IIMakeTornadoDrillTaskDets } from "src/api/features/task/services/tornado-drill/makeTornadoDrillTask";
+import serviceModel from "src/api/features/services/models/service.model";
+import { individualModel } from "@individual/models/individual.model";
+import {
+  IIndividualTaskDocument,
+  IndividualTaskModel,
+} from "@individual/models/individual-task.model";
 
-export default function assignIndividualServices(req:Request, res:Response) {
+export default function assignIndividualServices(req: Request, res: Response) {
+  validateAssignIndividualServiceRequest({ ...req.body, ...req.params })
+    .then((requestBody) => {
+      addServiceToIndividual({ ...requestBody })
+        .then(async (individualServices) => {
+          const servicesToCreateTasksForOnAssign = [
+            "skin-integrity",
+            "bowel-movement",
+            "behavioral-management",
+            "shift-notes",
+            "blood-glucose-check",
+            "seizure-tracking",
+            "fire-drill",
+            "tornado-drill",
+          ];
 
-    validateAssignIndividualServiceRequest({...req.body, ...req.params})
-    .then((requestBody)=> {
-        addServiceToIndividual({...requestBody})
-        .then(async (individualServices)=> {
+          const service = await getServiceByObjectId(requestBody.serviceId);
+          if (service) {
+            if (servicesToCreateTasksForOnAssign.includes(service.refName)) {
+              const individual = await getIndividualByIndividualId(
+                requestBody.individualId
+              );
 
-            const servicesToCreateTasksForOnAssign = ["skin-integrity", "bowel-movement", "behavioral-management", "shift-notes", "blood-glucose-check", "seizure-tracking", "fire-drill", "tornado-drill"];
-
-            const service = await getServiceByObjectId(requestBody.serviceId)
-            if(service) {
-
-                if(servicesToCreateTasksForOnAssign.includes(service.refName)) {
-                    
-                    const individual = await getIndividualByIndividualId(requestBody.individualId);
-
-                    if(service.refName === "skin-integrity") {
-                        const skinIntegrityDets:IIMakeSkinIntegrityTaskDets = {
-                            individualId: individual?._id.toString()!,
-                            skinIntegrity: true,
-                            schedule: requestBody.schedule
-                        }
-                        createSkinIntegrityTask(skinIntegrityDets)
-                        .then((createdTask)=> {
-                            if(!createdTask) {
-                                console.log("skin integrity task was not created successfully")
-                            }
-                        })
-                        .catch((error)=> {
-                            console.log("There was an error creating a skin integrity task")
-                            console.log(error);
-                        })
+              if (service.refName === "skin-integrity") {
+                const skinIntegrityDets: IIMakeSkinIntegrityTaskDets = {
+                  individualId: individual?._id.toString()!,
+                  skinIntegrity: true,
+                  schedule: requestBody.schedule,
+                };
+                createSkinIntegrityTask(skinIntegrityDets)
+                  .then((createdTask) => {
+                    if (!createdTask) {
+                      console.log(
+                        "skin integrity task was not created successfully"
+                      );
                     }
+                  })
+                  .catch((error) => {
+                    console.log(
+                      "There was an error creating a skin integrity task"
+                    );
+                    console.log(error);
+                  });
+              }
 
-                    if(service.refName === "bowel-movement") {
+              if (service.refName === "bowel-movement") {
+                const bowelMovementDets: IIMakeBowelMovementTaskDets = {
+                  individualId: individual?._id.toString()!,
+                  bowelMovement: true,
+                  schedule: requestBody.schedule,
+                };
 
-                        const bowelMovementDets:IIMakeBowelMovementTaskDets = {
-                            individualId: individual?._id.toString()!,
-                            bowelMovement: true,
-                            schedule: requestBody.schedule
-                        }
-                        
-                        createBowelMovementTask(bowelMovementDets)
-                        .then((createdTask)=> {
-                            if(!createdTask) {
-                                console.log("Bowel movement task was not created successfully")
-                            }
-                        })
-                        .catch((error)=> {
-                            console.log("There was an error creating a skin integrity task")
-                            console.log(error);
-                        })
+                createBowelMovementTask(bowelMovementDets)
+                  .then((createdTask) => {
+                    if (!createdTask) {
+                      console.log(
+                        "Bowel movement task was not created successfully"
+                      );
                     }
+                  })
+                  .catch((error) => {
+                    console.log(
+                      "There was an error creating a skin integrity task"
+                    );
+                    console.log(error);
+                  });
+              }
 
-                    if(service.refName === "shift-notes") {
+              if (service.refName === "shift-notes") {
+                const shiftNotes: IIMakeShiftNotesTaskDets = {
+                  individualId: individual?._id.toString()!,
+                  shiftNotes: true,
+                  schedule: requestBody.schedule,
+                };
 
-                        const shiftNotes:IIMakeShiftNotesTaskDets = {
-                            individualId: individual?._id.toString()!,
-                            shiftNotes: true,
-                            schedule: requestBody.schedule
-                        }
-                        
-                        createShiftNotesTask(shiftNotes)
-                        .catch((error)=> {
-                            console.log("There was an error creating a shift notes task")
-                            console.log(error);
-                        })
-                    }
+                createShiftNotesTask(shiftNotes).catch((error) => {
+                  console.log("There was an error creating a shift notes task");
+                  console.log(error);
+                });
+              }
 
-                    if(service.refName === "blood-glucose-check") {
+              if (service.refName === "blood-glucose-check") {
+                const bloodGlucoseCheck: IIMakeBloodGlucoseCheckTaskDets = {
+                  individualId: individual?._id.toString()!,
+                  bloodGlucoseCheck: true,
+                  schedule: requestBody.schedule,
+                };
 
-                        const bloodGlucoseCheck:IIMakeBloodGlucoseCheckTaskDets = {
-                            individualId: individual?._id.toString()!,
-                            bloodGlucoseCheck: true,
-                            schedule: requestBody.schedule
-                        }
-                        
-                        createBloodGlucoseCheckTask(bloodGlucoseCheck)
-                        .catch((error)=> {
-                            console.log("There was an error creating a blood glucose check task")
-                            console.log(error);
-                        })
-                    }
+                createBloodGlucoseCheckTask(bloodGlucoseCheck).catch(
+                  (error) => {
+                    console.log(
+                      "There was an error creating a blood glucose check task"
+                    );
+                    console.log(error);
+                  }
+                );
+              }
 
-                    if(service.refName === "seizure-tracking") {
+              if (service.refName === "seizure-tracking") {
+                const seizureTracking: IIMakeSeizureTrackingTaskDets = {
+                  individualId: individual?._id.toString()!,
+                  seizureTracking: true,
+                  schedule: requestBody.schedule,
+                };
 
-                        const seizureTracking:IIMakeSeizureTrackingTaskDets = {
-                            individualId: individual?._id.toString()!,
-                            seizureTracking: true,
-                            schedule: requestBody.schedule
-                        }
-                        
-                        createSeizureTrackingTask(seizureTracking)
-                        .catch((error)=> {
-                            console.log("There was an error creating a seizure tracking task")
-                            console.log(error);
-                        })
-                    }
+                createSeizureTrackingTask(seizureTracking).catch((error) => {
+                  console.log(
+                    "There was an error creating a seizure tracking task"
+                  );
+                  console.log(error);
+                });
+              }
 
-                    if(service.refName === "fire-drill") {
+              if (service.refName === "fire-drill") {
+                const fireDrill: IIMakeFireDrillTaskDets = {
+                  individualId: individual?._id.toString()!,
+                  fireDrill: true,
+                  schedule: requestBody.schedule,
+                };
 
-                        const fireDrill:IIMakeFireDrillTaskDets = {
-                            individualId: individual?._id.toString()!,
-                            fireDrill: true,
-                            schedule: requestBody.schedule
-                        }
-                        
-                        createFireDrillTask(fireDrill)
-                        .catch((error)=> {
-                            console.log("There was an error creating a fire drill task")
-                            console.log(error);
-                        })
-                    }
+                createFireDrillTask(fireDrill).catch((error) => {
+                  console.log("There was an error creating a fire drill task");
+                  console.log(error);
+                });
+              }
 
-                    if(service.refName === "tornado-drill") {
-                        const tornadoDrill:IIMakeTornadoDrillTaskDets = {
-                            individualId: individual?._id.toString()!,
-                            tornadoDrill: true,
-                            schedule: requestBody.schedule
-                        }
-                        
-                        createTornadoDrillTask(tornadoDrill)
-                        .catch((error)=> {
-                            console.log("There was an error creating a tornado drill task")
-                            console.log(error);
-                        })
-                    }
-                }   
+              if (service.refName === "tornado-drill") {
+                const tornadoDrill: IIMakeTornadoDrillTaskDets = {
+                  individualId: individual?._id.toString()!,
+                  tornadoDrill: true,
+                  schedule: requestBody.schedule,
+                };
+
+                createTornadoDrillTask(tornadoDrill).catch((error) => {
+                  console.log(
+                    "There was an error creating a tornado drill task"
+                  );
+                  console.log(error);
+                });
+              }
             }
+          }
 
-            return sendSuccessResponse({ 
-                res, 
-                statusCode: 201, 
-                message: "New service added to individual successfully",
-                data: { individualServices }
-            })
+          const individualData = await individualModel.findOne({
+            individualId: requestBody.individualId,
+          });
+
+          if (individualData) {
+            individualData.services?.forEach(async (service) => {
+              if (service.serviceId) {
+                console.log("SERVICE", service);
+
+                const taskService = await serviceModel.findById(
+                  service.serviceId
+                );
+
+                console.log("TASK_SERVICE", taskService);
+
+                if (taskService) {
+                  const task: IIndividualTaskDocument = {
+                    individualId: individualData.individualId,
+                    individualName: `${individualData.firstname} ${individualData.lastname}`,
+                    schedule: individualData.services?.[0]?.schedule,
+                    serviceType: taskService.category,
+                    staffRole: individualData.services?.[0]?.staffRole!,
+                    serviceId: individualData.services?.[0]?.serviceId,
+                    status: individualData.services?.[0]?.staffRoleStatus!,
+                  };
+
+                  await IndividualTaskModel.create(task)
+                    .then((createdTask) => {
+                      console.log("Added task to individual", createdTask);
+                    })
+                    .catch((error) => {
+                      console.error("Error adding task to individual:", error);
+                      return sendFailureResponse({
+                        res,
+                        statusCode: 500,
+                        message: "Failed to add task to individual",
+                      });
+                    });
+                }
+              }
+            });
+          }
+
+          return sendSuccessResponse({
+            res,
+            statusCode: 201,
+            message: "New service added to individual successfully",
+            data: { individualServices },
+          });
         })
-        .catch((error)=> {
-            if(error.statusCode !== 500) {
-                return sendFailureResponse({ res, statusCode: error.statusCode, message: error.message })
-            }
+        .catch((error) => {
+          if (error.statusCode !== 500) {
+            return sendFailureResponse({
+              res,
+              statusCode: error.statusCode,
+              message: error.message,
+            });
+          }
 
-            const serverError = new ServerError();
-            return sendFailureResponse({ res, statusCode: serverError.statusCode, message: serverError.message })
-        })
+          const serverError = new ServerError();
+          return sendFailureResponse({
+            res,
+            statusCode: serverError.statusCode,
+            message: serverError.message,
+          });
+        });
     })
-    .catch((error)=> {
-
-        console.log(error)
-        const validationError = new ValidationError(error.message)
-        return sendFailureResponse({ res, statusCode: validationError.statusCode, message: validationError.message })
-    })
+    .catch((error) => {
+      console.log(error);
+      const validationError = new ValidationError(error.message);
+      return sendFailureResponse({
+        res,
+        statusCode: validationError.statusCode,
+        message: validationError.message,
+      });
+    });
 }

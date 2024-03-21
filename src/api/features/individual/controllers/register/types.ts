@@ -30,7 +30,7 @@ export interface registerIndividualRequestBodyType {
   incontinentSafety: string;
   daysOfService: string;
   expectedFrequency: string;
-  
+
   codeAlert?: Array<string>;
   contact?: {
     name?: string;
@@ -41,8 +41,15 @@ export interface registerIndividualRequestBodyType {
   compartment?: string;
   subCompartmentId?: string;
   services?: Array<{
-    service?: string;
-    startDate?: string;
+    serviceId?: string;
+    schedule: {
+      startDate: string;
+      time: string;
+      frequency: string;
+      frequencyAttr: string | number;
+    };
+    staffRole: string;
+    staffRoleStatus: string;
   }>;
   diet?: Array<string>;
   allergies?: {

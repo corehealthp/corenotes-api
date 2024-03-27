@@ -10,5 +10,7 @@ export interface IService {
     staffRoles:Array<string>;
     assignedIndividuals:Array<string>;
     medications:Array<string>;
-    createdAt:Date
+    createdAt:Date;
+    // status:string;
+    // individualId
 }

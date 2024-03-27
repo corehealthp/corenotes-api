@@ -17,6 +17,7 @@ export interface IAssignServiceToIndividualReqBody {
 export default function validateAssignIndividualServiceRequest(
   data: IAssignServiceToIndividualReqBody
 ) {
+  console.log("data", data)
   return new Promise<IAssignServiceToIndividualReqBody>((resolve, reject) => {
     if (Object.keys(data).length === 0)
       reject({ code: 422, message: "Input fields cannot be empty" });

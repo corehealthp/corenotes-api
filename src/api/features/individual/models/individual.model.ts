@@ -132,12 +132,9 @@ const individualSchema = new Schema<IIndividualDocument>({
       serviceId: {
         type: String,
       },
-      // staffRole: {
-      //   type: String,
-      //   default:"pending"
-      // },
       status: {
         type: String,
+        default:"pending"
       },
       schedule: {
         startDate: {
@@ -156,11 +153,11 @@ const individualSchema = new Schema<IIndividualDocument>({
       staffRole: {
         type: String,
       },
-      staffRoleStatus: {
-        type: String,
-        default: "pending",
-        enum: ["pending", "completed"],
-      },
+      // staffRoleStatus: {
+      //   type: String,
+      //   default: "pending",
+      //   enum: ["pending", "completed"],
+      // },
       createdAt: {
         type: Date,
         default: Date.now,

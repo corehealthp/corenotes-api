@@ -30,6 +30,7 @@ import {
 } from "@individual/models/individual-task.model";
 
 export default function assignIndividualServices(req: Request, res: Response) {
+  
   validateAssignIndividualServiceRequest({ ...req.body, ...req.params })
     .then((requestBody) => {
       addServiceToIndividual({ ...requestBody })

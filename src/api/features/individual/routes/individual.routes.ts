@@ -27,6 +27,7 @@ import updateIndividualProfile from "@individual/controllers/updateIndividualPro
 import fetchIndividuals from "@individual/controllers/fetchIndividuals";
 import getTasksByIndividualId from "@individual/controllers/tasks/fetchIndividualTasks";
 import updateTaskById from "@individual/controllers/tasks/updateIndividualTask";
+import updateIndividualServices from "@individual/controllers/services/updateIndividualServices";
 
 const individualRouter = Router();
 
@@ -288,5 +289,12 @@ individualRouter.post(
   validateToken,
   assignIndividualServices
 );
+individualRouter.patch(
+  "/:individualId/services/:serviceId",
+  // validateToken,
+  updateIndividualServices
+);
+
+
 
 export default individualRouter;

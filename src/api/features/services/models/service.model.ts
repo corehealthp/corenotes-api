@@ -26,7 +26,10 @@ export const serviceModel:Model<IService> = models.services || model<IService>('
     createdAt:{
         type:Date,
         default:Date.now
-    }
+    },
+    // status:{
+    //     // default:"pending"
+    // }
 
 }).plugin(autoIncrementPlugin, {
     model: 'service',

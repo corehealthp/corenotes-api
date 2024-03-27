@@ -77,7 +77,7 @@ taskRouter.patch('/:taskId/administer-uncontrolled', uploadFile('single', 'topic
 
 
 taskRouter.get('/:taskId/details', validateToken, getTask);
-taskRouter.get('/:pageNumber', validateToken, getTasks);
+taskRouter.get('/', getTasks);
 
 taskRouter.post('/', validateToken, postPRNTask);
 

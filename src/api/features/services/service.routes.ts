@@ -31,7 +31,7 @@ serviceRouter.get(
 );
 serviceRouter.get(
   "/:pageNumber",
-  validateToken,
+  // validateToken,
   serviceControllers.fetchServices
 );
 

@@ -21,7 +21,6 @@ export default async function getTasks(req: Request, res: Response) {
                 // Fetch staff details using staffRole
                 const staffDetails = await staffroleModel.findOne({ _id: service.staffRole });
                 const staffTitle = staffDetails ? staffDetails.title : null;
-                console.log("task",task)
             return {
               firstname: task.firstname,
               lastname: task.lastname,

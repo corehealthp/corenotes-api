@@ -281,7 +281,7 @@ individualRouter.post(
 );
 individualRouter.get(
   "/:individualId/services",
-  validateToken,
+  // validateToken,
   fetchIndividualServices
 );
 individualRouter.post(
